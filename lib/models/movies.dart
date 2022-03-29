@@ -3,6 +3,7 @@ class Movies {
     required this.adult,
     required this.genreIds,
     required this.id,
+    required this.posterPath,
     required this.mediaType,
     required this.originalLanguage,
     required this.originalTitle,
@@ -17,6 +18,7 @@ class Movies {
   late final bool adult;
   late final List<int> genreIds;
   late final int id;
+  late final String posterPath;
   late final String mediaType;
   late final String originalLanguage;
   late final String originalTitle;
@@ -32,6 +34,7 @@ class Movies {
     adult = json['adult'];
     genreIds = List.castFrom<dynamic, int>(json['genre_ids']);
     id = json['id'];
+    posterPath = json['poster_path'];
     mediaType = json['media_type'];
     originalLanguage = json['original_language'];
     originalTitle = json['original_title'];
@@ -45,25 +48,26 @@ class Movies {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['adult'] = adult;
-    _data['genre_ids'] = genreIds;
-    _data['id'] = id;
-    _data['media_type'] = mediaType;
-    _data['original_language'] = originalLanguage;
-    _data['original_title'] = originalTitle;
-    _data['overview'] = overview;
-    _data['popularity'] = popularity;
-    _data['release_date'] = releaseDate;
-    _data['title'] = title;
-    _data['video'] = video;
-    _data['vote_average'] = voteAverage;
-    _data['vote_count'] = voteCount;
-    return _data;
+    final json = <String, dynamic>{};
+    json['adult'] = adult;
+    json['genre_ids'] = genreIds;
+    json['id'] = id;
+    json['poster_path'] = posterPath;
+    json['media_type'] = mediaType;
+    json['original_language'] = originalLanguage;
+    json['original_title'] = originalTitle;
+    json['overview'] = overview;
+    json['popularity'] = popularity;
+    json['release_date'] = releaseDate;
+    json['title'] = title;
+    json['video'] = video;
+    json['vote_average'] = voteAverage;
+    json['vote_count'] = voteCount;
+    return json;
   }
 
   @override
   String toString() {
-    return "\nadult: $adult;\ngenreIds: $genreIds;\nid: $id;\nmediaType: $mediaType;\noriginalLanguage: $originalLanguage;\noriginalTitle: $originalTitle;\noverview: $overview;\npopularity: $popularity;\nreleaseDate: $releaseDate;\ntitle: $title;\nvideo: $video;\nvoteAverage: $voteAverage;\nvoteCount: $voteCount\n";
+    return "\nadult: $adult;\ngenreIds: $genreIds;\nid: $id;posterPath: $posterPath;\nmediaType: $mediaType;\noriginalLanguage: $originalLanguage;\noriginalTitle: $originalTitle;\noverview: $overview;\npopularity: $popularity;\nreleaseDate: $releaseDate;\ntitle: $title;\nvideo: $video;\nvoteAverage: $voteAverage;\nvoteCount: $voteCount\n";
   }
 }
