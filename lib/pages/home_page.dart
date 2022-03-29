@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:movie_app/controllers/movie_controller.dart';
 import 'package:movie_app/models/movies_list.dart';
 import 'package:movie_app/repositories/movies_repository_imp.dart';
@@ -17,69 +18,84 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Movies'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.replay_outlined),
-            onPressed: () => _controller.fetch(),
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(13),
-        child: ValueListenableBuilder<MoviesList?>(
-          valueListenable: _controller.movieList,
-          builder: (_, list, __) {
-            if (list == null) {
-              return const Center(child: CircularProgressIndicator());
-            }
+    final textTheme = Theme.of(context).textTheme;
 
-            return Column(
+    return ValueListenableBuilder<MoviesList?>(
+      valueListenable: _controller.movieList,
+      builder: (_, list, __) {
+        if (list == null) {
+          return Center(child: Lottie.asset('assets/lottie.json', height: 250));
+        }
+
+        return Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: const Text('Movies'),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.replay_outlined),
+                onPressed: () => _controller.fetch(),
+              ),
+            ],
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(child: Text(list.name, style: const TextStyle(fontSize: 25))),
-                const SizedBox(height: 10),
-                Text(list.description, style: const TextStyle(fontSize: 16)),
+                Center(child: Text(list.name, style: textTheme.headline4)),
+                const SizedBox(height: 15),
+                Text(list.description, style: textTheme.subtitle1),
                 const SizedBox(height: 5),
                 Align(
                   alignment: Alignment.centerRight,
                   child: Text(
                     'List created by ${list.createdBy.name}',
-                    style: const TextStyle(fontSize: 11),
+                    style: textTheme.caption,
                   ),
                 ),
-                const SizedBox(height: 25),
-                const Padding(
-                  padding: EdgeInsets.only(left: 7),
-                  child: Text('Movies', style: TextStyle(fontSize: 22)),
+                const SizedBox(height: 15),
+                Padding(
+                  padding: const EdgeInsets.only(left: 7),
+                  child: Text(
+                    'Movies',
+                    style: textTheme.headline4?.copyWith(fontSize: 22),
+                  ),
                 ),
                 const SizedBox(height: 15),
                 Expanded(
                   child: ListView.builder(
                     itemCount: list.results.length,
-                    // physics: const NeverScrollableScrollPhysics(),
-                    // shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return Container(
-                        height: 106,
-                        padding: const EdgeInsets.fromLTRB(7, 3, 2, 3),
+                        height: 130,
+                        padding: const EdgeInsets.all(5),
                         color: index % 2 != 0
-                            ? Colors.white.withOpacity(0.05)
-                            : Colors.white.withOpacity(0.005),
+                            ? const Color.fromARGB(255, 5, 5, 5)
+                            : const Color.fromARGB(255, 12, 12, 12),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Image.network(
                               API.requestImg(list.results[index].posterPath),
-                              height: 100,
-                              width: 68,
+                              width: 80,
+                              height: 120,
+                              loadingBuilder: (context, child, loadingProgress) {
+                                if (loadingProgress == null) return child;
+
+                                return const SizedBox(
+                                  width: 80,
+                                  child: Center(
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                             Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.fromLTRB(15, 5, 5, 15),
+                                padding: const EdgeInsets.fromLTRB(10, 5, 5, 5),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -115,10 +131,10 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ],
-            );
-          },
-        ),
-      ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

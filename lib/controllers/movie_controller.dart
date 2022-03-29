@@ -12,6 +12,8 @@ class MovieController {
   var movieList = ValueNotifier<MoviesList?>(null);
 
   fetch() async {
-    movieList.value = await _moviesRepository.getMovies();
+    var movies = await _moviesRepository.getMovies();
+    await Future.delayed(const Duration(seconds: 3));
+    movieList.value = movies;
   }
 }
