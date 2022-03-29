@@ -1,5 +1,5 @@
 import 'created_by.dart';
-import 'movies.dart';
+import 'movie.dart';
 
 class MoviesList {
   MoviesList({

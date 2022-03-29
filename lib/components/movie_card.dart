@@ -1,42 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/models/movies.dart';
+import 'package:movie_app/models/movie.dart';
 
-import '../utils/api_utils.dart';
+import 'movie_poster.dart';
 
 class MovieCard extends StatelessWidget {
-  const MovieCard({required this.index, required this.movie});
+  const MovieCard({Key? key, required this.movie}) : super(key: key);
 
-  final int index;
   final Movie movie;
 
   @override
   Widget build(BuildContext context) {
+    double radius = 15;
+
     return Container(
-      height: 130,
-      padding: const EdgeInsets.all(5),
-      color: index % 2 != 0
-          ? const Color.fromARGB(255, 5, 5, 5)
-          : const Color.fromARGB(255, 12, 12, 12),
+      height: 140,
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 25, 25, 25),
+        borderRadius: BorderRadius.circular(radius),
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.network(
-            API.requestImg(movie.posterPath),
-            width: 80,
-            height: 120,
-            loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress == null) return child;
-
-              return const SizedBox(
-                width: 80,
-                child: Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                  ),
-                ),
-              );
-            },
-          ),
+          MoviePoster(posterPath: movie.posterPath, radius: radius),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(10, 5, 5, 5),
