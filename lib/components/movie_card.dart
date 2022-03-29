@@ -10,7 +10,8 @@ class MovieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double radius = 15;
+    final textTheme = Theme.of(context).textTheme;
+    const radius = 15.0;
 
     return Container(
       height: 140,
@@ -24,23 +25,24 @@ class MovieCard extends StatelessWidget {
           MoviePoster(posterPath: movie.posterPath, radius: radius),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 5, 5, 5),
+              padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     movie.title,
-                    style: const TextStyle(fontSize: 17),
+                    style: textTheme.headline6,
                     overflow: TextOverflow.clip,
                   ),
                   const Spacer(),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      const SizedBox(),
-                      const Spacer(),
-                      Text(
-                        movie.voteCount.toString(),
-                        style: const TextStyle(fontSize: 10),
+                      Center(
+                        child: Text(
+                          movie.voteCount.toString(),
+                          style: const TextStyle(fontSize: 10),
+                        ),
                       ),
                       const SizedBox(width: 10),
                       Text(
