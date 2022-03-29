@@ -10,7 +10,7 @@ class MoviesList {
     required this.name,
     required this.page,
     required this.public,
-    required this.results,
+    required this.movies,
     required this.revenue,
     required this.runtime,
     required this.sortBy,
@@ -24,7 +24,7 @@ class MoviesList {
   late final String name;
   late final int page;
   late final bool public;
-  late final List<Movies> results;
+  late final List<Movie> movies;
   late final int revenue;
   late final int runtime;
   late final String sortBy;
@@ -39,7 +39,7 @@ class MoviesList {
     name = json['name'];
     page = json['page'];
     public = json['public'];
-    results = List.from(json['results']).map((e) => Movies.fromJson(e)).toList();
+    movies = List.from(json['results']).map((e) => Movie.fromJson(e)).toList();
     revenue = json['revenue'];
     runtime = json['runtime'];
     sortBy = json['sort_by'];
@@ -56,7 +56,7 @@ class MoviesList {
     _data['name'] = name;
     _data['page'] = page;
     _data['public'] = public;
-    _data['results'] = results.map((e) => e.toJson()).toList();
+    _data['results'] = movies.map((e) => e.toJson()).toList();
     _data['revenue'] = revenue;
     _data['runtime'] = runtime;
     _data['sort_by'] = sortBy;
@@ -67,6 +67,6 @@ class MoviesList {
 
   @override
   String toString() {
-    return "averageRating: $averageRating;\ncreatedBy: $createdBy;\ndescription: $description;\nid: $id;\nname: $name;\npage: $page;\npublic: $public;\nresults: $results;\nrevenue: $revenue;\nruntime: $runtime;\nsortBy: $sortBy;\ntotalPages: $totalPages;\ntotalResults: $totalResults;\n";
+    return "averageRating: $averageRating;\ncreatedBy: $createdBy;\ndescription: $description;\nid: $id;\nname: $name;\npage: $page;\npublic: $public;\nmovies: $movies;\nrevenue: $revenue;\nruntime: $runtime;\nsortBy: $sortBy;\ntotalPages: $totalPages;\ntotalResults: $totalResults;\n";
   }
 }

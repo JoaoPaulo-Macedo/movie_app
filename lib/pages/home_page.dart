@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:movie_app/components/movie_card.dart';
 import 'package:movie_app/controllers/movie_controller.dart';
 import 'package:movie_app/models/movies_list.dart';
 import 'package:movie_app/repositories/movies_repository_imp.dart';
@@ -65,68 +66,9 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 15),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: list.results.length,
+                    itemCount: list.movies.length,
                     itemBuilder: (context, index) {
-                      return Container(
-                        height: 130,
-                        padding: const EdgeInsets.all(5),
-                        color: index % 2 != 0
-                            ? const Color.fromARGB(255, 5, 5, 5)
-                            : const Color.fromARGB(255, 12, 12, 12),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.network(
-                              API.requestImg(list.results[index].posterPath),
-                              width: 80,
-                              height: 120,
-                              loadingBuilder: (context, child, loadingProgress) {
-                                if (loadingProgress == null) return child;
-
-                                return const SizedBox(
-                                  width: 80,
-                                  child: Center(
-                                    child: CircularProgressIndicator(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(10, 5, 5, 5),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      list.results[index].title,
-                                      style: const TextStyle(fontSize: 17),
-                                      overflow: TextOverflow.clip,
-                                    ),
-                                    const Spacer(),
-                                    Row(
-                                      children: [
-                                        const SizedBox(),
-                                        const Spacer(),
-                                        Text(
-                                          list.results[index].voteCount.toString(),
-                                          style: const TextStyle(fontSize: 10),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Text(
-                                          list.results[index].voteAverage.toString(),
-                                        ),
-                                        const Icon(Icons.star, size: 13),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
+                      return MovieCard(movie: list.movies[index], index: index);
                     },
                   ),
                 ),

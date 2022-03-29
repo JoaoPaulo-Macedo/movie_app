@@ -1,5 +1,5 @@
-class Movies {
-  Movies({
+class Movie {
+  Movie({
     required this.adult,
     required this.genreIds,
     required this.id,
@@ -30,7 +30,7 @@ class Movies {
   late final num? voteAverage;
   late final int voteCount;
 
-  Movies.fromJson(Map<String, dynamic> json) {
+  Movie.fromJson(Map<String, dynamic> json) {
     adult = json['adult'];
     genreIds = List.castFrom<dynamic, int>(json['genre_ids']);
     id = json['id'];
