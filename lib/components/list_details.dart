@@ -30,7 +30,7 @@ class ListDetails extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 15),
-        Padding(
+        /* Padding(
           padding: const EdgeInsets.symmetric(horizontal: horizontalPadding),
           child: Column(
             children: [
@@ -68,7 +68,7 @@ class ListDetails extends StatelessWidget {
               ),
             ),
           ],
-        ),
+        ), */
       ],
     );
   }

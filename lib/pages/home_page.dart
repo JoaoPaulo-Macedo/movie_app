@@ -20,7 +20,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final topPadding = MediaQuery.of(context).padding.top;
+    bool search = true;
+    const verticalPadding = 15.0;
+    // final mediaQueryTopPadding = MediaQuery.of(context).padding.top;
 
     return ValueListenableBuilder<MoviesList?>(
       valueListenable: _controller.movieList,
@@ -28,13 +30,43 @@ class _HomePageState extends State<HomePage> {
         if (list == null) {
           return Center(child: Lottie.asset('assets/lottie.json', height: 250));
         }
+
         return Scaffold(
+          /* appBar: AppBar(
+            leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
+            actions: [
+              Visibility(
+                visible: search,
+                child: SizedBox(
+                  width: 300,
+                  child: TextField(
+                    decoration: InputDecoration(),
+                  ),
+                ),
+              ),
+              Visibility(
+                visible: !search,
+                child: IconButton(icon: Icon(Icons.refresh), onPressed: () {}),
+              ),
+              Visibility(
+                visible: !search,
+                child: IconButton(icon: Icon(Icons.search), onPressed: () {}),
+              ),
+            ],
+          ), */
           body: Padding(
-            padding: EdgeInsets.fromLTRB(20, topPadding, 20, 15),
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            // padding: EdgeInsets.fromLTRB(
+            //   20,
+            //   // mediaQueryTopPadding,
+            //   verticalPadding,
+            //   20,
+            //   verticalPadding,
+            // ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 15),
+                // const SizedBox(height: verticalPadding),
                 ListDetails(
                   title: list.name,
                   description: list.description,

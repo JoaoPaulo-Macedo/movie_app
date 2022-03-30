@@ -15,6 +15,7 @@ class Movie {
     required this.voteAverage,
     required this.voteCount,
   });
+  
   late final bool adult;
   late final List<int> genreIds;
   late final int id;
