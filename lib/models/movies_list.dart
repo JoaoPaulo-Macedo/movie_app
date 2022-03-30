@@ -65,6 +65,39 @@ class MoviesList {
     return _data;
   }
 
+  MoviesList copyWith({
+    num? averageRating,
+    CreatedBy? createdBy,
+    String? description,
+    int? id,
+    String? name,
+    int? page,
+    bool? public,
+    List<Movie>? movies,
+    int? revenue,
+    int? runtime,
+    String? sortBy,
+    int? totalPages,
+    int? totalResults,
+  }) {
+    
+    return MoviesList(
+      averageRating: averageRating ?? this.averageRating,
+      createdBy: createdBy ?? this.createdBy,
+      description: description ?? this.description,
+      id: id ?? this.id,
+      name: name ?? this.name,
+      page: page ?? this.page,
+      public: public ?? this.public,
+      movies: movies ?? this.movies,
+      revenue: revenue ?? this.revenue,
+      runtime: runtime ?? this.runtime,
+      sortBy: sortBy ?? this.sortBy,
+      totalPages: totalPages ?? this.totalPages,
+      totalResults: totalResults ?? this.totalResults,
+    );
+  }
+
   @override
   String toString() {
     return "averageRating: $averageRating;\ncreatedBy: $createdBy;\ndescription: $description;\nid: $id;\nname: $name;\npage: $page;\npublic: $public;\nmovies: $movies;\nrevenue: $revenue;\nruntime: $runtime;\nsortBy: $sortBy;\ntotalPages: $totalPages;\ntotalResults: $totalResults;\n";

@@ -15,7 +15,7 @@ class Movie {
     required this.voteAverage,
     required this.voteCount,
   });
-  
+
   late final bool adult;
   late final List<int> genreIds;
   late final int id;
@@ -65,6 +65,40 @@ class Movie {
     json['vote_average'] = voteAverage;
     json['vote_count'] = voteCount;
     return json;
+  }
+
+  Movie copyWith({
+    bool? adult,
+    List<int>? genreIds,
+    int? id,
+    String? posterPath,
+    String? mediaType,
+    String? originalLanguage,
+    String? originalTitle,
+    String? overview,
+    num? popularity,
+    String? releaseDate,
+    String? title,
+    bool? video,
+    num? voteAverage,
+    int? voteCount,
+  }) {
+    return Movie(
+      adult: adult ?? this.adult,
+      genreIds: genreIds ?? this.genreIds,
+      id: id ?? this.id,
+      posterPath: posterPath ?? this.posterPath,
+      mediaType: mediaType ?? this.mediaType,
+      originalLanguage: originalLanguage ?? this.originalLanguage,
+      originalTitle: originalTitle ?? this.originalTitle,
+      overview: overview ?? this.overview,
+      popularity: popularity ?? this.popularity,
+      releaseDate: releaseDate ?? this.releaseDate,
+      title: title ?? this.title,
+      video: video ?? this.video,
+      voteAverage: voteAverage ?? this.voteAverage,
+      voteCount: voteCount ?? this.voteCount,
+    );
   }
 
   @override
