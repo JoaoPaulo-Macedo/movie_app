@@ -16,18 +16,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final _controller = HomeController(MoviesRepositoryImp(DioServiceImp()));
-  final _textController = TextEditingController();
-  final _searchFocus = FocusNode();
-  bool search = false;
+  final controller = HomeController(MoviesRepositoryImp(DioServiceImp()));
+  final textController = TextEditingController();
+  final searchFocus = FocusNode();
+  bool isSearching = false;
 
   @override
   Widget build(BuildContext context) {
-    const verticalPadding = 15.0;
-    // final mediaQueryTopPadding = MediaQuery.of(context).padding.top;
-
     return ValueListenableBuilder<MoviesList?>(
-      valueListenable: _controller.moviesList,
+      valueListenable: controller.moviesList,
       builder: (_, list, __) {
         if (list == null) {
           return Center(child: Lottie.asset('assets/lottie.json', height: 250));
@@ -36,56 +33,58 @@ class _HomePageState extends State<HomePage> {
         return GestureDetector(
           onTap: () {
             setState(() {
-              _searchFocus.unfocus();
-              if (_textController.text.isEmpty) search = false;
+              searchFocus.unfocus();
+              if (textController.text.isEmpty) isSearching = false;
             });
           },
           child: Scaffold(
             appBar: AppBar(
               leading: Visibility(
-                visible: !search,
+                visible: !isSearching,
                 child: IconButton(icon: const Icon(Icons.menu), onPressed: () {}),
               ),
               actions: [
                 Visibility(
-                  visible: search,
+                  visible: isSearching,
                   child: Expanded(
                     child: Container(
                       margin: const EdgeInsets.symmetric(horizontal: 10),
                       child: TextField(
-                        controller: _textController,
-                        focusNode: _searchFocus,
+                        controller: textController,
+                        focusNode: searchFocus,
                         cursorColor: Colors.white,
+                        textCapitalization: TextCapitalization.words,
                         maxLength: 20,
                         buildCounter: null,
-                        style: const TextStyle(fontSize: 17),
+                        style: const TextStyle(fontSize: 18),
                         decoration: InputDecoration(
                           hintText: 'Search...',
                           counterText: '',
+                          contentPadding: const EdgeInsets.fromLTRB(10, 15, 0, 0),
                           focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
                           ),
                           suffixIcon: IconButton(
                             icon: const Icon(Icons.close, color: Colors.white),
                             onPressed: () => setState(() {
-                              _textController.clear();
-                              _controller.onChanged('');
-                              search = false;
+                              textController.clear();
+                              controller.onChanged('');
+                              isSearching = false;
                             }),
                           ),
                         ),
-                        onChanged: _controller.onChanged,
+                        onChanged: controller.onChanged,
                       ),
                     ),
                   ),
                 ),
                 Visibility(
-                  visible: !search,
+                  visible: !isSearching,
                   child: IconButton(
                     icon: const Icon(Icons.search),
                     onPressed: () => setState(() {
-                      search = true;
-                      _searchFocus.requestFocus();
+                      isSearching = true;
+                      searchFocus.requestFocus();
                     }),
                   ),
                 ),
@@ -93,22 +92,14 @@ class _HomePageState extends State<HomePage> {
             ),
             body: Padding(
               padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-              // padding: EdgeInsets.fromLTRB(
-              //   20,
-              //   // mediaQueryTopPadding,
-              //   verticalPadding,
-              //   20,
-              //   verticalPadding,
-              // ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // const SizedBox(height: verticalPadding),
                   ListDetails(
                     title: list.name,
                     description: list.description,
                     createdBy: list.createdBy,
-                    function: () => _controller.fetch(),
+                    function: () => controller.fetch(),
                   ),
                   const SizedBox(height: 15),
                   Expanded(

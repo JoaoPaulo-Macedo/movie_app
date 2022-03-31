@@ -17,7 +17,7 @@ class MovieCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(15),
       child: Container(
         height: 140,
-        decoration: const BoxDecoration(color: Color.fromARGB(255, 25, 25, 25)),
+        decoration: BoxDecoration(color: Theme.of(context).primaryColor),
         child: Material(
           color: Colors.transparent,
           child: InkWell(
