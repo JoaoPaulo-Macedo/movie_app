@@ -23,15 +23,21 @@ class MoviePoster extends StatelessWidget {
         child: Image.network(
           API.requestImg(posterPath),
           width: posterWidth,
+          errorBuilder: (_, __, ___) {
+            return const SizedBox(
+              width: posterWidth,
+              child: Center(
+                child: Icon(Icons.error_outline, color: Colors.red, size: 40),
+              ),
+            );
+          },
           loadingBuilder: (_, child, progress) {
             if (progress == null) return child;
 
             return const SizedBox(
               width: posterWidth,
               child: Center(
-                child: CircularProgressIndicator(
-                  color: Colors.white,
-                ),
+                child: CircularProgressIndicator(color: Colors.white),
               ),
             );
           },

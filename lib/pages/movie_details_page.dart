@@ -19,9 +19,16 @@ class MovieDetailsPage extends StatelessWidget {
           tag: movie.id,
           child: Image.network(
             API.requestImg(movie.posterPath),
+            errorBuilder: (_, __, ___) {
+              return const SizedBox(
+                child: Center(
+                  child: Icon(Icons.error_outline, color: Colors.red, size: 40),
+                ),
+              );
+            },
             loadingBuilder: (_, child, progress) {
               if (progress == null) return child;
-        
+
               return const SizedBox(
                 child: Center(
                   child: CircularProgressIndicator(

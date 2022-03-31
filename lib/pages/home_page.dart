@@ -5,8 +5,8 @@ import 'package:movie_app/controllers/home_controller.dart';
 import 'package:movie_app/models/movies_list.dart';
 import 'package:movie_app/repositories/movies_repository_imp.dart';
 import 'package:movie_app/services/dio_service_imp.dart';
-
 import '../components/list_details.dart';
+import '../decorators/movies_cache_repository_decorator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final controller = HomeController(MoviesRepositoryImp(DioServiceImp()));
+  final controller = HomeController(MoviesCacheRepositoryDecorator(MoviesRepositoryImp(DioServiceImp())));
   final textController = TextEditingController();
   final searchFocus = FocusNode();
   bool isSearching = false;
