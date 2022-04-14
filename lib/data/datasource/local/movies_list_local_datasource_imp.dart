@@ -1,13 +1,13 @@
 import 'dart:convert';
-import 'package:movie_app/data/datasource/local/movies_local_datasource.dart';
-import 'package:movie_app/data/datasource/movies_datasource.dart';
+import 'package:movie_app/data/datasource/local/movies_list_local_datasource.dart';
+import 'package:movie_app/data/datasource/movies_list_datasource.dart';
 import 'package:movie_app/data/dtos/movies_list_dto.dart';
-import 'package:movie_app/domain/entities/movies_list.dart';
+import 'package:movie_app/domain/entities/movies_list_entity.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class MovicesLocalDataSourceDecoratorImp extends MoviesLocalDataSourceDecorator {
-  MovicesLocalDataSourceDecoratorImp(
-    MoviesDataSource datasource,
+class MoviesListLocalDataSourceDecoratorImp extends MoviesListLocalDataSourceDecorator {
+  MoviesListLocalDataSourceDecoratorImp(
+    MoviesListDataSource datasource,
   ) : super(datasource);
 
   final _key = 'movies_cache';

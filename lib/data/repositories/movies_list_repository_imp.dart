@@ -1,11 +1,11 @@
-import 'package:movie_app/data/datasource/movies_datasource.dart';
-import 'package:movie_app/domain/entities/movies_list.dart';
-import 'package:movie_app/domain/repositories/movies_repository.dart';
+import 'package:movie_app/data/datasource/movies_list_datasource.dart';
+import 'package:movie_app/domain/entities/movies_list_entity.dart';
+import 'package:movie_app/domain/repositories/movies_list_repository.dart';
 
-class MoviesRepositoryImp implements MoviesRepository {
-  MoviesRepositoryImp(this._dataSource);
+class MoviesListRepositoryImp implements MoviesListRepository {
+  MoviesListRepositoryImp(this._dataSource);
 
-  final MoviesDataSource _dataSource;
+  final MoviesListDataSource _dataSource;
 
   @override
   Future<MoviesListEntity?> call() async {

@@ -1,5 +1,5 @@
-import 'package:movie_app/domain/entities/created_by.dart';
-import 'package:movie_app/domain/entities/movie.dart';
+import 'package:movie_app/domain/entities/created_by_entity.dart';
+import 'package:movie_app/domain/entities/movie_entity.dart';
 
 class MoviesListEntity {
   MoviesListEntity({

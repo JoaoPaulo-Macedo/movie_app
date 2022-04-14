@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lottie/lottie.dart';
-import 'package:movie_app/domain/entities/movies_list.dart';
+import 'package:movie_app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/presentation/components/list_details.dart';
 import 'package:movie_app/presentation/components/movie_card.dart';
 import 'package:movie_app/presentation/controllers/home_controller.dart';

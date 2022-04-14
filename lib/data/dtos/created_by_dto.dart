@@ -1,4 +1,4 @@
-import 'package:movie_app/domain/entities/created_by.dart';
+import 'package:movie_app/domain/entities/created_by_entity.dart';
 
 extension CreatedByDTO on CreatedByEntity {
   static CreatedByEntity fromJson(Map<String, dynamic> json) {

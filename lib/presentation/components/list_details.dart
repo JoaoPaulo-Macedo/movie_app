@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/domain/entities/created_by.dart';
+import 'package:movie_app/domain/entities/created_by_entity.dart';
 
 class ListDetails extends StatelessWidget {
   const ListDetails({

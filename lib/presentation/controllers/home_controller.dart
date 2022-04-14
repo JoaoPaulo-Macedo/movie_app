@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
-import 'package:movie_app/domain/entities/movie.dart';
-import 'package:movie_app/domain/entities/movies_list.dart';
+import 'package:movie_app/domain/entities/movie_entity.dart';
+import 'package:movie_app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/presentation/dtos/movies_list_dto.dart';
-import 'package:movie_app/domain/usecases/get_movies_usecase.dart';
+import 'package:movie_app/domain/usecases/get_movies_list_usecase.dart';
 
 class HomeController {
   HomeController(this._getMoviesUseCase) {
     fetch();
   }
 
-  final GetMoviesUseCase _getMoviesUseCase;
+  final GetMoviesListUseCase _getMoviesUseCase;
 
   var moviesList = ValueNotifier<MoviesListEntity?>(null);
   MoviesListEntity? _cachedMoviesList;

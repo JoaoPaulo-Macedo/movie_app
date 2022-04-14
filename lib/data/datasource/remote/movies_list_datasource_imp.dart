@@ -1,11 +1,11 @@
 import 'package:movie_app/core/domain/services/http_service.dart';
 import 'package:movie_app/core/utils/api_utils.dart';
-import 'package:movie_app/data/datasource/movies_datasource.dart';
+import 'package:movie_app/data/datasource/movies_list_datasource.dart';
 import 'package:movie_app/data/dtos/movies_list_dto.dart';
-import 'package:movie_app/domain/entities/movies_list.dart';
+import 'package:movie_app/domain/entities/movies_list_entity.dart';
 
-class MoviesDatasourceImp implements MoviesDataSource {
-  MoviesDatasourceImp(this._httpService);
+class MoviesListDatasourceImp implements MoviesListDataSource {
+  MoviesListDatasourceImp(this._httpService);
   final HttpService _httpService;
 
   @override

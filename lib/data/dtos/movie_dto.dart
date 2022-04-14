@@ -1,4 +1,4 @@
-import 'package:movie_app/domain/entities/movie.dart';
+import 'package:movie_app/domain/entities/movie_entity.dart';
 
 extension MovieDTO on MovieEntity {
   static MovieEntity fromJson(Map<String, dynamic> json) {

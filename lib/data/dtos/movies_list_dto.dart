@@ -1,6 +1,6 @@
 import 'package:movie_app/data/dtos/created_by_dto.dart';
 import 'package:movie_app/data/dtos/movie_dto.dart';
-import 'package:movie_app/domain/entities/movies_list.dart';
+import 'package:movie_app/domain/entities/movies_list_entity.dart';
 
 extension MoviesListDTO on MoviesListEntity {
   static MoviesListEntity fromJson(Map json) {
