@@ -13,9 +13,9 @@ class MoviesListLocalDataSourceDecoratorImp extends MoviesListLocalDataSourceDec
   final _key = 'movies_cache';
 
   @override
-  Future<MoviesListEntity?> call() async {
+  Future<MoviesListEntity?> call(int list, int page) async {
     try {
-      MoviesListEntity? movies = await super();
+      MoviesListEntity? movies = await super(list, page);
       if (movies != null) _saveInCache(movies);
 
       return movies;

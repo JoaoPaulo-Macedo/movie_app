@@ -8,8 +8,8 @@ class MoviesListRepositoryImp implements MoviesListRepository {
   final MoviesListDataSource _dataSource;
 
   @override
-  Future<MoviesListEntity?> call() async {
-    return await _dataSource();
+  Future<MoviesListEntity?> call(int list, int page) async {
+    return await _dataSource(list, page);
   }
 
   /*

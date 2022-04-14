@@ -7,18 +7,20 @@ class ListDetails extends StatelessWidget {
     required this.title,
     required this.description,
     required this.createdBy,
+    required this.pageController,
     required this.function,
   }) : super(key: key);
 
   final String title;
   final String description;
+  final Widget pageController;
   final CreatedByEntity createdBy;
   final void Function() function;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    // const horizontalPadding = 5.0;
+    const horizontalPadding = 5.0;
 
     return Column(
       children: [
@@ -29,7 +31,7 @@ class ListDetails extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 15),
-        /* Padding(
+        Padding(
           padding: const EdgeInsets.symmetric(horizontal: horizontalPadding),
           child: Column(
             children: [
@@ -49,14 +51,12 @@ class ListDetails extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: horizontalPadding),
-              child: Text(
-                'Movies',
-                style: textTheme.headline6,
-              ),
+            Text(
+              'Movies',
+              style: textTheme.headline6,
             ),
-            Center(
+            pageController,
+            /* Center(
               child: InkWell(
                 borderRadius: BorderRadius.circular(100),
                 child: const Padding(
@@ -65,9 +65,9 @@ class ListDetails extends StatelessWidget {
                 ),
                 onTap: function,
               ),
-            ),
+            ), */
           ],
-        ), */
+        ),
       ],
     );
   }

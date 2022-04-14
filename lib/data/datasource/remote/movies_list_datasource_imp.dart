@@ -9,9 +9,9 @@ class MoviesListDatasourceImp implements MoviesListDataSource {
   final HttpService _httpService;
 
   @override
-  Future<MoviesListEntity?> call() async {
+  Future<MoviesListEntity?> call(int list, int page) async {
     try {
-      var result = await _httpService.get(API.REQUEST_MOVIE_LIST);
+      var result = await _httpService.get(API.requestMoviesList(list, page));
       return MoviesListDTO.fromJson(result.data);
     } catch (e) {
       rethrow;

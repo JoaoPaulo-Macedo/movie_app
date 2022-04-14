@@ -27,6 +27,24 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Widget pageController = Row(
+      children: [
+        InkWell(
+          borderRadius: BorderRadius.circular(100),
+          child: const Icon(Icons.arrow_left, size: 25),
+          onTap: () => setState(() => controller.backPage()),
+        ),
+        const SizedBox(width: 15),
+        Text(controller.page.toString(), style: const TextStyle(fontSize: 20)),
+        const SizedBox(width: 15),
+        InkWell(
+          borderRadius: BorderRadius.circular(100),
+          child: const Icon(Icons.arrow_right, size: 25),
+          onTap: () => setState(() => controller.advancePage()),
+        ),
+      ],
+    );
+
     return ValueListenableBuilder<MoviesListEntity?>(
       valueListenable: controller.moviesList,
       builder: (_, list, __) {
@@ -103,19 +121,27 @@ class _HomePageState extends State<HomePage> {
                     title: list.name,
                     description: list.description,
                     createdBy: list.createdBy,
+                    pageController: pageController,
                     function: () => controller.fetch(),
                   ),
                   const SizedBox(height: 15),
-                  Expanded(
-                    child: ListView.separated(
-                      itemCount: list.movies.length,
-                      padding: EdgeInsets.zero,
-                      separatorBuilder: (_, __) => const SizedBox(height: 10),
-                      itemBuilder: (_, index) {
-                        return MovieCard(movie: list.movies[index]);
-                      },
-                    ),
-                  ),
+                  controller.isLoading
+                      ? const Expanded(
+                          child: Center(
+                            child: CircularProgressIndicator(color: Colors.white),
+                          ),
+                        )
+                      : Expanded(
+                          child: ListView.separated(
+                            itemCount: list.movies.length,
+                            padding: EdgeInsets.zero,
+                            separatorBuilder: (_, __) => const SizedBox(height: 10),
+                            itemBuilder: (_, index) {
+                              if (list == null) return CircularProgressIndicator();
+                              return MovieCard(movie: list.movies[index]);
+                            },
+                          ),
+                        ),
                 ],
               ),
             ),

@@ -7,8 +7,8 @@ import 'package:movie_app/data/datasource/movies_list_datasource.dart';
 import 'package:movie_app/data/datasource/remote/movies_list_datasource_imp.dart';
 import 'package:movie_app/data/repositories/movies_list_repository_imp.dart';
 import 'package:movie_app/domain/repositories/movies_list_repository.dart';
-import 'package:movie_app/domain/usecases/get_movies_list_usecase.dart';
-import 'package:movie_app/domain/usecases/get_movies_list_usecase_imp.dart';
+import 'package:movie_app/domain/usecases/get_movies_from_list_usecase.dart';
+import 'package:movie_app/domain/usecases/get_movies_from_list_usecase_imp.dart';
 import 'package:movie_app/presentation/controllers/home_controller.dart';
 
 class Inject {
@@ -28,8 +28,8 @@ class Inject {
       () => MoviesListRepositoryImp(getIt()),
     );
 
-    getIt.registerLazySingleton<GetMoviesListUseCase>(
-      () => GetMoviesListUseCaseImp(getIt()),
+    getIt.registerLazySingleton<GetMoviesFromListUseCase>(
+      () => GetMoviesFromListUseCaseImp(getIt()),
     );
 
     getIt.registerLazySingleton<HomeController>(() => HomeController(getIt()));
