@@ -8,7 +8,7 @@ class GetMoviesFromListUseCaseImp implements GetMoviesFromListUseCase {
   final MoviesListRepository _repository;
 
   @override
-  Future<MoviesListEntity?> call(int list, int page) async {
+  Future<MoviesListEntity?> call({int list = 1, int page = 1}) async {
     return await _repository(list, page);
   }
 }

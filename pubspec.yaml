@@ -38,10 +38,14 @@ dependencies:
   lottie: ^1.2.2
   shared_preferences: ^2.0.13
   get_it:
+  mobx: ^2.0.6+1
+  flutter_mobx: ^2.0.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^2.1.7
+  mobx_codegen: ^2.0.5+2
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

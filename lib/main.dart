@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/core/inject/inject.dart';
-import 'package:movie_app/presentation/pages/home_page.dart';
+import 'package:movie_app/presentation/pages/movies_list_page.dart';
+import 'package:movie_app/presentation/pages/splash_page.dart';
 
 void main() {
   Inject.init();
@@ -21,8 +22,11 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.black,
         appBarTheme: AppBarTheme(backgroundColor: primaryColor),
       ),
-      home: const HomePage(),
       debugShowCheckedModeBanner: false,
+      routes: {
+        '/': (_) => const SplashPage(),
+        '/movies_list_page': (_) => const MoviesListPage(),
+      },
     );
   }
 }
