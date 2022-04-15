@@ -38,8 +38,8 @@ class Inject {
     getIt.registerLazySingleton<SplashPageController>(
       () => SplashPageController(getIt()),
     );
-    getIt.registerLazySingleton<HomeControllerMobx>(
-      () => HomeControllerMobx(getIt()),
-    );
+    // getIt.registerLazySingleton<HomeControllerMobx>(
+    //   () => HomeControllerMobx(getIt()),
+    // );
   }
 }

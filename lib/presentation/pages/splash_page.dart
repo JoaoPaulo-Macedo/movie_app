@@ -21,7 +21,6 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Center(child: Lottie.asset('assets/lottie.json', height: 250));
   }
 }

@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:movie_app/core/data/services/dio_service_imp.dart';
-import 'package:movie_app/data/datasource/remote/movies_list_datasource_imp.dart';
-import 'package:movie_app/data/repositories/movies_list_repository_imp.dart';
 import 'package:movie_app/domain/entities/movies_list_entity.dart';
-import 'package:movie_app/domain/repositories/movies_list_repository.dart';
 import 'package:movie_app/domain/usecases/get_movies_from_list_usecase.dart';
-import 'package:movie_app/domain/usecases/get_movies_from_list_usecase_imp.dart';
 import 'package:movie_app/presentation/components/list_details.dart';
 import 'package:movie_app/presentation/components/movie_card.dart';
 import 'package:movie_app/presentation/controllers/home_controller.dart';
@@ -15,7 +10,7 @@ import 'package:movie_app/presentation/controllers/home_controller.dart';
 class MoviesListPage extends StatefulWidget {
   const MoviesListPage({
     Key? key,
-    this.moviesList,
+    required this.moviesList,
   }) : super(key: key);
 
   final MoviesListEntity? moviesList;
@@ -51,7 +46,10 @@ class _MoviesListPageState extends State<MoviesListPage> {
             onTap: controller.backPage,
           ),
           const SizedBox(width: 15),
-          Text(controller.page.toString(), style: const TextStyle(fontSize: 20)),
+          Text(
+            '${controller.page}/${controller.moviesList?.totalPages}',
+            style: const TextStyle(fontSize: 17),
+          ),
           const SizedBox(width: 15),
           InkWell(
             borderRadius: BorderRadius.circular(100),
@@ -146,10 +144,9 @@ class _MoviesListPageState extends State<MoviesListPage> {
                           padding: EdgeInsets.zero,
                           separatorBuilder: (_, __) => const SizedBox(height: 10),
                           itemBuilder: (_, index) {
-                            if (controller.moviesList == null)
-                              return const CircularProgressIndicator();
                             return MovieCard(
-                                movie: controller.moviesList!.movies[index]);
+                              movie: controller.moviesList!.movies[index],
+                            );
                           },
                         ),
                       ),
