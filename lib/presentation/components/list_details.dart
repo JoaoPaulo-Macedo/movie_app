@@ -1,32 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/domain/entities/created_by_entity.dart';
+import 'package:movie_app/domain/entities/movies_list_entity.dart';
+import 'package:movie_app/presentation/components/pagination.dart';
+import 'package:movie_app/presentation/controllers/home_controller.dart';
 
 class ListDetails extends StatelessWidget {
   const ListDetails({
     Key? key,
-    required this.title,
-    required this.description,
-    required this.createdBy,
-    required this.pageController,
+    required this.controller,
     required this.function,
   }) : super(key: key);
 
-  final String title;
-  final String description;
-  final Widget pageController;
-  final CreatedByEntity createdBy;
+  final HomeController controller;
   final void Function() function;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    MoviesListEntity moviesList = controller.moviesList as MoviesListEntity;
     const horizontalPadding = 5.0;
 
     return Column(
       children: [
         Center(
           child: Text(
-            title,
+            moviesList.name,
             style: textTheme.headline5?.copyWith(fontWeight: FontWeight.bold),
           ),
         ),
@@ -35,12 +33,12 @@ class ListDetails extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: horizontalPadding),
           child: Column(
             children: [
-              Text(description, style: textTheme.subtitle1),
+              Text(moviesList.description, style: textTheme.subtitle1),
               const SizedBox(height: 5),
               Align(
                 alignment: Alignment.centerRight,
                 child: Text(
-                  'List created by ${createdBy.name}',
+                  'List created by ${moviesList.createdBy.name}',
                   style: textTheme.caption,
                 ),
               ),
@@ -55,17 +53,12 @@ class ListDetails extends StatelessWidget {
               'Movies',
               style: textTheme.headline6,
             ),
-            pageController,
-            /* Center(
-              child: InkWell(
-                borderRadius: BorderRadius.circular(100),
-                child: const Padding(
-                  padding: EdgeInsets.all(horizontalPadding),
-                  child: Icon(Icons.replay_outlined, size: 15),
-                ),
-                onTap: function,
-              ),
-            ), */
+            Pagination(
+              page: controller.page,
+              totalPages: moviesList.totalPages,
+              backPage: controller.backPage,
+              advancePage: controller.advancePage,
+            )
           ],
         ),
       ],

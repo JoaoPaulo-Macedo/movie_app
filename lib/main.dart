@@ -23,12 +23,11 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(backgroundColor: primaryColor),
       ),
       debugShowCheckedModeBanner: false,
-      home: const SplashPage(),
-      // initialRoute: '/',
-      // routes: {
-      //   '/': (_) => const SplashPage(),
-      //   '/movies_list_page': (_) => const MoviesListPage(),
-      // },
+      initialRoute: '/',
+      routes: {
+        '/': (_) => const SplashPage(),
+        '/movies_list_page': (_) => const MoviesListPage(),
+      },
     );
   }
 }

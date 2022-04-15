@@ -8,8 +8,8 @@ part of 'home_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$HomeControllerMobx on _HomeControllerMobx, Store {
-  final _$moviesListAtom = Atom(name: '_HomeControllerMobx.moviesList');
+mixin _$HomeController on _HomeController, Store {
+  final _$moviesListAtom = Atom(name: '_HomeController.moviesList');
 
   @override
   MoviesListEntity? get moviesList {
@@ -25,7 +25,7 @@ mixin _$HomeControllerMobx on _HomeControllerMobx, Store {
   }
 
   final _$_cachedMoviesListAtom =
-      Atom(name: '_HomeControllerMobx._cachedMoviesList');
+      Atom(name: '_HomeController._cachedMoviesList');
 
   @override
   MoviesListEntity? get _cachedMoviesList {
@@ -40,22 +40,7 @@ mixin _$HomeControllerMobx on _HomeControllerMobx, Store {
     });
   }
 
-  final _$isLoadingAtom = Atom(name: '_HomeControllerMobx.isLoading');
-
-  @override
-  bool get isLoading {
-    _$isLoadingAtom.reportRead();
-    return super.isLoading;
-  }
-
-  @override
-  set isLoading(bool value) {
-    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
-      super.isLoading = value;
-    });
-  }
-
-  final _$listAtom = Atom(name: '_HomeControllerMobx.list');
+  final _$listAtom = Atom(name: '_HomeController.list');
 
   @override
   int get list {
@@ -70,7 +55,7 @@ mixin _$HomeControllerMobx on _HomeControllerMobx, Store {
     });
   }
 
-  final _$pageAtom = Atom(name: '_HomeControllerMobx.page');
+  final _$pageAtom = Atom(name: '_HomeController.page');
 
   @override
   int get page {
@@ -85,46 +70,106 @@ mixin _$HomeControllerMobx on _HomeControllerMobx, Store {
     });
   }
 
-  final _$fetchAsyncAction = AsyncAction('_HomeControllerMobx.fetch');
+  final _$isLoadingAtom = Atom(name: '_HomeController.isLoading');
+
+  @override
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
+  }
+
+  @override
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
+    });
+  }
+
+  final _$isSearchingAtom = Atom(name: '_HomeController.isSearching');
+
+  @override
+  bool get isSearching {
+    _$isSearchingAtom.reportRead();
+    return super.isSearching;
+  }
+
+  @override
+  set isSearching(bool value) {
+    _$isSearchingAtom.reportWrite(value, super.isSearching, () {
+      super.isSearching = value;
+    });
+  }
+
+  final _$searchFocusAtom = Atom(name: '_HomeController.searchFocus');
+
+  @override
+  FocusNode get searchFocus {
+    _$searchFocusAtom.reportRead();
+    return super.searchFocus;
+  }
+
+  @override
+  set searchFocus(FocusNode value) {
+    _$searchFocusAtom.reportWrite(value, super.searchFocus, () {
+      super.searchFocus = value;
+    });
+  }
+
+  final _$textControllerAtom = Atom(name: '_HomeController.textController');
+
+  @override
+  TextEditingController get textController {
+    _$textControllerAtom.reportRead();
+    return super.textController;
+  }
+
+  @override
+  set textController(TextEditingController value) {
+    _$textControllerAtom.reportWrite(value, super.textController, () {
+      super.textController = value;
+    });
+  }
+
+  final _$fetchAsyncAction = AsyncAction('_HomeController.fetch');
 
   @override
   Future fetch() {
     return _$fetchAsyncAction.run(() => super.fetch());
   }
 
-  final _$_HomeControllerMobxActionController =
-      ActionController(name: '_HomeControllerMobx');
+  final _$_HomeControllerActionController =
+      ActionController(name: '_HomeController');
 
   @override
   dynamic onChanged(String value) {
-    final _$actionInfo = _$_HomeControllerMobxActionController.startAction(
-        name: '_HomeControllerMobx.onChanged');
+    final _$actionInfo = _$_HomeControllerActionController.startAction(
+        name: '_HomeController.onChanged');
     try {
       return super.onChanged(value);
     } finally {
-      _$_HomeControllerMobxActionController.endAction(_$actionInfo);
+      _$_HomeControllerActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic backPage() {
-    final _$actionInfo = _$_HomeControllerMobxActionController.startAction(
-        name: '_HomeControllerMobx.backPage');
+    final _$actionInfo = _$_HomeControllerActionController.startAction(
+        name: '_HomeController.backPage');
     try {
       return super.backPage();
     } finally {
-      _$_HomeControllerMobxActionController.endAction(_$actionInfo);
+      _$_HomeControllerActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic advancePage() {
-    final _$actionInfo = _$_HomeControllerMobxActionController.startAction(
-        name: '_HomeControllerMobx.advancePage');
+    final _$actionInfo = _$_HomeControllerActionController.startAction(
+        name: '_HomeController.advancePage');
     try {
       return super.advancePage();
     } finally {
-      _$_HomeControllerMobxActionController.endAction(_$actionInfo);
+      _$_HomeControllerActionController.endAction(_$actionInfo);
     }
   }
 
@@ -132,9 +177,12 @@ mixin _$HomeControllerMobx on _HomeControllerMobx, Store {
   String toString() {
     return '''
 moviesList: ${moviesList},
-isLoading: ${isLoading},
 list: ${list},
-page: ${page}
+page: ${page},
+isLoading: ${isLoading},
+isSearching: ${isSearching},
+searchFocus: ${searchFocus},
+textController: ${textController}
     ''';
   }
 }

@@ -35,11 +35,11 @@ class Inject {
     );
 
     // getIt.registerLazySingleton<HomeController>(() => HomeController(getIt()));
-    getIt.registerLazySingleton<SplashPageController>(
+    /* getIt.registerLazySingleton<SplashPageController>(
       () => SplashPageController(getIt()),
+    ); */
+    getIt.registerLazySingleton<HomeController>(
+      () => HomeController(getIt()),
     );
-    // getIt.registerLazySingleton<HomeControllerMobx>(
-    //   () => HomeControllerMobx(getIt()),
-    // );
   }
 }

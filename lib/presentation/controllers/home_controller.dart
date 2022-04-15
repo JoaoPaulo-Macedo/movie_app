@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:movie_app/domain/entities/movie_entity.dart';
 import 'package:movie_app/domain/entities/movies_list_entity.dart';
@@ -6,10 +7,12 @@ import 'package:movie_app/presentation/dtos/movies_list_dto.dart';
 
 part 'home_controller.g.dart';
 
-class HomeControllerMobx = _HomeControllerMobx with _$HomeControllerMobx;
+class HomeController = _HomeController with _$HomeController;
 
-abstract class _HomeControllerMobx with Store {
-  _HomeControllerMobx(this._getFromListUseCase, {required this.moviesList});
+abstract class _HomeController with Store {
+  _HomeController(this._getFromListUseCase) {
+    fetch();
+  }
 
   final GetMoviesFromListUseCase _getFromListUseCase;
 
@@ -17,17 +20,23 @@ abstract class _HomeControllerMobx with Store {
   MoviesListEntity? moviesList;
   @observable
   MoviesListEntity? _cachedMoviesList;
-  @observable
-  bool isLoading = false;
+  
   @observable
   int list = 1;
   @observable
   int page = 1;
 
+  @observable
+  bool isLoading = false;
+  @observable
+  bool isSearching = false;
+  @observable
+  FocusNode searchFocus = FocusNode();
+  @observable
+  TextEditingController textController = TextEditingController();
+
   @action
   fetch() async {
-    isLoading = true;
-
     try {
       moviesList = await _getFromListUseCase(list: list, page: page);
       _cachedMoviesList = moviesList;
@@ -51,7 +60,9 @@ abstract class _HomeControllerMobx with Store {
   @action
   backPage() {
     if (page == 1) return;
+    if (isLoading) return;
 
+    isLoading = true;
     page -= 1;
 
     fetch();
@@ -60,7 +71,9 @@ abstract class _HomeControllerMobx with Store {
   @action
   advancePage() {
     if (page == moviesList!.totalPages) return;
+    if (isLoading) return;
 
+    isLoading = true;
     page += 1;
 
     fetch();
