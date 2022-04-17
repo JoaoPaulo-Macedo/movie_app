@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:movie_app/domain/entities/movies_list_entity.dart';
-import 'package:movie_app/domain/usecases/get_movies_from_list_usecase.dart';
 import 'package:movie_app/presentation/components/list_details.dart';
 import 'package:movie_app/presentation/components/movie_card.dart';
 import 'package:movie_app/presentation/components/search_appbar_action.dart';
@@ -17,6 +15,7 @@ class MoviesListPage extends StatefulWidget {
 
 class _MoviesListPageState extends State<MoviesListPage> {
   late HomeController controller;
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
 
   @override
   void initState() {
@@ -27,6 +26,8 @@ class _MoviesListPageState extends State<MoviesListPage> {
 
   @override
   Widget build(BuildContext context) {
+    var deleteController = TextEditingController();
+
     return Observer(builder: (_) {
       if (controller.moviesList == null) {
         return const Center(
@@ -40,12 +41,43 @@ class _MoviesListPageState extends State<MoviesListPage> {
           if (controller.textController.text.isEmpty) controller.isSearching = false;
         },
         child: Scaffold(
+          key: _key,
           appBar: AppBar(
             leading: Visibility(
               visible: !controller.isSearching,
-              child: IconButton(icon: const Icon(Icons.menu), onPressed: () {}),
+              child: IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () {
+                  _key.currentState?.openDrawer();
+                },
+              ),
             ),
             actions: [SearchAppBarAction(controller: controller)],
+          ),
+          drawer: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                const DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                  ),
+                  child: Text('Drawer Header'),
+                ),
+                ListTile(
+                  title: const Text('Favorites Lists'),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  title: const Text('Favorites Movies'),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),

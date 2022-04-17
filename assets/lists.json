@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "name": "The Marvel Universe"
+    },
+    {
+        "id": 2,
+        "name": "2012 Oscar Nominations for Best Picture - 84th Academy Awards"
+    },
+    {
+        "id": 3,
+        "name": "The DC Comics Universe"
+    },
+    {
+        "id": 4,
+        "name": "2011 Oscar Nominations for Best Picture - 83rd Academy Awards"
+    },
+    {
+        "id": 5,
+        "name": "The Avengers"
+    },
+    {
+        "id": 6,
+        "name": "Films déjà vus"
+    },
+    {
+        "id": 7,
+        "name": "Films à voir"
+    },
+    {
+        "id": 8,
+        "name": "2010 Oscar Nominations for Best Picture - 82nd Academy Awards"
+    },
+    {
+        "id": 9,
+        "name": "2009 Oscar Nominations for Best Picture - 81st Academy Awards"
+    },
+    {
+        "id": 10,
+        "name": "Top 50 Grossing Films of All Time (Worldwide)"
+    }
+]

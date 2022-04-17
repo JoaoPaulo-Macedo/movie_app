@@ -24,8 +24,7 @@ mixin _$HomeController on _HomeController, Store {
     });
   }
 
-  final _$_cachedMoviesListAtom =
-      Atom(name: '_HomeController._cachedMoviesList');
+  final _$_cachedMoviesListAtom = Atom(name: '_HomeController._cachedMoviesList');
 
   @override
   MoviesListEntity? get _cachedMoviesList {
@@ -40,18 +39,18 @@ mixin _$HomeController on _HomeController, Store {
     });
   }
 
-  final _$listAtom = Atom(name: '_HomeController.list');
+  final _$listIdAtom = Atom(name: '_HomeController.listId');
 
   @override
-  int get list {
-    _$listAtom.reportRead();
-    return super.list;
+  int get listId {
+    _$listIdAtom.reportRead();
+    return super.listId;
   }
 
   @override
-  set list(int value) {
-    _$listAtom.reportWrite(value, super.list, () {
-      super.list = value;
+  set listId(int value) {
+    _$listIdAtom.reportWrite(value, super.listId, () {
+      super.listId = value;
     });
   }
 
@@ -67,6 +66,21 @@ mixin _$HomeController on _HomeController, Store {
   set page(int value) {
     _$pageAtom.reportWrite(value, super.page, () {
       super.page = value;
+    });
+  }
+
+  final _$favoriteAtom = Atom(name: '_HomeController.favorite');
+
+  @override
+  bool get favorite {
+    _$favoriteAtom.reportRead();
+    return super.favorite;
+  }
+
+  @override
+  set favorite(bool value) {
+    _$favoriteAtom.reportWrite(value, super.favorite, () {
+      super.favorite = value;
     });
   }
 
@@ -141,11 +155,11 @@ mixin _$HomeController on _HomeController, Store {
       ActionController(name: '_HomeController');
 
   @override
-  dynamic onChanged(String value) {
+  dynamic onSearch(String value) {
     final _$actionInfo = _$_HomeControllerActionController.startAction(
         name: '_HomeController.onChanged');
     try {
-      return super.onChanged(value);
+      return super.onSearch(value);
     } finally {
       _$_HomeControllerActionController.endAction(_$actionInfo);
     }
@@ -174,11 +188,23 @@ mixin _$HomeController on _HomeController, Store {
   }
 
   @override
+  dynamic toggleFavorite() {
+    final _$actionInfo = _$_HomeControllerActionController.startAction(
+        name: '_HomeController.toggleFavorite');
+    try {
+      return super.toggleFavorite();
+    } finally {
+      _$_HomeControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 moviesList: ${moviesList},
-list: ${list},
+listId: ${listId},
 page: ${page},
+favorite: ${favorite},
 isLoading: ${isLoading},
 isSearching: ${isSearching},
 searchFocus: ${searchFocus},

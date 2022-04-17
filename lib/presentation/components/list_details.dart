@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/domain/entities/created_by_entity.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:movie_app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/presentation/components/pagination.dart';
 import 'package:movie_app/presentation/controllers/home_controller.dart';
@@ -22,11 +22,34 @@ class ListDetails extends StatelessWidget {
 
     return Column(
       children: [
-        Center(
+        /* Center(
           child: Text(
             moviesList.name,
             style: textTheme.headline5?.copyWith(fontWeight: FontWeight.bold),
           ),
+        ), */
+        Row(
+          children: [
+            Expanded(
+              child: Center(
+                child: Text(
+                  moviesList.name,
+                  style: textTheme.headline5?.copyWith(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            Observer(
+              builder: (_) {
+                return InkWell(
+                  borderRadius: BorderRadius.circular(100),
+                  child: controller.favorite
+                      ? const Icon(Icons.star, size: 20, color: Colors.yellow)
+                      : const Icon(Icons.star_border, size: 20),
+                  onTap: () => controller.toggleFavorite(),
+                );
+              },
+            ),
+          ],
         ),
         const SizedBox(height: 15),
         Padding(
