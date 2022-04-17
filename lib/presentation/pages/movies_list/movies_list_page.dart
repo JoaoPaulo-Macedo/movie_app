@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:movie_app/presentation/components/list_details.dart';
 import 'package:movie_app/presentation/components/movie_card.dart';
 import 'package:movie_app/presentation/components/search_appbar_action.dart';
-import 'package:movie_app/presentation/controllers/home_controller.dart';
+import 'package:movie_app/presentation/pages/movies_list/movies_list_controller.dart';
 
 class MoviesListPage extends StatefulWidget {
   const MoviesListPage({Key? key}) : super(key: key);
@@ -14,14 +14,14 @@ class MoviesListPage extends StatefulWidget {
 }
 
 class _MoviesListPageState extends State<MoviesListPage> {
-  late HomeController controller;
+  late MoviesListController controller;
   final GlobalKey<ScaffoldState> _key = GlobalKey();
 
   @override
   void initState() {
     super.initState();
 
-    controller = GetIt.instance.get<HomeController>();
+    controller = GetIt.instance.get<MoviesListController>();
   }
 
   @override

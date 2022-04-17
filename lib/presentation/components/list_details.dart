@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:movie_app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/presentation/components/pagination.dart';
-import 'package:movie_app/presentation/controllers/home_controller.dart';
+import 'package:movie_app/presentation/pages/movies_list/movies_list_controller.dart';
 
 class ListDetails extends StatelessWidget {
   const ListDetails({
@@ -11,7 +11,7 @@ class ListDetails extends StatelessWidget {
     required this.function,
   }) : super(key: key);
 
-  final HomeController controller;
+  final MoviesListController controller;
   final void Function() function;
 
   @override

@@ -15,7 +15,7 @@ import 'package:movie_app/domain/usecases/get_movies_from_list_usecase_imp.dart'
 import 'package:movie_app/external/datasource/local/favorites_movies_list_datasource_imp.dart';
 import 'package:movie_app/external/datasource/local/movies_list_local_datasource_imp.dart';
 import 'package:movie_app/external/datasource/remote/movies_list_datasource_imp.dart';
-import 'package:movie_app/presentation/controllers/home_controller.dart';
+import 'package:movie_app/presentation/pages/movies_list/movies_list_controller.dart';
 
 class Inject {
   static init() {
@@ -47,8 +47,8 @@ class Inject {
       () => FavoriteMoviesListsUseCaseImp(getIt()),
     );
 
-    getIt.registerLazySingleton<HomeController>(
-      () => HomeController(getIt(), getIt()),
+    getIt.registerLazySingleton<MoviesListController>(
+      () => MoviesListController(getIt(), getIt()),
     );
   }
 }

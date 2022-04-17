@@ -6,12 +6,12 @@ import 'package:movie_app/domain/usecases/favorite_movies_list_usecase.dart';
 import 'package:movie_app/domain/usecases/get_movies_from_list_usecase.dart';
 import 'package:movie_app/presentation/dtos/movies_list_dto.dart';
 
-part 'home_controller.g.dart';
+part 'movies_list_controller.g.dart';
 
-class HomeController = _HomeController with _$HomeController;
+class MoviesListController = _MoviesListController with _$MoviesListController;
 
-abstract class _HomeController with Store {
-  _HomeController(this._getFromListUseCase, this._favoriteUseCase) {
+abstract class _MoviesListController with Store {
+  _MoviesListController(this._getFromListUseCase, this._favoriteUseCase) {
     fetch();
   }
 
