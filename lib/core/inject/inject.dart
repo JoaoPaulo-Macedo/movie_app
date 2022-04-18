@@ -13,8 +13,8 @@ import 'package:movie_app/domain/repositories/lists_repository.dart';
 import 'package:movie_app/domain/repositories/movies_list_repository.dart';
 import 'package:movie_app/domain/usecases/favorite_movies_list_usecase.dart';
 import 'package:movie_app/domain/usecases/favorite_movies_list_usecase_imp.dart';
-import 'package:movie_app/domain/usecases/get_all_lists_usecase.dart';
-import 'package:movie_app/domain/usecases/get_all_lists_usecase_imp.dart';
+import 'package:movie_app/domain/usecases/get_lists_usecase.dart';
+import 'package:movie_app/domain/usecases/get_lists_usecase_imp.dart';
 import 'package:movie_app/domain/usecases/get_movies_list_usecase.dart';
 import 'package:movie_app/domain/usecases/get_movies_list_usecase_imp.dart';
 import 'package:movie_app/external/datasource/local/favorites_movies_list_datasource_imp.dart';
@@ -41,7 +41,7 @@ class Inject {
       () => FavoritesMoviesListDataSourceImp(),
     );
     getIt.registerLazySingleton<ListsDataSource>(
-      () => ListsDataSourceImp(),
+      () => ListsDataSourceImp(getIt()),
     );
 
     // Repositories

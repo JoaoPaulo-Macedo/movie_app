@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:movie_app/domain/entities/list_identifier_entity.dart';
-import 'package:movie_app/domain/usecases/get_all_lists_usecase.dart';
+import 'package:movie_app/domain/usecases/get_lists_usecase.dart';
 
 part 'home_controller.g.dart';
 
@@ -15,7 +15,7 @@ abstract class _HomeController with Store {
   final GetAllListsUseCase usecase;
 
   @observable
-  List<ListIdentifierEntity>? lists;
+  List<ListIdentifierEntity> lists = [];
   @observable
   bool isLoading = true;
 

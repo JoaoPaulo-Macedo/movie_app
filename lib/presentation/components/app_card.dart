@@ -42,7 +42,7 @@ class AppCard extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(100),
                     child: Image.network(
-                      API.requestImg(list!.posterPath),
+                      API.requestImg(list!.posterPath ?? ''),
                       width: 150,
                       errorBuilder: (_, __, ___) {
                         return const SizedBox(

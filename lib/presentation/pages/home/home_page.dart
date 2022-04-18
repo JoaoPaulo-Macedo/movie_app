@@ -51,12 +51,12 @@ class _HomePageState extends State<HomePage> {
                 Expanded(
                   child: ListView.separated(
                     //TODO: getLength()
-                    itemCount: controller.lists!.length,
+                    itemCount: controller.lists.length,
                     padding: EdgeInsets.zero,
                     separatorBuilder: (_, __) => const SizedBox(height: 10),
                     itemBuilder: (_, listId) {
                       return AppCard.list(
-                        controller.lists![listId],
+                        controller.lists[listId],
                         controller.openListPage,
                       );
                     },

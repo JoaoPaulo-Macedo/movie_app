@@ -8,7 +8,7 @@ class ListsRepositoryImp extends ListsRepository {
   final ListsDataSource _listsDataSource;
 
   @override
-  Future<List<ListIdentifierEntity>> call() async {
-    return await _listsDataSource();
+  Future<List<ListIdentifierEntity>> call(int amount) async {
+    return await _listsDataSource(amount);
   }
 }

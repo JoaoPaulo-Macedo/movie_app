@@ -12,13 +12,13 @@ mixin _$HomeController on _HomeController, Store {
   final _$listsAtom = Atom(name: '_HomeController.lists');
 
   @override
-  List<ListIdentifierEntity>? get lists {
+  List<ListIdentifierEntity> get lists {
     _$listsAtom.reportRead();
     return super.lists;
   }
 
   @override
-  set lists(List<ListIdentifierEntity>? value) {
+  set lists(List<ListIdentifierEntity> value) {
     _$listsAtom.reportWrite(value, super.lists, () {
       super.lists = value;
     });
