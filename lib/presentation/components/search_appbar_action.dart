@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/presentation/pages/movies_list/movies_list_controller.dart';
+import 'package:movie_app/presentation/pages/list/list_controller.dart';
 
 class SearchAppBarAction extends StatelessWidget {
   const SearchAppBarAction({Key? key, required this.controller}) : super(key: key);
 
-  final MoviesListController controller;
+  final ListController controller;
 
   @override
   Widget build(BuildContext context) {

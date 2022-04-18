@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:lottie/lottie.dart';
 import 'package:movie_app/presentation/pages/splash/splash_page_controller.dart';
 

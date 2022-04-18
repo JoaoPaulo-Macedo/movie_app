@@ -1,4 +1,4 @@
-import 'package:movie_app/domain/entities/favorite_movies_list_entity.dart';
+import 'package:movie_app/domain/entities/list_identifier_entity.dart';
 import 'package:movie_app/domain/repositories/favorite_movies_list_repository.dart';
 import 'package:movie_app/domain/usecases/favorite_movies_list_usecase.dart';
 
@@ -8,15 +8,13 @@ class FavoriteMoviesListsUseCaseImp extends FavoriteMoviesListsUseCase {
   final FavoriteMoviesListRepository _repository;
 
   @override
-  Future<List<FavoriteMoviesListEntity>> getFavorites() async {
+  Future<List<ListIdentifierEntity>> getFavorites() async {
     return await _repository.getLists();
   }
 
   @override
-  addFavorite(int listId, String listName) {
-    var favoriteList = FavoriteMoviesListEntity(id: listId, name: listName);
-
-    _repository.addList(favoriteList);
+  addFavorite(int listId) {
+    _repository.addList(listId);
   }
 
   @override

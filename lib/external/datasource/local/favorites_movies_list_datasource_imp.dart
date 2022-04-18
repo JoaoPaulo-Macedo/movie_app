@@ -1,30 +1,30 @@
 import 'dart:convert';
 import 'package:movie_app/data/datasource/favorites_movies_list_datasource.dart';
-import 'package:movie_app/data/dtos/favorite_movies_list_dto.dart';
-import 'package:movie_app/domain/entities/favorite_movies_list_entity.dart';
+import 'package:movie_app/data/dtos/list_identifier_dto.dart';
+import 'package:movie_app/domain/entities/list_identifier_entity.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FavoritesMoviesListDataSourceImp extends FavoriteMoviesListDatasource {
   final _key = 'favorites_movies';
 
   @override
-  Future<List<FavoriteMoviesListEntity>> getList() async {
+  Future<List<ListIdentifierEntity>> getList() async {
     List<String> list = await _getCurrentList();
-    List<FavoriteMoviesListEntity> movies = [];
+    List<ListIdentifierEntity> movies = [];
 
     for (var e in list) {
-      movies.add(FavoriteMoviesListDTO.fromJson(jsonDecode(e)));
+      movies.add(ListIdentifierDTO.fromJson(jsonDecode(e)));
     }
 
     return movies;
   }
 
   @override
-  void saveList(moviesList) async {
-    List<String> list = await _getCurrentList();
+  void saveList(int listId) async {
+    /* List<String> list = await _getCurrentList();
 
     bool alreadyInList = list.any((e) {
-      var a = FavoriteMoviesListDTO.fromJson(jsonDecode(e));
+      var a = ListIdentifierDTO.fromJson(jsonDecode(e));
       return a.id == moviesList.id;
     });
 
@@ -34,7 +34,7 @@ class FavoritesMoviesListDataSourceImp extends FavoriteMoviesListDatasource {
 
     list.add(value);
 
-    _saveChanges(list);
+    _saveChanges(list); */
   }
 
   @override

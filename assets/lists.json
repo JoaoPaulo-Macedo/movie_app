@@ -1,42 +1,52 @@
 [
     {
         "id": 1,
-        "name": "The Marvel Universe"
+        "name": "The Marvel Universe",
+        "poster_path": "kaIfm5ryEOwYg8mLbq8HkPuM1Fo.jpg"
     },
     {
         "id": 2,
-        "name": "2012 Oscar Nominations for Best Picture - 84th Academy Awards"
+        "name": "2012 Oscar Nominations for Best Picture - 84th Academy Awards",
+        "poster_path": "bYimqNnizPUCnL5HOdoCW02IGmH.jpg"
     },
     {
         "id": 3,
-        "name": "The DC Comics Universe"
+        "name": "The DC Comics Universe",
+        "poster_path": "kaIfm5ryEOwYg8mLbq8HkPuM1Fo.jpg"
     },
     {
         "id": 4,
-        "name": "2011 Oscar Nominations for Best Picture - 83rd Academy Awards"
+        "name": "2011 Oscar Nominations for Best Picture - 83rd Academy Awards",
+        "poster_path": "kaIfm5ryEOwYg8mLbq8HkPuM1Fo.jpg"
     },
     {
         "id": 5,
-        "name": "The Avengers"
+        "name": "The Avengers",
+        "poster_path": "kaIfm5ryEOwYg8mLbq8HkPuM1Fo.jpg"
     },
     {
         "id": 6,
-        "name": "Films déjà vus"
+        "name": "Films déjà vus",
+        "poster_path": "kaIfm5ryEOwYg8mLbq8HkPuM1Fo.jpg"
     },
     {
         "id": 7,
-        "name": "Films à voir"
+        "name": "Films à voir",
+        "poster_path": "kaIfm5ryEOwYg8mLbq8HkPuM1Fo.jpg"
     },
     {
         "id": 8,
-        "name": "2010 Oscar Nominations for Best Picture - 82nd Academy Awards"
+        "name": "2010 Oscar Nominations for Best Picture - 82nd Academy Awards",
+        "poster_path": "kaIfm5ryEOwYg8mLbq8HkPuM1Fo.jpg"
     },
     {
         "id": 9,
-        "name": "2009 Oscar Nominations for Best Picture - 81st Academy Awards"
+        "name": "2009 Oscar Nominations for Best Picture - 81st Academy Awards",
+        "poster_path": "kaIfm5ryEOwYg8mLbq8HkPuM1Fo.jpg"
     },
     {
         "id": 10,
-        "name": "Top 50 Grossing Films of All Time (Worldwide)"
+        "name": "Top 50 Grossing Films of All Time (Worldwide)",
+        "poster_path": "kaIfm5ryEOwYg8mLbq8HkPuM1Fo.jpg"
     }
 ]

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'movies_list_controller.dart';
+part of 'list_controller.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,8 +8,8 @@ part of 'movies_list_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$MoviesListController on _MoviesListController, Store {
-  final _$moviesListAtom = Atom(name: '_HomeController.moviesList');
+mixin _$ListController on _ListController, Store {
+  final _$moviesListAtom = Atom(name: '_MoviesListController.moviesList');
 
   @override
   MoviesListEntity? get moviesList {
@@ -24,7 +24,8 @@ mixin _$MoviesListController on _MoviesListController, Store {
     });
   }
 
-  final _$_cachedMoviesListAtom = Atom(name: '_HomeController._cachedMoviesList');
+  final _$_cachedMoviesListAtom =
+      Atom(name: '_MoviesListController._cachedMoviesList');
 
   @override
   MoviesListEntity? get _cachedMoviesList {
@@ -39,7 +40,7 @@ mixin _$MoviesListController on _MoviesListController, Store {
     });
   }
 
-  final _$listIdAtom = Atom(name: '_HomeController.listId');
+  final _$listIdAtom = Atom(name: '_MoviesListController.listId');
 
   @override
   int get listId {
@@ -54,7 +55,7 @@ mixin _$MoviesListController on _MoviesListController, Store {
     });
   }
 
-  final _$pageAtom = Atom(name: '_HomeController.page');
+  final _$pageAtom = Atom(name: '_MoviesListController.page');
 
   @override
   int get page {
@@ -69,7 +70,7 @@ mixin _$MoviesListController on _MoviesListController, Store {
     });
   }
 
-  final _$favoriteAtom = Atom(name: '_HomeController.favorite');
+  final _$favoriteAtom = Atom(name: '_MoviesListController.favorite');
 
   @override
   bool get favorite {
@@ -84,7 +85,7 @@ mixin _$MoviesListController on _MoviesListController, Store {
     });
   }
 
-  final _$isLoadingAtom = Atom(name: '_HomeController.isLoading');
+  final _$isLoadingAtom = Atom(name: '_MoviesListController.isLoading');
 
   @override
   bool get isLoading {
@@ -99,7 +100,7 @@ mixin _$MoviesListController on _MoviesListController, Store {
     });
   }
 
-  final _$isSearchingAtom = Atom(name: '_HomeController.isSearching');
+  final _$isSearchingAtom = Atom(name: '_MoviesListController.isSearching');
 
   @override
   bool get isSearching {
@@ -114,7 +115,7 @@ mixin _$MoviesListController on _MoviesListController, Store {
     });
   }
 
-  final _$searchFocusAtom = Atom(name: '_HomeController.searchFocus');
+  final _$searchFocusAtom = Atom(name: '_MoviesListController.searchFocus');
 
   @override
   FocusNode get searchFocus {
@@ -129,7 +130,8 @@ mixin _$MoviesListController on _MoviesListController, Store {
     });
   }
 
-  final _$textControllerAtom = Atom(name: '_HomeController.textController');
+  final _$textControllerAtom =
+      Atom(name: '_MoviesListController.textController');
 
   @override
   TextEditingController get textController {
@@ -144,57 +146,68 @@ mixin _$MoviesListController on _MoviesListController, Store {
     });
   }
 
-  final _$fetchAsyncAction = AsyncAction('_HomeController.fetch');
+  final _$fetchAsyncAction = AsyncAction('_MoviesListController.fetch');
 
   @override
   Future fetch() {
     return _$fetchAsyncAction.run(() => super.fetch());
   }
 
-  final _$_HomeControllerActionController =
-      ActionController(name: '_HomeController');
+  final _$_MoviesListControllerActionController =
+      ActionController(name: '_MoviesListController');
 
   @override
   dynamic onSearch(String value) {
-    final _$actionInfo = _$_HomeControllerActionController.startAction(
-        name: '_HomeController.onChanged');
+    final _$actionInfo = _$_MoviesListControllerActionController.startAction(
+        name: '_MoviesListController.onSearch');
     try {
       return super.onSearch(value);
     } finally {
-      _$_HomeControllerActionController.endAction(_$actionInfo);
+      _$_MoviesListControllerActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic backPage() {
-    final _$actionInfo = _$_HomeControllerActionController.startAction(
-        name: '_HomeController.backPage');
+    final _$actionInfo = _$_MoviesListControllerActionController.startAction(
+        name: '_MoviesListController.backPage');
     try {
       return super.backPage();
     } finally {
-      _$_HomeControllerActionController.endAction(_$actionInfo);
+      _$_MoviesListControllerActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic advancePage() {
-    final _$actionInfo = _$_HomeControllerActionController.startAction(
-        name: '_HomeController.advancePage');
+    final _$actionInfo = _$_MoviesListControllerActionController.startAction(
+        name: '_MoviesListController.advancePage');
     try {
       return super.advancePage();
     } finally {
-      _$_HomeControllerActionController.endAction(_$actionInfo);
+      _$_MoviesListControllerActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic toggleFavorite() {
-    final _$actionInfo = _$_HomeControllerActionController.startAction(
-        name: '_HomeController.toggleFavorite');
+    final _$actionInfo = _$_MoviesListControllerActionController.startAction(
+        name: '_MoviesListController.toggleFavorite');
     try {
       return super.toggleFavorite();
     } finally {
-      _$_HomeControllerActionController.endAction(_$actionInfo);
+      _$_MoviesListControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic openMoviePage(BuildContext context, MovieEntity movie) {
+    final _$actionInfo = _$_MoviesListControllerActionController.startAction(
+        name: '_MoviesListController.openMoviePage');
+    try {
+      return super.openMoviePage(context, movie);
+    } finally {
+      _$_MoviesListControllerActionController.endAction(_$actionInfo);
     }
   }
 

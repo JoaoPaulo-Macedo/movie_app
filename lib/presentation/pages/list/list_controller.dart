@@ -3,19 +3,24 @@ import 'package:mobx/mobx.dart';
 import 'package:movie_app/domain/entities/movie_entity.dart';
 import 'package:movie_app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/domain/usecases/favorite_movies_list_usecase.dart';
-import 'package:movie_app/domain/usecases/get_movies_from_list_usecase.dart';
+import 'package:movie_app/domain/usecases/get_movies_list_usecase.dart';
 import 'package:movie_app/presentation/dtos/movies_list_dto.dart';
+import 'package:movie_app/presentation/pages/movie/movie_details_page.dart';
 
-part 'movies_list_controller.g.dart';
+part 'list_controller.g.dart';
 
-class MoviesListController = _MoviesListController with _$MoviesListController;
+class ListController = _ListController with _$ListController;
 
-abstract class _MoviesListController with Store {
-  _MoviesListController(this._getFromListUseCase, this._favoriteUseCase) {
+abstract class _ListController with Store {
+  _ListController(
+    this._getFromListUseCase,
+    this._favoriteUseCase, {
+    required this.listId,
+  }) {
     fetch();
   }
 
-  final GetMoviesFromListUseCase _getFromListUseCase;
+  final GetMoviesListUseCase _getFromListUseCase;
   final FavoriteMoviesListsUseCase _favoriteUseCase;
 
   @observable
@@ -27,14 +32,14 @@ abstract class _MoviesListController with Store {
   // bool get valid => isLoading && isSearching;
 
   @observable
-  int listId = 1;
+  int listId;
   @observable
   int page = 1;
   @observable
   bool favorite = false;
 
   @observable
-  bool isLoading = false;
+  bool isLoading = true;
   @observable
   bool isSearching = false;
   @observable
@@ -44,6 +49,7 @@ abstract class _MoviesListController with Store {
 
   @action
   fetch() async {
+    //TODO cache movies, don't keep requesting
     moviesList = await _getFromListUseCase(list: listId, page: page);
     _cachedMoviesList = moviesList;
 
@@ -51,7 +57,7 @@ abstract class _MoviesListController with Store {
     for (var e in favorites) {
       if (e.id == moviesList!.id) {
         favorite = true;
-        print(e.id);
+        // print(e.id);
       }
     }
 
@@ -97,8 +103,19 @@ abstract class _MoviesListController with Store {
       _favoriteUseCase.removeFavorite(listId);
       favorite = false;
     } else {
-      _favoriteUseCase.addFavorite(listId, moviesList!.name);
+      _favoriteUseCase.addFavorite(listId);
       favorite = true;
     }
+  }
+
+  @action
+  openMoviePage(BuildContext context, MovieEntity movie) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => MovieDetailsPage(movie),
+        fullscreenDialog: true,
+      ),
+    );
   }
 }

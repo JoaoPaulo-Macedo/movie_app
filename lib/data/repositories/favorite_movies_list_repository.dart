@@ -1,5 +1,5 @@
 import 'package:movie_app/data/datasource/favorites_movies_list_datasource.dart';
-import 'package:movie_app/domain/entities/favorite_movies_list_entity.dart';
+import 'package:movie_app/domain/entities/list_identifier_entity.dart';
 import 'package:movie_app/domain/repositories/favorite_movies_list_repository.dart';
 
 class FavoriteMoviesListRepositoryImp extends FavoriteMoviesListRepository {
@@ -8,13 +8,13 @@ class FavoriteMoviesListRepositoryImp extends FavoriteMoviesListRepository {
   final FavoriteMoviesListDatasource _datasource;
 
   @override
-  Future<List<FavoriteMoviesListEntity>> getLists() async {
+  Future<List<ListIdentifierEntity>> getLists() async {
     return await _datasource.getList();
   }
 
   @override
-  void addList(FavoriteMoviesListEntity list) {
-    _datasource.saveList(list);
+  void addList(int listId) {
+    _datasource.saveList(listId);
   }
 
   @override
