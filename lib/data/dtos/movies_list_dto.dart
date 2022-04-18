@@ -23,7 +23,7 @@ extension MoviesListDTO on MoviesListEntity {
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['average_rating'] = averageRating;
-    _data['created_by'] = createdBy.toJson();
+    _data['created_by'] = createdBy?.toJson();
     _data['description'] = description;
     _data['id'] = id;
     _data['name'] = name;

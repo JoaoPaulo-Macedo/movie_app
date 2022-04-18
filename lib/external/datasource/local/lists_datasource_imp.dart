@@ -37,6 +37,8 @@ class ListsDataSourceImp extends ListsDataSource {
 
     for (int list = 1; list <= amount; list++) {
       Response result = await _httpService.get(API.requestMoviesList(list, 1));
+      
+      if (result.data['total_results'] == 0) break;
 
       lists.add(jsonEncode(result.data));
     }

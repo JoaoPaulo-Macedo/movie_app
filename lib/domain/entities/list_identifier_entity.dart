@@ -2,16 +2,16 @@ class ListIdentifierEntity {
   ListIdentifierEntity({
     required this.id,
     required this.name,
-    required this.posterPath,
     required this.totalMovies,
     required this.userName,
+    required this.posterPath,
   });
 
   final int id;
   final String name;
-  final String? posterPath;
   final int totalMovies;
   final String? userName;
+  final String? posterPath;
 
   @override
   String toString() {

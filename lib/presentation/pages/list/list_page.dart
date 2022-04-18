@@ -48,8 +48,9 @@ class _ListPageState extends State<ListPage> {
         return GestureDetector(
           onTap: () {
             controller.searchFocus.unfocus();
-            if (controller.textController.text.isEmpty)
+            if (controller.textController.text.isEmpty) {
               controller.isSearching = false;
+            }
           },
           child: Scaffold(
             appBar: AppBar(

@@ -50,7 +50,7 @@ class FavoritesMoviesListDataSourceImp extends FavoriteMoviesListDatasource {
   clear() async {
     var prefs = await SharedPreferences.getInstance();
 
-    prefs.clear();
+    prefs.remove(_key);
   }
 
   Future<List<String>> _getCurrentList() async {

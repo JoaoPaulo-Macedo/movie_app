@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/core/utils/api_utils.dart';
 import 'package:movie_app/domain/entities/list_identifier_entity.dart';
 import 'package:movie_app/domain/entities/movie_entity.dart';
-import 'package:movie_app/presentation/components/movie_poster.dart';
+import 'package:movie_app/presentation/components/app_poster.dart';
 
 class AppCard extends StatelessWidget {
   const AppCard._({Key? key, required this.onTap, this.list, this.movie})
@@ -39,45 +38,20 @@ class AppCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (list != null)
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: Image.network(
-                      API.requestImg(list!.posterPath ?? ''),
-                      width: 150,
-                      errorBuilder: (_, __, ___) {
-                        return const SizedBox(
-                          width: 93.5,
-                          child: Center(
-                            child: Icon(Icons.error_outline,
-                                color: Colors.red, size: 40),
-                          ),
-                        );
-                      },
-                      loadingBuilder: (_, child, progress) {
-                        if (progress == null) return child;
-
-                        return const SizedBox(
-                          width: 93.5,
-                          child: Center(
-                            child: CircularProgressIndicator(color: Colors.white),
-                          ),
-                        );
-                      },
-                    ),
-                  )
+                  AppPoster.list(list?.posterPath ?? '')
                 else
-                  MoviePoster(movieId: movie!.id, posterPath: movie!.posterPath),
+                  AppPoster.movie(movieId: movie!.id, posterPath: movie?.posterPath),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        /* Text(
+                        Text(
                           list != null ? list!.name : movie!.title,
                           style: textTheme.headline6,
                           overflow: TextOverflow.clip,
-                        ), */
+                        ),
                         const Spacer(),
                         if (movie != null)
                           Row(

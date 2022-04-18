@@ -18,17 +18,17 @@ class MoviesListEntity {
     required this.totalResults,
   });
   
-  late final num averageRating;
-  late final CreatedByEntity createdBy;
-  late final String description;
+  late final num? averageRating;
+  late final CreatedByEntity? createdBy;
+  late final String? description;
   late final int id;
   late final String name;
-  late final int page;
-  late final bool public;
+  late final int? page;
+  late final bool? public;
   late final List<MovieEntity> movies;
-  late final int revenue;
-  late final int runtime;
-  late final String sortBy;
+  late final int? revenue;
+  late final int? runtime;
+  late final String? sortBy;
   late final int totalPages;
   late final int totalResults;
 

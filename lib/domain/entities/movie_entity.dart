@@ -16,20 +16,20 @@ class MovieEntity {
     required this.voteCount,
   });
 
-  late final bool adult;
-  late final List<int> genreIds;
+  late final bool? adult;
+  late final List<int>? genreIds;
   late final int id;
-  late final String posterPath;
-  late final String mediaType;
-  late final String originalLanguage;
-  late final String originalTitle;
-  late final String overview;
-  late final num popularity;
-  late final String releaseDate;
+  late final String? posterPath;
+  late final String? mediaType;
+  late final String? originalLanguage;
+  late final String? originalTitle;
+  late final String? overview;
+  late final num? popularity;
+  late final String? releaseDate;
   late final String title;
-  late final bool video;
+  late final bool? video;
   late final num? voteAverage;
-  late final int voteCount;
+  late final int? voteCount;
 
   @override
   String toString() {

@@ -9,7 +9,7 @@ class GetAllListsUseCaseImp extends GetAllListsUseCase {
 
   @override
   Future<List<ListIdentifierEntity>> call() async {
-    int amount = 15;
+    int amount = 10;
 
     return await _listsRepository(amount);
   }

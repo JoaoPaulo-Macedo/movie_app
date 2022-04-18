@@ -22,12 +22,6 @@ class ListDetails extends StatelessWidget {
 
     return Column(
       children: [
-        /* Center(
-          child: Text(
-            moviesList.name,
-            style: textTheme.headline5?.copyWith(fontWeight: FontWeight.bold),
-          ),
-        ), */
         Row(
           children: [
             Expanded(
@@ -51,23 +45,30 @@ class ListDetails extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 15),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: horizontalPadding),
-          child: Column(
-            children: [
-              Text(moviesList.description, style: textTheme.subtitle1),
-              const SizedBox(height: 5),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  'List created by ${moviesList.createdBy.name}',
-                  style: textTheme.caption,
-                ),
-              ),
-            ],
+        if (moviesList.description != null && moviesList.createdBy?.name != null)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(
+              horizontalPadding,
+              7.5,
+              horizontalPadding,
+              7.5,
+            ),
+            child: Column(
+              children: [
+                if (moviesList.description != null)
+                  Text(moviesList.description!, style: textTheme.subtitle1),
+                if (moviesList.description != null) const SizedBox(height: 5),
+                if (moviesList.createdBy?.name != null)
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      'List created by ${moviesList.createdBy!.name}',
+                      style: textTheme.caption,
+                    ),
+                  ),
+              ],
+            ),
           ),
-        ),
         const SizedBox(height: 15),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

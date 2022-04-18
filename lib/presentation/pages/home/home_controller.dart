@@ -29,6 +29,7 @@ abstract class _HomeController with Store {
   @action
   openListPage(BuildContext context, int listId) {
     //TODO: ask how to solve it
+    print(listId);
     Navigator.pushNamed(context, '/movies_list', arguments: listId);
   }
 }

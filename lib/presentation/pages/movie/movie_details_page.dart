@@ -17,7 +17,7 @@ class MovieDetailsPage extends StatelessWidget {
         child: Hero(
           tag: movie.id,
           child: Image.network(
-            API.requestImg(movie.posterPath),
+            API.requestImg(movie.posterPath ?? ''),
             errorBuilder: (_, __, ___) {
               return const SizedBox(
                 child: Center(

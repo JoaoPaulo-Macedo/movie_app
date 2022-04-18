@@ -17,7 +17,6 @@ void main() {
 
     List<ListIdentifierEntity> lists = await useCase();
 
-    expect(15, lists.length);
     expect(lists, 'lists');
   });
 }
