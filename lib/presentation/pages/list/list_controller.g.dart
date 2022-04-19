@@ -24,19 +24,18 @@ mixin _$ListController on _ListController, Store {
     });
   }
 
-  final _$_cachedMoviesListAtom =
-      Atom(name: '_ListController._cachedMoviesList');
+  final _$_cachedMoviesAtom = Atom(name: '_ListController._cachedMovies');
 
   @override
-  MoviesListEntity? get _cachedMoviesList {
-    _$_cachedMoviesListAtom.reportRead();
-    return super._cachedMoviesList;
+  Map<int, List<MovieEntity>> get _cachedMovies {
+    _$_cachedMoviesAtom.reportRead();
+    return super._cachedMovies;
   }
 
   @override
-  set _cachedMoviesList(MoviesListEntity? value) {
-    _$_cachedMoviesListAtom.reportWrite(value, super._cachedMoviesList, () {
-      super._cachedMoviesList = value;
+  set _cachedMovies(Map<int, List<MovieEntity>> value) {
+    _$_cachedMoviesAtom.reportWrite(value, super._cachedMovies, () {
+      super._cachedMovies = value;
     });
   }
 
@@ -183,17 +182,6 @@ mixin _$ListController on _ListController, Store {
         name: '_ListController.advancePage');
     try {
       return super.advancePage();
-    } finally {
-      _$_ListControllerActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic toggleFavorite() {
-    final _$actionInfo = _$_ListControllerActionController.startAction(
-        name: '_ListController.toggleFavorite');
-    try {
-      return super.toggleFavorite();
     } finally {
       _$_ListControllerActionController.endAction(_$actionInfo);
     }

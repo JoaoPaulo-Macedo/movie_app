@@ -13,20 +13,19 @@ class ListController = _ListController with _$ListController;
 
 abstract class _ListController with Store {
   _ListController(
-    this._getFromListUseCase,
-    this._favoriteUseCase, {
+    this._getFromListUseCase, {
     required this.listId,
   }) {
     fetch();
   }
 
   final GetMoviesListUseCase _getFromListUseCase;
-  final FavoriteMoviesListsUseCase _favoriteUseCase;
 
   @observable
   MoviesListEntity? moviesList;
   @observable
-  MoviesListEntity? _cachedMoviesList;
+  // ignore: prefer_final_fields
+  Map<int, List<MovieEntity>> _cachedMovies = {};
 
   // @computed
   // bool get valid => isLoading && isSearching;
@@ -49,16 +48,13 @@ abstract class _ListController with Store {
 
   @action
   fetch() async {
-    //TODO cache movies, don't keep requesting
-    moviesList = await _getFromListUseCase(list: listId, page: page);
-    _cachedMoviesList = moviesList;
+    isLoading = true;
 
-    var favorites = await _favoriteUseCase.getFavorites();
-    for (var e in favorites) {
-      if (e.id == moviesList!.id) {
-        favorite = true;
-        // print(e.id);
-      }
+    if (_cachedMovies.isEmpty || !_cachedMovies.keys.contains(page)) {
+      moviesList = await _getFromListUseCase(list: listId, page: page);
+      _cachedMovies[page] = moviesList!.movies;
+    } else {
+      moviesList = moviesList!.copyWith(movies: _cachedMovies[page]!);
     }
 
     isLoading = false;
@@ -66,9 +62,9 @@ abstract class _ListController with Store {
 
   @action
   onSearch(String value) {
-    if (_cachedMoviesList == null) return;
+    if (_cachedMovies.isEmpty) return;
 
-    List<MovieEntity> list = _cachedMoviesList!.movies
+    List<MovieEntity> list = _cachedMovies[page]!
         .where((e) => e.title.toLowerCase().contains(value.toLowerCase()))
         .toList();
 
@@ -80,7 +76,6 @@ abstract class _ListController with Store {
     if (page == 1) return;
     if (isLoading) return;
 
-    isLoading = true;
     page -= 1;
 
     fetch();
@@ -91,21 +86,9 @@ abstract class _ListController with Store {
     if (page == moviesList!.totalPages) return;
     if (isLoading) return;
 
-    isLoading = true;
     page += 1;
 
     fetch();
-  }
-
-  @action
-  toggleFavorite() {
-    if (favorite) {
-      _favoriteUseCase.removeFavorite(listId);
-      favorite = false;
-    } else {
-      _favoriteUseCase.addFavorite(listId);
-      favorite = true;
-    }
   }
 
   @action

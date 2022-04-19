@@ -22,28 +22,9 @@ class ListDetails extends StatelessWidget {
 
     return Column(
       children: [
-        Row(
-          children: [
-            Expanded(
-              child: Center(
-                child: Text(
-                  moviesList.name,
-                  style: textTheme.headline5?.copyWith(fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-            Observer(
-              builder: (_) {
-                return InkWell(
-                  borderRadius: BorderRadius.circular(100),
-                  child: controller.favorite
-                      ? const Icon(Icons.star, size: 20, color: Colors.yellow)
-                      : const Icon(Icons.star_border, size: 20),
-                  onTap: () => controller.toggleFavorite(),
-                );
-              },
-            ),
-          ],
+        Text(
+          moviesList.name,
+          style: textTheme.headline5?.copyWith(fontWeight: FontWeight.bold),
         ),
         if (moviesList.description != null && moviesList.createdBy?.name != null)
           Padding(
@@ -55,17 +36,15 @@ class ListDetails extends StatelessWidget {
             ),
             child: Column(
               children: [
-                if (moviesList.description != null)
-                  Text(moviesList.description!, style: textTheme.subtitle1),
-                if (moviesList.description != null) const SizedBox(height: 5),
-                if (moviesList.createdBy?.name != null)
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      'List created by ${moviesList.createdBy!.name}',
-                      style: textTheme.caption,
-                    ),
+                Text(moviesList.description!, style: textTheme.subtitle1),
+                const SizedBox(height: 5),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    'List created by ${moviesList.createdBy!.name}',
+                    style: textTheme.caption,
                   ),
+                ),
               ],
             ),
           ),

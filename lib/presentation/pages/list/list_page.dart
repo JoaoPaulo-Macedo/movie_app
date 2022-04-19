@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:movie_app/domain/entities/movie_entity.dart';
-import 'package:movie_app/domain/usecases/favorite_movies_list_usecase.dart';
 import 'package:movie_app/domain/usecases/get_movies_list_usecase.dart';
 import 'package:movie_app/presentation/components/list_details.dart';
 import 'package:movie_app/presentation/components/app_card.dart';
@@ -19,13 +17,6 @@ class ListPage extends StatefulWidget {
 class _ListPageState extends State<ListPage> {
   late ListController controller;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-
-  //   // controller = GetIt.instance.get<MoviesListController>();
-  // }
-
   @override
   Widget build(BuildContext context) {
     //TODO: fix it
@@ -33,7 +24,6 @@ class _ListPageState extends State<ListPage> {
 
     controller = ListController(
       GetIt.I.get<GetMoviesListUseCase>(),
-      GetIt.I.get<FavoriteMoviesListsUseCase>(),
       listId: listId,
     );
 

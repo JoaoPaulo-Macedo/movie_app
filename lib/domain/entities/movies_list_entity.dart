@@ -23,7 +23,7 @@ class MoviesListEntity {
   late final String? description;
   late final int id;
   late final String name;
-  late final int? page;
+  late final int page;
   late final bool? public;
   late final List<MovieEntity> movies;
   late final int? revenue;
