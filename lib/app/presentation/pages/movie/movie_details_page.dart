@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/app/presentation/components/app_poster.dart';
 import 'package:movie_app/core/utils/api_utils.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
 
@@ -9,36 +10,38 @@ class MovieDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(movie.title)),
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height * .55,
-        width: MediaQuery.of(context).size.width,
-        child: Hero(
-          tag: movie.id,
-          child: Image.network(
-            API.requestImg(movie.posterPath ?? ''),
-            errorBuilder: (_, __, ___) {
-              return const SizedBox(
-                child: Center(
-                  child: Icon(Icons.error_outline, color: Colors.red, size: 40),
-                ),
-              );
-            },
-            loadingBuilder: (_, child, progress) {
-              if (progress == null) return child;
+    final textTheme = Theme.of(context).textTheme;
 
-              return const SizedBox(
-                child: Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                  ),
-                ),
-              );
-            },
+    return Stack(
+      children: [
+        SizedBox(
+          // height: MediaQuery.of(context).size.height * .55,
+          width: MediaQuery.of(context).size.width,
+          child: AppPoster.movie(
+            posterPath: movie.posterPath,
+            movieId: movie.id,
           ),
         ),
-      ),
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            leading: InkWell(
+              child: const Icon(Icons.close, size: 30),
+              onTap: () => Navigator.pop(context),
+            ),
+          ),
+          /* body: Column(
+            children: [
+              Text(
+                movie.title,
+                style: textTheme.headline5?.copyWith(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ), */
+        ),
+      ],
     );
   }
 }
