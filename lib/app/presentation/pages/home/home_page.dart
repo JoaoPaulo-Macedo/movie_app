@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) {
-        if (controller.lists == null) {
+        if (controller.lists.isEmpty) {
           return const Center(
             child: CircularProgressIndicator(color: Colors.white),
           );
@@ -50,7 +50,6 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Expanded(
                   child: ListView.separated(
-                    //TODO: getLength()
                     itemCount: controller.lists.length,
                     padding: EdgeInsets.zero,
                     separatorBuilder: (_, __) => const SizedBox(height: 10),

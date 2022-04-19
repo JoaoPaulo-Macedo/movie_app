@@ -7,7 +7,7 @@ extension ListIdentifierDTO on ListIdentifierEntity {
       name: json['name'],
       posterPath: json['poster_path'],
       totalMovies: json['total_results'],
-      userName: json['created_by']['name'],
+      userName: json['created_by'] != null ? json['created_by']['name'] : json['name'],
     );
   }
 
