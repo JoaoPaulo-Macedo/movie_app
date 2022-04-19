@@ -22,6 +22,8 @@ class AppCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final num? voteAverage = list != null ? list?.averageRating : movie?.voteAverage;
+    final String title = list != null ? list!.name : movie!.title;
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(15),
@@ -48,30 +50,37 @@ class AppCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          list != null ? list!.name : movie!.title,
+                          title,
+                          maxLines: 2,
                           style: textTheme.headline6,
-                          overflow: TextOverflow.clip,
+                          overflow: TextOverflow.ellipsis,
                         ),
                         const Spacer(),
-                        if (movie != null)
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Center(
-                                child: Text(
-                                  movie!.voteCount.toString(),
-                                  style: const TextStyle(fontSize: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            if (movie != null)
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: Center(
+                                  child: Text(
+                                    movie!.voteCount.toString(),
+                                    style: const TextStyle(fontSize: 10),
+                                  ),
                                 ),
                               ),
-                              const SizedBox(width: 10),
-                              Text(
-                                movie!.voteAverage.toString(),
-                              ),
-                              const Icon(Icons.star, size: 13),
-                            ],
-                          )
-                        else
-                          const SizedBox(),
+                            Row(
+                              children: [
+                                Text(
+                                  voteAverage?.toStringAsFixed(2) ?? '',
+                                ),
+                                const SizedBox(width: 3),
+                                const Icon(Icons.star, size: 13),
+                              ],
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),

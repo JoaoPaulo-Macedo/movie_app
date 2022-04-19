@@ -7,7 +7,9 @@ extension ListIdentifierDTO on ListIdentifierEntity {
       name: json['name'],
       posterPath: json['poster_path'],
       totalMovies: json['total_results'],
-      userName: json['created_by'] != null ? json['created_by']['name'] : json['name'],
+      userName:
+          json['created_by'] != null ? json['created_by']['name'] : json['name'],
+      averageRating: json['average_rating'],
     );
   }
 
@@ -18,6 +20,7 @@ extension ListIdentifierDTO on ListIdentifierEntity {
     json['poster_path'] = posterPath;
     json['total_results'] = totalMovies;
     json['user_name'] = userName;
+    json['average_rating'] = averageRating;
 
     return json;
   }

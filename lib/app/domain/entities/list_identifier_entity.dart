@@ -5,6 +5,7 @@ class ListIdentifierEntity {
     required this.totalMovies,
     required this.userName,
     required this.posterPath,
+    required this.averageRating,
   });
 
   final int id;
@@ -12,6 +13,7 @@ class ListIdentifierEntity {
   final int totalMovies;
   final String? userName;
   final String? posterPath;
+  final num? averageRating;
 
   @override
   String toString() {

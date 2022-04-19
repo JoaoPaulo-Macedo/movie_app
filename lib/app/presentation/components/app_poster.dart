@@ -32,7 +32,6 @@ class AppPoster extends StatelessWidget {
           bottomLeft: Radius.circular(15),
         ),
         child: CachedNetworkImage(
-          // imageUrl: 'https://image.tmdb.org/t/p/w500/coJVIUEOToAEGViuhclM7pXC75R.jpg',
           imageUrl: API.requestImg(posterPath ?? ''),
           width: posterWidth,
           placeholder: (_, __) {
