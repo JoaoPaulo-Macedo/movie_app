@@ -57,6 +57,8 @@ abstract class _ListController with Store {
       moviesList = moviesList!.copyWith(movies: _cachedMovies[page]!);
     }
 
+    if (textController.text.isNotEmpty) onSearch(textController.text);
+
     isLoading = false;
   }
 

@@ -44,7 +44,19 @@ class _ListPageState extends State<ListPage> {
           },
           child: Scaffold(
             appBar: AppBar(
-              actions: [SearchAppBarAction(controller: controller)],
+              leading: controller.isSearching ? const SizedBox() : null,
+              actions: [
+                if (!controller.isSearching)
+                  IconButton(
+                    icon: const Icon(Icons.search),
+                    onPressed: () {
+                      controller.isSearching = true;
+                      controller.searchFocus.requestFocus();
+                    },
+                  ),
+                if (controller.isSearching)
+                  SearchAppBarAction(controller: controller),
+              ],
             ),
             body: Padding(
               padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
