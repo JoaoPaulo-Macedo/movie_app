@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:movie_app/domain/entities/movie_entity.dart';
 import 'package:movie_app/domain/entities/movies_list_entity.dart';
-import 'package:movie_app/domain/usecases/favorite_movies_list_usecase.dart';
 import 'package:movie_app/domain/usecases/get_movies_list_usecase.dart';
 import 'package:movie_app/presentation/dtos/movies_list_dto.dart';
 import 'package:movie_app/presentation/pages/movie/movie_details_page.dart';
