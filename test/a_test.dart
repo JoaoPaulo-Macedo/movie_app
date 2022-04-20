@@ -1,10 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:movie_app/app/data/repositories/account_details_repository_imp.dart';
 import 'package:movie_app/app/data/repositories/auth_repository_imp.dart';
 import 'package:movie_app/app/data/repositories/movies_list_repository_imp.dart';
 import 'package:movie_app/app/domain/entities/login_params_entity.dart';
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
+import 'package:movie_app/app/domain/usecases/get_account_details_usecase.dart';
 import 'package:movie_app/app/domain/usecases/get_movies_list_usecase_imp.dart';
 import 'package:movie_app/app/domain/usecases/login_user_usecase.dart';
 import 'package:movie_app/app/external/datasource/local/auth_local_datasource_imp.dart';
@@ -41,12 +43,16 @@ void main() {
   //   expect('a', a);
   // });
 
-  test('description', () async{
-    var datasource = AccountDetailsDataSourceImp(
-      DioHttpServiceImp(),
-      AuthenticationLocalDataSourceImp(),
+  test('description', () async {
+    var usecase = GetAccountDetailsUseCaseImp(
+      AccountDetailsRepositoryImp(
+        AccountDetailsDataSourceImp(
+          DioHttpServiceImp(),
+          AuthenticationLocalDataSourceImp(),
+        ),
+      ),
     );
 
-    expect(await datasource(), 'a');
+    expect(await usecase(), 'a');
   });
 }
