@@ -8,6 +8,7 @@ import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/app/domain/usecases/get_movies_list_usecase_imp.dart';
 import 'package:movie_app/app/domain/usecases/login_user_usecase.dart';
 import 'package:movie_app/app/external/datasource/local/auth_local_datasource_imp.dart';
+import 'package:movie_app/app/external/datasource/remote/account_details_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/auth_remote_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/movies_list_datasource_imp.dart';
 import 'package:movie_app/core/data/services/dio_service_imp.dart';
@@ -23,20 +24,29 @@ void main() {
   //   expect(list, isInstanceOf<MoviesListEntity>());
   // });
 
-  test('viagem', () async {
-    var usecase = LoginUserUseCaseImp(
-      AuthenticationRepositoryImp(
-        AuthenticationRemoteDataSourceImp(
-          DioHttpServiceImp(),
-        ),
-        AuthenticationLocalDataSourceImp(),
-      ),
+  // test('viagem', () async {
+  //   var usecase = LoginUserUseCaseImp(
+  //     AuthenticationRepositoryImp(
+  //       AuthenticationRemoteDataSourceImp(
+  //         DioHttpServiceImp(),
+  //       ),
+  //       AuthenticationLocalDataSourceImp(),
+  //     ),
+  //   );
+
+  //   // var params = LoginParamsEntity(userName: 'macedo.722', password: 'ninaekiara');
+
+  //   var a = await usecase('macedo.722', 'ninaekiara');
+
+  //   expect('a', a);
+  // });
+
+  test('description', () async{
+    var datasource = AccountDetailsDataSourceImp(
+      DioHttpServiceImp(),
+      AuthenticationLocalDataSourceImp(),
     );
 
-    // var params = LoginParamsEntity(userName: 'macedo.722', password: 'ninaekiara');
-
-    var a = await usecase('macedo.722', 'ninaekiara');
-
-    expect('a', a);
+    expect(await datasource(), 'a');
   });
 }

@@ -5,8 +5,15 @@ class AuthenticationLocalDataSourceImp extends AuthenticationLocalDataSource {
   final String _key = 'sessionId';
 
   @override
-  saveSessionId(String sessionId) async {
+  void saveSessionId(String sessionId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(_key, sessionId);
+    await prefs.setString(_key, sessionId);
+  }
+
+  @override
+  Future<String?> getSessionId() async {
+    return '01347c6d5e30edc15b253ba5a0e9eaf1b8920590';
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    // return prefs.getString(_key);
   }
 }

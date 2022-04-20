@@ -1,3 +1,4 @@
 abstract class AuthenticationLocalDataSource {
-  saveSessionId(String sessionId);
+  void saveSessionId(String sessionId);
+  Future<String?> getSessionId();
 }

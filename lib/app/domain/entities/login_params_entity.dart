@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class LoginParamsEntity {
   LoginParamsEntity({
     required this.username,

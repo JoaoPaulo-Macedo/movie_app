@@ -29,7 +29,7 @@ class AuthenticationRepositoryImp implements AuthenticationRepository {
             await _dataSource.createSession(validateWithLogin.toJson());
 
         if (sessionId != null) {
-          await _localDataSource.saveSessionId(sessionId);
+          _localDataSource.saveSessionId(sessionId);
         }
 
         print(sessionId);
@@ -37,7 +37,6 @@ class AuthenticationRepositoryImp implements AuthenticationRepository {
         rethrow;
       }
 
-      // return true;
       return true;
     } catch (e) {
       rethrow;
