@@ -17,23 +17,29 @@ class MoviesListEntity {
     required this.totalPages,
     required this.totalResults,
   });
-  
-  late final num? averageRating;
-  late final CreatedByEntity? createdBy;
-  late final String? description;
-  late final int id;
-  late final String name;
-  late final int page;
-  late final bool? public;
-  late final List<MovieEntity> movies;
-  late final int? revenue;
-  late final int? runtime;
-  late final String? sortBy;
-  late final int totalPages;
-  late final int totalResults;
+
+  /* late  */final num? averageRating;
+  /* late  */final CreatedByEntity? createdBy;
+  /* late  */final String? description;
+  /* late  */final int id;
+  /* late  */final String name;
+  /* late  */final int page;
+  /* late  */final bool? public;
+  /* late  */final List<MovieEntity> movies;
+  /* late  */final int? revenue;
+  /* late  */final int? runtime;
+  /* late  */final String? sortBy;
+  /* late  */final int totalPages;
+  /* late  */final int totalResults;
 
   @override
   String toString() {
-    return "averageRating: $averageRating;\ncreatedBy: $createdBy;\ndescription: $description;\nid: $id;\nname: $name;\npage: $page;\npublic: $public;\nmovies: $movies;\nrevenue: $revenue;\nruntime: $runtime;\nsortBy: $sortBy;\ntotalPages: $totalPages;\ntotalResults: $totalResults;\n";
+    List<String> moviesToString = [];
+    
+    for(var e in movies) {
+      moviesToString.add(e.title);
+    }
+
+    return "name: $name, totalResults: $totalResults, movies: $moviesToString";
   }
 }

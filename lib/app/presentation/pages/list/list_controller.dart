@@ -62,8 +62,9 @@ abstract class _ListController with Store {
   }
 
   @action
-  onSearch(String value) {
+  onSearch(String? value) {
     if (_cachedMovies.isEmpty) return;
+    if (value == null) return;
 
     List<MovieEntity> list = _cachedMovies[page]!
         .where((e) => e.title.toLowerCase().contains(value.toLowerCase()))

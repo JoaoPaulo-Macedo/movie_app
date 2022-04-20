@@ -30,7 +30,7 @@ class SearchAppBarAction extends StatelessWidget {
               icon: const Icon(Icons.close, color: Colors.white),
               onPressed: () {
                 controller.textController.clear();
-                controller.onSearch('');
+                controller.onSearch(null);
                 controller.isSearching = false;
               },
             ),

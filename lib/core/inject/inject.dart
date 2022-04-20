@@ -1,6 +1,14 @@
 import 'package:get_it/get_it.dart';
+import 'package:movie_app/app/data/datasource/auth_local_datasource.dart';
+import 'package:movie_app/app/data/datasource/auth_remote_datasource.dart';
 import 'package:movie_app/app/data/datasource/lists_local_datasource.dart';
+import 'package:movie_app/app/data/repositories/auth_repository_imp.dart';
+import 'package:movie_app/app/domain/repositories/auth_repository.dart';
+import 'package:movie_app/app/domain/usecases/login_user_usecase.dart';
+import 'package:movie_app/app/external/datasource/local/auth_local_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/local/lists_local_datasource_imp.dart';
+import 'package:movie_app/app/external/datasource/remote/auth_remote_datasource_imp.dart';
+import 'package:movie_app/app/presentation/pages/login/login_controller.dart';
 import 'package:movie_app/core/data/services/dio_service_imp.dart';
 import 'package:movie_app/core/domain/services/http_service.dart';
 import 'package:movie_app/app/data/datasource/lists_remote_datasource.dart';
@@ -39,6 +47,12 @@ class Inject {
     getIt.registerLazySingleton<ListsRemoteDataSource>(
       () => ListsRemoteDataSourceImp(getIt()),
     );
+    getIt.registerLazySingleton<AuthenticationRemoteDataSource>(
+      () => AuthenticationRemoteDataSourceImp(getIt()),
+    );
+    getIt.registerLazySingleton<AuthenticationLocalDataSource>(
+      () => AuthenticationLocalDataSourceImp(),
+    );
 
     // Repositories
     getIt.registerLazySingleton<MoviesListRepository>(
@@ -46,6 +60,9 @@ class Inject {
     );
     getIt.registerLazySingleton<ListsRepository>(
       () => ListsRepositoryImp(getIt()),
+    );
+    getIt.registerLazySingleton<AuthenticationRepository>(
+      () => AuthenticationRepositoryImp(getIt(), getIt()),
     );
 
     // UseCases
@@ -55,10 +72,16 @@ class Inject {
     getIt.registerLazySingleton<GetAllListsUseCase>(
       () => GetAllListsUseCaseImp(getIt()),
     );
+    getIt.registerLazySingleton<LoginUserUseCase>(
+      () => LoginUserUseCaseImp(getIt()),
+    );
 
     // Controllers
     getIt.registerLazySingleton<HomeController>(
       () => HomeController(getIt()),
+    );
+    getIt.registerLazySingleton<LoginController>(
+      () => LoginController(getIt()),
     );
   }
 }

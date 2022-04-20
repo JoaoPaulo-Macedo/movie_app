@@ -155,7 +155,7 @@ mixin _$ListController on _ListController, Store {
       ActionController(name: '_ListController');
 
   @override
-  dynamic onSearch(String value) {
+  dynamic onSearch(String? value) {
     final _$actionInfo = _$_ListControllerActionController.startAction(
         name: '_ListController.onSearch');
     try {
