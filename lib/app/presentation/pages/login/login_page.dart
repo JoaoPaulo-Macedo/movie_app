@@ -5,6 +5,7 @@ import 'package:movie_app/app/domain/usecases/login_usecase.dart';
 import 'package:movie_app/app/presentation/components/login_form.dart';
 import 'package:movie_app/app/presentation/components/logo.dart';
 import 'package:movie_app/app/presentation/pages/login/login_controller.dart';
+import 'package:movie_app/core/inject/inject.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -20,8 +21,12 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
 
-    controller =
-        LoginController(GetIt.instance.get<LoginUseCase>(), context: context);
+    Inject.init();
+
+    controller = LoginController(
+      GetIt.instance.get<LoginUseCase>(),
+      context: context,
+    );
   }
 
   @override

@@ -1,3 +1,5 @@
+// ignore_for_file: curly_braces_in_flow_control_structures
+
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:movie_app/app/domain/entities/account_details_entity.dart';
@@ -40,11 +42,9 @@ abstract class _AppDrawerController with Store {
 
   @action
   onTap(BuildContext context, {required String routeName}) {
-    if (currentPage == routeName) {
-      print('same porra');
-      Navigator.pop(context);
-    } else {
-      Navigator.pushNamedAndRemoveUntil(context, routeName, (route) => false);
-    }
+    if (currentPage == routeName) Navigator.pop(context);
+    
+    else Navigator.pushNamedAndRemoveUntil(context, routeName, (route) => false);
+    
   }
 }

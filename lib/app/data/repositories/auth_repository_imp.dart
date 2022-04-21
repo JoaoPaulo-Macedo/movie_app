@@ -27,7 +27,6 @@ class AuthenticationRepositoryImp implements AuthenticationRepository {
       );
       await _localSessionDataSource.saveSessionId(sessionId);
 
-      print(sessionId);
       return true;
     } catch (e) {
       rethrow;

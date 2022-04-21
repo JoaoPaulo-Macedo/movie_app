@@ -13,12 +13,6 @@ class AuthenticationRemoteDataSourceImp extends AuthenticationRemoteDataSource {
   Future<RequestTokenDTO> getRequestToken() async {
     final Response response = await _httpService.get(API.requestToken);
 
-    print(response.data);
-    // return RequestTokenDTO.fromJson({
-    //   'success': true,
-    //   'expires_at': '2022-04-20 22:04:07 UTC',
-    //   'request_token': '7bd237790c0d0207f9c6bd68e86690035dc73029',
-    // });
     return RequestTokenDTO.fromJson(response.data);
   }
 
@@ -30,7 +24,6 @@ class AuthenticationRemoteDataSourceImp extends AuthenticationRemoteDataSource {
       queryParamaters: requestBody,
     );
 
-    print(response.data);
     return RequestTokenDTO.fromJson(response.data);
   }
 
@@ -43,7 +36,6 @@ class AuthenticationRemoteDataSourceImp extends AuthenticationRemoteDataSource {
 
     //session id: 01347c6d5e30edc15b253ba5a0e9eaf1b8920590
 
-    print(response.data);
     return response.data['success'] ? response.data['session_id'] : null;
   }
 }

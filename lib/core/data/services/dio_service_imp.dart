@@ -29,10 +29,8 @@ class DioHttpServiceImp implements HttpService {
   @override
   post(String path, {Map<String, dynamic>? queryParamaters}) async {
     try {
-      print(queryParamaters);
       Response response = await _dio.post(path, data: queryParamaters);
 
-      print(response.data);
       return response;
     } catch (e) {
       rethrow;

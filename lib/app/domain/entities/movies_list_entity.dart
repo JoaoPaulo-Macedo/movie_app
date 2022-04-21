@@ -3,10 +3,11 @@ import 'package:movie_app/app/domain/entities/movie_entity.dart';
 
 class MoviesListEntity {
   MoviesListEntity({
+    required this.id,
     required this.averageRating,
     required this.createdBy,
     required this.description,
-    required this.id,
+    required this.posterPath,
     required this.name,
     required this.page,
     required this.public,
@@ -18,25 +19,26 @@ class MoviesListEntity {
     required this.totalResults,
   });
 
-  /* late  */final num? averageRating;
-  /* late  */final CreatedByEntity? createdBy;
-  /* late  */final String? description;
-  /* late  */final int id;
-  /* late  */final String name;
-  /* late  */final int page;
-  /* late  */final bool? public;
-  /* late  */final List<MovieEntity> movies;
-  /* late  */final int? revenue;
-  /* late  */final int? runtime;
-  /* late  */final String? sortBy;
-  /* late  */final int totalPages;
-  /* late  */final int totalResults;
+  final int id;
+  final num? averageRating;
+  final CreatedByEntity? createdBy;
+  final String? description;
+  final String? posterPath;
+  final String name;
+  final int page;
+  final bool? public;
+  final List<MovieEntity> movies;
+  final int? revenue;
+  final int? runtime;
+  final String? sortBy;
+  final int totalPages;
+  final int totalResults;
 
   @override
   String toString() {
     List<String> moviesToString = [];
-    
-    for(var e in movies) {
+
+    for (var e in movies) {
       moviesToString.add(e.title);
     }
 

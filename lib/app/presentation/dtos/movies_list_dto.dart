@@ -1,14 +1,14 @@
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
-// Passar pro DTO do data
+
+// TODO: Passar pro DTO do data
 extension MoviesListDTO on MoviesListEntity {
-  MoviesListEntity copyWith({
-    List<MovieEntity>? movies,
-  }) {
+  MoviesListEntity copyWith({List<MovieEntity>? movies}) {
     return MoviesListEntity(
       averageRating: averageRating,
       createdBy: createdBy,
       description: description,
+      posterPath: posterPath,
       id: id,
       name: name,
       page: page,

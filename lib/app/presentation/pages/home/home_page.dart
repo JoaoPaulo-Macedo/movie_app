@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final GlobalKey<ScaffoldState> _key = GlobalKey();
+  // final GlobalKey<ScaffoldState> _key = GlobalKey();
   late HomeController controller;
 
   @override
@@ -45,6 +45,7 @@ class _HomePageState extends State<HomePage> {
           //   ),
           // ),
           drawer: const AppDrawer(),
+          //TODO: make a component of it
           body: Padding(
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
             child: Column(

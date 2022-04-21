@@ -1,28 +1,22 @@
 import 'dart:convert';
-import 'package:movie_app/app/data/datasource/lists_local_datasource.dart';
-import 'package:movie_app/app/data/datasource/lists_remote_datasource.dart';
+import 'package:movie_app/app/data/datasource/lists_cache_datasource.dart';
 import 'package:movie_app/app/data/dtos/list_identifier_dto.dart';
 import 'package:movie_app/app/domain/entities/list_identifier_entity.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ListsLocalDataSourceImp extends ListsLocalDataSource {
-  ListsLocalDataSourceImp(this._remoteDataSource);
-
-  final ListsRemoteDataSource _remoteDataSource;
+class ListsCacheDataSourceImp extends ListsCacheDataSource {
+  ListsCacheDataSourceImp();
 
   final _key = 'lists';
 
   @override
-  Future<List<ListIdentifierEntity>> call(int amount) async {
+  Future<List<ListIdentifierEntity>> getListsFromCache() async {
     // List values = jsonDecode(await rootBundle.loadString('assets/lists.json'));
     final prefs = await SharedPreferences.getInstance();
     List<String>? stringList = prefs.getStringList(_key);
     List<ListIdentifierEntity> lists = [];
 
-    if (stringList == null) {
-      lists = await _remoteDataSource(amount);
-      _saveToCache(lists);
-    } else {
+    if (stringList != null) {
       for (var e in stringList) {
         lists.add(ListIdentifierDTO.fromJson(jsonDecode(e)));
       }
@@ -31,7 +25,8 @@ class ListsLocalDataSourceImp extends ListsLocalDataSource {
     return lists;
   }
 
-  void _saveToCache(List<ListIdentifierEntity> lists) async {
+  @override
+  void saveListsToCache(List<ListIdentifierEntity> lists) async {
     final prefs = await SharedPreferences.getInstance();
     List<String> stringList = [];
 

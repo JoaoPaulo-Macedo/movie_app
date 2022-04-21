@@ -8,6 +8,7 @@ extension MoviesListDTO on MoviesListEntity {
       averageRating: json['average_rating'],
       createdBy: CreatedByDTO.fromJson(json['created_by']),
       description: json['description'],
+      posterPath: json['poster_path'],
       id: json['id'],
       name: json['name'],
       page: json['page'],
@@ -26,6 +27,7 @@ extension MoviesListDTO on MoviesListEntity {
     _data['average_rating'] = averageRating;
     _data['created_by'] = createdBy?.toJson();
     _data['description'] = description;
+    _data['poster_path'] = posterPath;
     _data['id'] = id;
     _data['name'] = name;
     _data['page'] = page;

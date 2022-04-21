@@ -47,6 +47,20 @@ mixin _$AppDrawerController on _AppDrawerController, Store {
     return _$logOutAsyncAction.run(() => super.logOut(context));
   }
 
+  final _$_AppDrawerControllerActionController =
+      ActionController(name: '_AppDrawerController');
+
+  @override
+  dynamic onTap(BuildContext context, {required String routeName}) {
+    final _$actionInfo = _$_AppDrawerControllerActionController.startAction(
+        name: '_AppDrawerController.onTap');
+    try {
+      return super.onTap(context, routeName: routeName);
+    } finally {
+      _$_AppDrawerControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

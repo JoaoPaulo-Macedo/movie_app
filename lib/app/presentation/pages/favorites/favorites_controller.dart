@@ -1,40 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:movie_app/app/domain/entities/favorite_movies_list_entity.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
-import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
-import 'package:movie_app/app/domain/usecases/get_movies_list_usecase.dart';
-import 'package:movie_app/app/presentation/dtos/movies_list_dto.dart';
+import 'package:movie_app/app/domain/usecases/get_favorite_movies_list_usecase.dart';
+import 'package:movie_app/app/presentation/dtos/favorite_movies_list_dto.dart';
 import 'package:movie_app/app/presentation/pages/movie/movie_details_page.dart';
 
-part 'list_controller.g.dart';
+part 'favorites_controller.g.dart';
 
-class ListController = _ListController with _$ListController;
+class FavoritesController = _FavoritesController with _$FavoritesController;
 
-abstract class _ListController with Store {
-  _ListController(
-    this._useCase, {
-    required this.listId,
-  }) {
+// TODO: make favorites and home controller one
+abstract class _FavoritesController with Store {
+  _FavoritesController(this._useCase) {
     fetch();
   }
 
-  final GetMoviesListUseCase _useCase;
+  final GetFavoriteMoviesListUseCase _useCase;
 
   @observable
-  MoviesListEntity? moviesList;
+  FavoriteMoviesListEntity? moviesList;
   @observable
   // ignore: prefer_final_fields
   Map<int, List<MovieEntity>> _cachedMovies = {};
-
-  // @computed
-  // bool get valid => isLoading && isSearching;
-
-  @observable
-  int listId;
   @observable
   int page = 1;
-  @observable
-  bool favorite = false;
 
   @observable
   bool isLoading = true;
@@ -45,12 +35,11 @@ abstract class _ListController with Store {
   @observable
   TextEditingController textController = TextEditingController();
 
-  @action
   fetch() async {
     isLoading = true;
 
     if (_cachedMovies.isEmpty || !_cachedMovies.keys.contains(page)) {
-      moviesList = await _useCase(list: listId, page: page);
+      moviesList = await _useCase(page);
       _cachedMovies[page] = moviesList!.movies;
     } else {
       moviesList = moviesList!.copyWith(movies: _cachedMovies[page]!);

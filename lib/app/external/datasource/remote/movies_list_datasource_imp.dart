@@ -6,6 +6,7 @@ import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 
 class MoviesListDatasourceImp implements MoviesListDataSource {
   MoviesListDatasourceImp(this._httpService);
+  
   final HttpService _httpService;
 
   @override
