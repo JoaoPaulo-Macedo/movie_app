@@ -29,7 +29,7 @@ class AppCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(15),
       child: Container(
         height: 140,
-        decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+        decoration: BoxDecoration(color: Theme.of(context).cardColor),
         child: Material(
           color: Colors.transparent,
           child: InkWell(

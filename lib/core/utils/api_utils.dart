@@ -1,11 +1,11 @@
 // ignore_for_file: constant_identifier_names
 
 class API {
+  static const _apiKey = '21fe132d9740e702eadbfa7c5f8476ff';
+  
   static requestImg(String img) => 'https://image.tmdb.org/t/p/w500/$img';
 
   static requestMoviesList(int list, int page) => '4/list/$list?page=$page';
-
-  static const _apiKey = '21fe132d9740e702eadbfa7c5f8476ff';
 
   static const requestToken = '3/authentication/token/new?api_key=$_apiKey';
   static const validateWithLogin =

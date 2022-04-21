@@ -13,7 +13,9 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  final primaryColor = const Color.fromARGB(255, 20, 15, 15);
+  final primaryColor = const Color.fromARGB(255, 221, 164, 30);
+  final cardColor = const Color.fromARGB(255, 15, 15, 15);
+  final buttonColor = const Color.fromARGB(255, 130, 90, 0);
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +23,18 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData.dark().copyWith(
         primaryColor: primaryColor,
+        cardColor: cardColor,
         scaffoldBackgroundColor: Colors.black,
-        appBarTheme: AppBarTheme(backgroundColor: primaryColor),
+        appBarTheme: AppBarTheme(backgroundColor: cardColor),
+        drawerTheme: const DrawerThemeData(
+          backgroundColor: Colors.black87,
+          elevation: 0,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(buttonColor),
+          ),
+        ),
       ),
       debugShowCheckedModeBanner: false,
       initialRoute: '/login',

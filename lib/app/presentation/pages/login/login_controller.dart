@@ -29,11 +29,10 @@ abstract class _LoginController with Store {
 
   void fetch() async {
     //TODO: solve context problem
+    //TODO: check if sessionId is still valid, does it have validation date?
     if (await _usecase.isLogedIn()) {
-      print('Vamos ver essa p00taria');
       Navigator.popAndPushNamed(context!, '/splash');
     } else {
-      print('Que viagem');
       listenToControllers();
       build = true;
     }

@@ -14,6 +14,8 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Column(
@@ -22,7 +24,7 @@ class _LoginFormState extends State<LoginForm> {
           Container(
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
-              color: Colors.grey[900],
+              color: theme.cardColor,
               borderRadius: BorderRadius.circular(10),
             ),
             child: Column(
@@ -30,13 +32,16 @@ class _LoginFormState extends State<LoginForm> {
                 TextField(
                   focusNode: widget.controller.usernameFocus,
                   controller: widget.controller.usernameController,
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: theme.textTheme.bodyText2,
                   cursorColor: Colors.white,
                   maxLength: 40,
                   decoration: InputDecoration(
                     labelText: 'Username',
-                    labelStyle: Theme.of(context).textTheme.bodyText2,
+                    labelStyle: theme.textTheme.bodyText2,
                     counterText: '',
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: theme.primaryColor, width: 1.5),
+                    ),
                   ),
                 ),
                 TextField(
@@ -44,13 +49,16 @@ class _LoginFormState extends State<LoginForm> {
                   obscureText: true,
                   obscuringCharacter: '*',
                   controller: widget.controller.passwordController,
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: theme.textTheme.bodyText2,
                   cursorColor: Colors.white,
                   maxLength: 80,
                   decoration: InputDecoration(
                     labelText: 'Password',
-                    labelStyle: Theme.of(context).textTheme.bodyText2,
+                    labelStyle: theme.textTheme.bodyText2,
                     counterText: '',
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: theme.primaryColor, width: 1.5),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 15),
@@ -58,11 +66,16 @@ class _LoginFormState extends State<LoginForm> {
                   builder: (_) {
                     if (widget.controller.isLoading) {
                       return Container(
-                        margin:
-                            const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+                        margin: const EdgeInsets.symmetric(
+                          vertical: 10,
+                          horizontal: 30,
+                        ),
                         width: 28,
                         height: 28,
-                        child: const CircularProgressIndicator(strokeWidth: 2),
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: theme.primaryColor,
+                        ),
                       );
                     }
 
@@ -70,6 +83,15 @@ class _LoginFormState extends State<LoginForm> {
                       style: ButtonStyle(
                         padding: MaterialStateProperty.all(
                           const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+                        ),
+                        foregroundColor: MaterialStateProperty.resolveWith(
+                          (states) {
+                            if (states.contains(MaterialState.disabled)) {
+                              return null;
+                            }
+
+                            return theme.primaryColor;
+                          },
                         ),
                       ),
                       onPressed: widget.controller.isSignInEnabled

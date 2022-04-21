@@ -1,12 +1,18 @@
 import 'package:get_it/get_it.dart';
+import 'package:movie_app/app/data/datasource/account_details_datasource.dart';
 import 'package:movie_app/app/data/datasource/auth_local_datasource.dart';
 import 'package:movie_app/app/data/datasource/auth_remote_datasource.dart';
 import 'package:movie_app/app/data/datasource/lists_local_datasource.dart';
+import 'package:movie_app/app/data/repositories/account_details_repository_imp.dart';
 import 'package:movie_app/app/data/repositories/auth_repository_imp.dart';
+import 'package:movie_app/app/domain/repositories/account_details_repository.dart';
 import 'package:movie_app/app/domain/repositories/auth_repository.dart';
+import 'package:movie_app/app/domain/usecases/get_account_details_usecase.dart';
 import 'package:movie_app/app/domain/usecases/login_usecase.dart';
+import 'package:movie_app/app/external/datasource/local/account_details_local_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/local/auth_local_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/local/lists_local_datasource_imp.dart';
+import 'package:movie_app/app/external/datasource/remote/account_details_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/auth_remote_datasource_imp.dart';
 import 'package:movie_app/app/presentation/pages/drawer/app_drawer_controller.dart';
 import 'package:movie_app/app/presentation/pages/login/login_controller.dart';
@@ -54,6 +60,12 @@ class Inject {
     getIt.registerLazySingleton<AuthenticationLocalDataSource>(
       () => AuthenticationLocalDataSourceImp(),
     );
+    getIt.registerLazySingleton<AccountDetailsLocalDataSource>(
+      () => AccountDetailsLocalDataSource(),
+    );
+    getIt.registerLazySingleton<AccountDetailsDataSource>(
+      () => AccountDetailsDataSourceImp(getIt(), getIt()),
+    );
 
     // Repositories
     getIt.registerLazySingleton<MoviesListRepository>(
@@ -65,6 +77,9 @@ class Inject {
     getIt.registerLazySingleton<AuthenticationRepository>(
       () => AuthenticationRepositoryImp(getIt(), getIt()),
     );
+    getIt.registerLazySingleton<AccountDetailsRepository>(
+      () => AccountDetailsRepositoryImp(getIt(), getIt()),
+    );
 
     // UseCases
     getIt.registerLazySingleton<GetMoviesListUseCase>(
@@ -74,7 +89,10 @@ class Inject {
       () => GetAllListsUseCaseImp(getIt()),
     );
     getIt.registerLazySingleton<LoginUseCase>(
-      () => LoginUserUseCaseImp(getIt()),
+      () => LoginUserUseCaseImp(getIt(), getIt()),
+    );
+    getIt.registerLazySingleton<GetAccountDetailsUseCase>(
+      () => GetAccountDetailsUseCaseImp(getIt()),
     );
 
     // Controllers
@@ -85,7 +103,7 @@ class Inject {
       () => LoginController(getIt()),
     );
     getIt.registerLazySingleton<AppDrawerController>(
-      () => AppDrawerController(getIt()),
+      () => AppDrawerController(getIt(), getIt()),
     );
   }
 }

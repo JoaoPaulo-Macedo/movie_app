@@ -4,10 +4,13 @@ import 'package:movie_app/app/domain/entities/login_params_entity.dart';
 import 'package:movie_app/app/domain/repositories/auth_repository.dart';
 
 class AuthenticationRepositoryImp implements AuthenticationRepository {
-  AuthenticationRepositoryImp(this._dataSource, this._localDataSource);
+  AuthenticationRepositoryImp(
+    this._remoteAuthDataSource,
+    this._localSessionDataSource,
+  );
 
-  final AuthenticationRemoteDataSource _dataSource;
-  final AuthenticationLocalDataSource _localDataSource;
+  final AuthenticationRemoteDataSource _remoteAuthDataSource;
+  final AuthenticationLocalDataSource _localSessionDataSource;
 
   @override
   Future<bool> loginUser(LoginParamsEntity loginParams) async {
@@ -17,10 +20,12 @@ class AuthenticationRepositoryImp implements AuthenticationRepository {
       Map<String, dynamic> params = loginParams.toJson();
       params.putIfAbsent('request_token', () => token);
 
-      var validateWithLogin = await _dataSource.validateWithLogin(params);
+      var validateWithLogin = await _remoteAuthDataSource.validateWithLogin(params);
 
-      final sessionId = await _dataSource.createSession(validateWithLogin.toJson());
-      await _localDataSource.saveSessionId(sessionId);
+      final sessionId = await _remoteAuthDataSource.createSession(
+        validateWithLogin.toJson(),
+      );
+      await _localSessionDataSource.saveSessionId(sessionId);
 
       print(sessionId);
       return true;
@@ -31,7 +36,7 @@ class AuthenticationRepositoryImp implements AuthenticationRepository {
 
   Future<String> _requestToken() async {
     try {
-      final request = await _dataSource.getRequestToken();
+      final request = await _remoteAuthDataSource.getRequestToken();
 
       return request.requestToken;
     } catch (e) {
@@ -41,13 +46,13 @@ class AuthenticationRepositoryImp implements AuthenticationRepository {
 
   @override
   Future<bool> isLogedIn() async {
-    var sessionId = await _localDataSource.getSessionId();
+    var sessionId = await _localSessionDataSource.getSessionId();
 
     return sessionId != null;
   }
 
   @override
   logoutUser() async {
-    await _localDataSource.deleteSessionId();
+    await _localSessionDataSource.deleteSessionId();
   }
 }
