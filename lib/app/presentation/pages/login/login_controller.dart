@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:movie_app/app/domain/usecases/login_usecase.dart';
+import 'package:movie_app/core/utils/routes_name.dart';
 
 part 'login_controller.g.dart';
 
@@ -31,7 +32,7 @@ abstract class _LoginController with Store {
     //TODO: solve context problem
     //TODO: check if sessionId is still valid, does it have validation date?
     if (await _usecase.isLogedIn()) {
-      Navigator.popAndPushNamed(context!, '/splash');
+      Navigator.popAndPushNamed(context!, RoutesName.splash);
     } else {
       listenToControllers();
       build = true;
@@ -58,7 +59,7 @@ abstract class _LoginController with Store {
       errorMessage = 'Failed to Login';
       isLoading = false;
     } else {
-      Navigator.popAndPushNamed(context, '/splash');
+      Navigator.popAndPushNamed(context, RoutesName.splash);
     }
   }
 

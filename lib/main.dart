@@ -4,6 +4,7 @@ import 'package:movie_app/app/presentation/pages/list/list_page.dart';
 import 'package:movie_app/app/presentation/pages/login/login_page.dart';
 import 'package:movie_app/app/presentation/pages/splash/splash_page.dart';
 import 'package:movie_app/core/inject/inject.dart';
+import 'package:movie_app/core/utils/routes_name.dart';
 
 void main() {
   Inject.init();
@@ -37,12 +38,12 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/login',
+      initialRoute: RoutesName.login,
       routes: {
-        '/login': (context) => const LoginPage(),
-        '/splash': (context) => const SplashPage(),
-        '/initial': (context) => const HomePage(),
-        '/movies_list': (context) => const ListPage(),
+        RoutesName.login: (context) => const LoginPage(),
+        RoutesName.splash: (context) => const SplashPage(),
+        RoutesName.initial: (context) => const HomePage(),
+        RoutesName.list: (context) => const ListPage(),
       },
     );
   }

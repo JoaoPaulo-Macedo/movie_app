@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/core/utils/routes_name.dart';
 
 class SplashPageController {
   SplashPageController();
@@ -6,6 +7,6 @@ class SplashPageController {
   void call(BuildContext context) async {
     await Future.delayed(const Duration(seconds: 5));
 
-    Navigator.popAndPushNamed(context, '/initial');
+    Navigator.popAndPushNamed(context, RoutesName.initial);
   }
 }

@@ -3,6 +3,7 @@ import 'package:mobx/mobx.dart';
 import 'package:movie_app/app/domain/entities/account_details_entity.dart';
 import 'package:movie_app/app/domain/usecases/get_account_details_usecase.dart';
 import 'package:movie_app/app/domain/usecases/login_usecase.dart';
+import 'package:movie_app/core/utils/routes_name.dart';
 
 part 'app_drawer_controller.g.dart';
 
@@ -29,6 +30,6 @@ abstract class _AppDrawerController with Store {
   logOut(BuildContext context) async {
     await _logOutUseCase.logOut();
 
-    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+    Navigator.pushNamedAndRemoveUntil(context, RoutesName.login, (route) => false);
   }
 }
