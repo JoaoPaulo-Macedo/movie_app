@@ -21,6 +21,7 @@ abstract class _AppDrawerController with Store {
   AccountDetailsEntity? accountDetails;
   @observable
   bool isLoading = false;
+  String? currentPage;
 
   fetch() async {
     accountDetails ??= await _accountDetailsUseCase();
@@ -31,5 +32,19 @@ abstract class _AppDrawerController with Store {
     await _logOutUseCase.logOut();
 
     Navigator.pushNamedAndRemoveUntil(context, RoutesName.login, (route) => false);
+  }
+
+  checkCurrentPage(BuildContext context) {
+    currentPage = ModalRoute.of(context)!.settings.name;
+  }
+
+  @action
+  onTap(BuildContext context, {required String routeName}) {
+    if (currentPage == routeName) {
+      print('same porra');
+      Navigator.pop(context);
+    } else {
+      Navigator.pushNamedAndRemoveUntil(context, routeName, (route) => false);
+    }
   }
 }

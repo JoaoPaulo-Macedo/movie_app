@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:movie_app/app/presentation/components/app_drawer_tile.dart';
 import 'package:movie_app/app/presentation/components/logo.dart';
 import 'package:movie_app/app/presentation/pages/drawer/app_drawer_controller.dart';
 import 'package:movie_app/core/utils/routes_name.dart';
@@ -25,16 +26,8 @@ class _AppDrawerState extends State<AppDrawer> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final enabledColor = theme.primaryColor;
-    const disabledColor = Colors.white;
 
-    final enabledStyle = theme.textTheme.subtitle1!.copyWith(
-      color: enabledColor,
-      fontWeight: FontWeight.w700,
-    );
-    final disabledStyle = theme.textTheme.subtitle1!.copyWith(color: disabledColor);
-
-    final currentPage = ModalRoute.of(context)!.settings.name;
+    controller.checkCurrentPage(context);
 
     return Drawer(
       child: Stack(
@@ -73,59 +66,17 @@ class _AppDrawerState extends State<AppDrawer> {
                   ],
                 ),
               ),
-              ListTile(
-                title: Row(
-                  children: [
-                    Icon(
-                      Icons.home_filled,
-                      size: 16,
-                      color: currentPage == RoutesName.initial
-                          ? enabledColor
-                          : disabledColor,
-                    ),
-                    const SizedBox(width: 5),
-                    Text(
-                      'Home',
-                      style: currentPage == RoutesName.initial
-                          ? enabledStyle
-                          : disabledStyle,
-                    ),
-                  ],
-                ),
-                onTap: () {
-                  if (currentPage == RoutesName.initial) {
-                    Navigator.pop(context);
-                  } else {
-                    Navigator.popAndPushNamed(context, RoutesName.initial);
-                  }
-                },
+              AppDrawerTile(
+                title: 'Home',
+                icon: Icons.home,
+                isEnabled: controller.currentPage == RoutesName.initial,
+                onTap: () => controller.onTap(context, routeName: RoutesName.initial),
               ),
-              ListTile(
-                title: Row(
-                  children: [
-                    Icon(
-                      Icons.favorite_rounded,
-                      size: 16,
-                      color: currentPage == RoutesName.favorites
-                          ? enabledColor
-                          : disabledColor,
-                    ),
-                    const SizedBox(width: 5),
-                    Text(
-                      'Favorite Movies',
-                      style: currentPage == RoutesName.favorites
-                          ? enabledStyle
-                          : disabledStyle,
-                    ),
-                  ],
-                ),
-                onTap: () {
-                  if (currentPage == RoutesName.favorites) {
-                    Navigator.pop(context);
-                  } else {
-                    Navigator.popAndPushNamed(context, RoutesName.favorites);
-                  }
-                },
+              AppDrawerTile(
+                title: 'Favorite Movies',
+                icon: Icons.favorite,
+                isEnabled: controller.currentPage == RoutesName.favorites,
+                onTap: () => controller.onTap(context, routeName: RoutesName.favorites),
               ),
             ],
           ),

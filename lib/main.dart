@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/app/presentation/pages/favorites/favorites_page.dart';
 import 'package:movie_app/app/presentation/pages/home/home_page.dart';
 import 'package:movie_app/app/presentation/pages/list/list_page.dart';
 import 'package:movie_app/app/presentation/pages/login/login_page.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         RoutesName.splash: (context) => const SplashPage(),
         RoutesName.initial: (context) => const HomePage(),
         RoutesName.list: (context) => const ListPage(),
+        RoutesName.favorites: (context) => const FavoritesPage(),
       },
     );
   }
