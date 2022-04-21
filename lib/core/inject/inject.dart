@@ -8,6 +8,7 @@ import 'package:movie_app/app/domain/usecases/login_usecase.dart';
 import 'package:movie_app/app/external/datasource/local/auth_local_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/local/lists_local_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/auth_remote_datasource_imp.dart';
+import 'package:movie_app/app/presentation/pages/drawer/app_drawer_controller.dart';
 import 'package:movie_app/app/presentation/pages/login/login_controller.dart';
 import 'package:movie_app/core/data/services/dio_service_imp.dart';
 import 'package:movie_app/core/domain/services/http_service.dart';
@@ -82,6 +83,9 @@ class Inject {
     );
     getIt.registerLazySingleton<LoginController>(
       () => LoginController(getIt()),
+    );
+    getIt.registerLazySingleton<AppDrawerController>(
+      () => AppDrawerController(getIt()),
     );
   }
 }

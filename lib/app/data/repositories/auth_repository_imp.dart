@@ -1,6 +1,5 @@
 import 'package:movie_app/app/data/datasource/auth_remote_datasource.dart';
 import 'package:movie_app/app/data/datasource/auth_local_datasource.dart';
-import 'package:movie_app/app/data/dtos/request_token_dto.dart';
 import 'package:movie_app/app/domain/entities/login_params_entity.dart';
 import 'package:movie_app/app/domain/repositories/auth_repository.dart';
 
@@ -11,41 +10,44 @@ class AuthenticationRepositoryImp implements AuthenticationRepository {
   final AuthenticationLocalDataSource _localDataSource;
 
   @override
-    Future<bool> loginUser(LoginParamsEntity loginParams) async {
+  Future<bool> loginUser(LoginParamsEntity loginParams) async {
+    var token = await _requestToken();
+
     try {
-      final request = await _dataSource.getRequestToken();
-      
-      final token = request.requestToken;
+      Map<String, dynamic> params = loginParams.toJson();
+      params.putIfAbsent('request_token', () => token);
 
-      RequestTokenDTO validateWithLogin;
+      var validateWithLogin = await _dataSource.validateWithLogin(params);
 
-      try {
-        Map<String, dynamic> params = loginParams.toJson();
-        params.putIfAbsent('request_token', () => token);
+      final sessionId = await _dataSource.createSession(validateWithLogin.toJson());
+      await _localDataSource.saveSessionId(sessionId);
 
-        validateWithLogin = await _dataSource.validateWithLogin(params);
-
-        final sessionId =
-            await _dataSource.createSession(validateWithLogin.toJson());
-
-        if (sessionId != null) {
-          _localDataSource.saveSessionId(sessionId);
-        }
-
-        print(sessionId);
-      } catch (e) {
-        rethrow;
-      }
-
+      print(sessionId);
       return true;
     } catch (e) {
       rethrow;
     }
   }
 
+  Future<String> _requestToken() async {
+    try {
+      final request = await _dataSource.getRequestToken();
+
+      return request.requestToken;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   @override
-  logoutUser() {
-    // TODO: implement logoutUser
-    throw UnimplementedError();
+  Future<bool> isLogedIn() async {
+    var sessionId = await _localDataSource.getSessionId();
+
+    return sessionId != null;
+  }
+
+  @override
+  logoutUser() async {
+    await _localDataSource.deleteSessionId();
   }
 }

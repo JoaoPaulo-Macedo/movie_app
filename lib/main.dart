@@ -27,10 +27,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/login',
       routes: {
-        '/splash': (_) => const SplashPage(),
-        '/login': (_) => const LoginPage(),
-        '/': (_) => const HomePage(),
-        '/movies_list': (_) => const ListPage(),
+        '/login': (context) => const LoginPage(),
+        '/splash': (context) => const SplashPage(),
+        '/initial': (context) => const HomePage(),
+        '/movies_list': (context) => const ListPage(),
       },
     );
   }

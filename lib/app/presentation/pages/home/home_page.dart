@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:movie_app/app/presentation/components/app_drawer.dart';
+import 'package:movie_app/app/presentation/pages/drawer/app_drawer.dart';
 import 'package:movie_app/app/presentation/components/app_card.dart';
 import 'package:movie_app/app/presentation/pages/home/home_controller.dart';
 
