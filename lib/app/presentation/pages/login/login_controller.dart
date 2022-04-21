@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:movie_app/app/domain/usecases/login_user_usecase.dart';
+import 'package:movie_app/app/domain/usecases/login_usecase.dart';
 
 part 'login_controller.g.dart';
 
@@ -11,27 +11,42 @@ abstract class _LoginController with Store {
     listenToControllers();
   }
 
-  final LoginUserUseCase _usecase;
-  final userNameController = TextEditingController();
+  final LoginUseCase _usecase;
+  final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+  final usernameFocus = FocusNode();
+  final passwordFocus = FocusNode();
 
+  @observable
+  bool isLoading = false;
   @observable
   bool isSignInEnabled = false;
 
   void listenToControllers() {
-    userNameController.addListener(() {
+    usernameController.addListener(() {
       isSignInEnabled =
-          userNameController.text.isNotEmpty && passwordController.text.isNotEmpty;
+          usernameController.text.isNotEmpty && passwordController.text.isNotEmpty;
     });
 
     passwordController.addListener(() {
       isSignInEnabled =
-          userNameController.text.isNotEmpty && passwordController.text.isNotEmpty;
+          usernameController.text.isNotEmpty && passwordController.text.isNotEmpty;
     });
   }
 
   @action
-  logIn() {
-    _usecase(userNameController.text, passwordController.text);
+  logIn(BuildContext context) async {
+    isLoading = true;
+    if (!await _usecase(usernameController.text, passwordController.text)) {
+      isLoading = false;
+    } else {
+      Navigator.popAndPushNamed(context, '/splash');
+    }
+  }
+
+  @action
+  unfocus() {
+    usernameFocus.unfocus();
+    passwordFocus.unfocus();
   }
 }

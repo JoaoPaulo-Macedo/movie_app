@@ -29,3 +29,4 @@ flutter:
   assets:
     - assets/lottie.json
     - assets/lists.json
+    - assets/logo.png

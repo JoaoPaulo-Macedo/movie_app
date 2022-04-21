@@ -4,7 +4,7 @@ import 'package:movie_app/app/data/datasource/auth_remote_datasource.dart';
 import 'package:movie_app/app/data/datasource/lists_local_datasource.dart';
 import 'package:movie_app/app/data/repositories/auth_repository_imp.dart';
 import 'package:movie_app/app/domain/repositories/auth_repository.dart';
-import 'package:movie_app/app/domain/usecases/login_user_usecase.dart';
+import 'package:movie_app/app/domain/usecases/login_usecase.dart';
 import 'package:movie_app/app/external/datasource/local/auth_local_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/local/lists_local_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/auth_remote_datasource_imp.dart';
@@ -72,7 +72,7 @@ class Inject {
     getIt.registerLazySingleton<GetAllListsUseCase>(
       () => GetAllListsUseCaseImp(getIt()),
     );
-    getIt.registerLazySingleton<LoginUserUseCase>(
+    getIt.registerLazySingleton<LoginUseCase>(
       () => LoginUserUseCaseImp(getIt()),
     );
 
