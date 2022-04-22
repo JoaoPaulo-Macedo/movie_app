@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:movie_app/app/domain/entities/list_identifier_entity.dart';
-import 'package:movie_app/app/domain/usecases/get_lists_usecase.dart';
+import 'package:movie_app/app/domain/usecases/get_all_lists_usecase.dart';
 import 'package:movie_app/core/utils/routes_name.dart';
 
 part 'home_controller.g.dart';

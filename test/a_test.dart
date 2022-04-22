@@ -10,7 +10,7 @@ import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/app/domain/usecases/get_account_details_usecase.dart';
 import 'package:movie_app/app/domain/usecases/login_usecase.dart';
 import 'package:movie_app/app/external/datasource/local/account_details_local_datasource_imp.dart';
-import 'package:movie_app/app/external/datasource/local/auth_local_datasource_imp.dart';
+import 'package:movie_app/app/external/datasource/local/session_id_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/account_details_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/auth_remote_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/movies_list_datasource_imp.dart';
@@ -44,17 +44,17 @@ void main() {
   //   expect('a', a);
   // });
 
-  test('description', () async {
-    var usecase = GetAccountDetailsUseCaseImp(
-      AccountDetailsRepositoryImp(
-        AccountDetailsDataSourceImp(
-          DioHttpServiceImp(),
-          AuthenticationLocalDataSourceImp(),
-        ),
-        AccountDetailsLocalDataSource(),
-      ),
-    );
+  // test('description', () async {
+  //   var usecase = GetAccountDetailsUseCaseImp(
+  //     AccountDetailsRepositoryImp(
+  //       AccountDetailsDataSourceImp(
+  //         DioHttpServiceImp(),
+  //         AuthenticationLocalDataSourceImp(),
+  //       ),
+  //       AccountDetailsLocalDataSource(),
+  //     ),
+  //   );
 
-    expect(await usecase(), 'a');
-  });
+  //   expect(await usecase(), 'a');
+  // });
 }

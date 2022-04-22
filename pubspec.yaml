@@ -29,4 +29,5 @@ flutter:
   assets:
     - assets/lottie.json
     - assets/lists.json
+    - assets/account_details.json
     - assets/logo.png

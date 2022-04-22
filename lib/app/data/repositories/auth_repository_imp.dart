@@ -2,6 +2,7 @@ import 'package:movie_app/app/data/datasource/auth_remote_datasource.dart';
 import 'package:movie_app/app/data/datasource/auth_local_datasource.dart';
 import 'package:movie_app/app/domain/entities/login_params_entity.dart';
 import 'package:movie_app/app/domain/repositories/auth_repository.dart';
+import 'package:movie_app/core/inject/inject.dart';
 
 class AuthenticationRepositoryImp implements AuthenticationRepository {
   AuthenticationRepositoryImp(
@@ -10,7 +11,7 @@ class AuthenticationRepositoryImp implements AuthenticationRepository {
   );
 
   final AuthenticationRemoteDataSource _remoteAuthDataSource;
-  final AuthenticationLocalDataSource _localSessionDataSource;
+  final SessionIdDataSource _localSessionDataSource;
 
   @override
   Future<bool> loginUser(LoginParamsEntity loginParams) async {
@@ -53,5 +54,7 @@ class AuthenticationRepositoryImp implements AuthenticationRepository {
   @override
   logoutUser() async {
     await _localSessionDataSource.deleteSessionId();
+    // TODO: delete session on tmdb remote datasource
+    Inject.reset();
   }
 }

@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
 
-    Inject.init();
+    // Inject.init();
 
     controller =
         LoginController(GetIt.instance.get<LoginUseCase>(), context: context);

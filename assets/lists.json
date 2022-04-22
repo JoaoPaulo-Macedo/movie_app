@@ -2,51 +2,81 @@
     {
         "id": 1,
         "name": "The Marvel Universe",
-        "poster_path": "kaIfm5ryEOwYg8mLbq8HkPuM1Fo.jpg"
+        "poster_path": "coJVIUEOToAEGViuhclM7pXC75R.jpg",
+        "total_results": 59,
+        "user_name": "Travis Bell",
+        "average_rating": 6.04565
     },
     {
         "id": 2,
         "name": "2012 Oscar Nominations for Best Picture - 84th Academy Awards",
-        "poster_path": "bYimqNnizPUCnL5HOdoCW02IGmH.jpg"
+        "poster_path": "zRqBleU93WncYnIwt8LAanQerZ7.jpg",
+        "total_results": 9,
+        "user_name": "Travis Bell",
+        "average_rating": 6.96797
     },
     {
         "id": 3,
         "name": "The DC Comics Universe",
-        "poster_path": "kaIfm5ryEOwYg8mLbq8HkPuM1Fo.jpg"
+        "poster_path": "4H1jWsgEQOgTs4KeG5j5BorKMfX.jpg",
+        "total_results": 31,
+        "user_name": "Travis Bell",
+        "average_rating": 5.61526
     },
     {
         "id": 4,
         "name": "2011 Oscar Nominations for Best Picture - 83rd Academy Awards",
-        "poster_path": "kaIfm5ryEOwYg8mLbq8HkPuM1Fo.jpg"
+        "poster_path": "iAHDZPyLD3NW7GuNV6U1TVtb0hN.jpg",
+        "total_results": 10,
+        "user_name": "Travis Bell",
+        "average_rating": 7.07984
     },
     {
         "id": 5,
         "name": "The Avengers",
-        "poster_path": "kaIfm5ryEOwYg8mLbq8HkPuM1Fo.jpg"
+        "poster_path": "2i89ujVkhJebuoB2zy6QZcwbr2N.jpg",
+        "total_results": 10,
+        "user_name": "Travis Bell",
+        "average_rating": 6.55867
     },
     {
         "id": 6,
         "name": "Films déjà vus",
-        "poster_path": "kaIfm5ryEOwYg8mLbq8HkPuM1Fo.jpg"
+        "poster_path": "cufswy98ZGGobL5OgyXid9INco4.jpg",
+        "total_results": 67,
+        "user_name": null,
+        "average_rating": 7.17594
     },
     {
         "id": 7,
         "name": "Films à voir",
-        "poster_path": "kaIfm5ryEOwYg8mLbq8HkPuM1Fo.jpg"
+        "poster_path": "txOBeWiAe5McSgJC5HTXQOIDQbk.jpg",
+        "total_results": 45,
+        "user_name": null,
+        "average_rating": 7.18063
     },
     {
         "id": 8,
         "name": "2010 Oscar Nominations for Best Picture - 82nd Academy Awards",
-        "poster_path": "kaIfm5ryEOwYg8mLbq8HkPuM1Fo.jpg"
+        "poster_path": "8iwe0iP49A6Gqcv31jBleZDZqI4.jpg",
+        "total_results": 10,
+        "user_name": "Travis Bell",
+        "average_rating": 7.0216
     },
     {
         "id": 9,
         "name": "2009 Oscar Nominations for Best Picture - 81st Academy Awards",
-        "poster_path": "kaIfm5ryEOwYg8mLbq8HkPuM1Fo.jpg"
+        "poster_path": "gShtwIvdSHgCEQRZfymNkEUEwFm.jpg",
+        "total_results": 5,
+        "user_name": "Travis Bell",
+        "average_rating": 7.12432
     },
     {
         "id": 10,
         "name": "Top 50 Grossing Films of All Time (Worldwide)",
-        "poster_path": "kaIfm5ryEOwYg8mLbq8HkPuM1Fo.jpg"
+        "poster_path": "sRbZeVtRKIWybTOVpCRPZtzW5bd.jpg",
+        "total_results": 50,
+        "user_name": "Travis Bell",
+        "average_rating": 6.82273
     }
 ]

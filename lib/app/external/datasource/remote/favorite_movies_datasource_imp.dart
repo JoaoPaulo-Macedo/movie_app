@@ -17,7 +17,7 @@ class FavoriteMoviesDataSourceImp extends FavoriteMoviesDataSource {
 
   final HttpService _service;
   final AccountDetailsDataSource _accountDetails;
-  final AuthenticationLocalDataSource _sessionId;
+  final SessionIdDataSource _sessionId;
   // final GetAccountDetailsUseCase _accountDetails;
   // final GetSessionIdUseCase _sessionId;
 

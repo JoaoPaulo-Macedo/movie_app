@@ -1,4 +1,9 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:flutter/services.dart';
 import 'package:movie_app/app/data/datasource/account_details_datasource.dart';
+import 'package:movie_app/app/data/dtos/account_details_dto.dart';
 import 'package:movie_app/app/domain/entities/account_details_entity.dart';
 import 'package:movie_app/app/domain/repositories/account_details_repository.dart';
 import 'package:movie_app/app/external/datasource/local/account_details_local_datasource_imp.dart';
@@ -15,6 +20,17 @@ class AccountDetailsRepositoryImp extends AccountDetailsRepository {
   Future<AccountDetailsEntity?> call() async {
     try {
       if (accountDetailsCache != null) return accountDetailsCache;
+
+      //TODO: Remove Mocked data
+      var json = jsonDecode(
+        await rootBundle.loadString('assets/account_details.json'),
+      );
+      log(
+        'json: ${json.toString()}',
+        name: 'Mocked account details from assets to avoid API overload',
+      );
+      accountDetailsCache = AccountDetailsDTO.fromJson(json);
+      return accountDetailsCache;
 
       accountDetailsCache = await _localDataSource.getDetails();
       if (accountDetailsCache != null) return accountDetailsCache;

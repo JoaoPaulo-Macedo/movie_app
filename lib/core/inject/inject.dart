@@ -14,7 +14,7 @@ import 'package:movie_app/app/domain/usecases/get_account_details_usecase.dart';
 import 'package:movie_app/app/domain/usecases/get_favorite_movies_list_usecase.dart';
 import 'package:movie_app/app/domain/usecases/login_usecase.dart';
 import 'package:movie_app/app/external/datasource/local/account_details_local_datasource_imp.dart';
-import 'package:movie_app/app/external/datasource/local/auth_local_datasource_imp.dart';
+import 'package:movie_app/app/external/datasource/local/session_id_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/local/lists_cache_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/account_details_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/auth_remote_datasource_imp.dart';
@@ -31,98 +31,99 @@ import 'package:movie_app/app/data/repositories/lists_repository_imp.dart';
 import 'package:movie_app/app/data/repositories/movies_list_repository_imp.dart';
 import 'package:movie_app/app/domain/repositories/lists_repository.dart';
 import 'package:movie_app/app/domain/repositories/movies_list_repository.dart';
-import 'package:movie_app/app/domain/usecases/get_lists_usecase.dart';
+import 'package:movie_app/app/domain/usecases/get_all_lists_usecase.dart';
 import 'package:movie_app/app/domain/usecases/get_movies_list_usecase.dart';
 import 'package:movie_app/app/external/datasource/local/movies_list_local_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/movies_list_datasource_imp.dart';
 import 'package:movie_app/app/presentation/pages/home/home_controller.dart';
 import 'package:movie_app/core/domain/services/local_data_service.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Inject {
-  static init() async {
-    var getIt = GetIt.instance;
+  static final GetIt _getIt = GetIt.instance;
 
+  static reset() => _getIt.reset().then((_) => init());
+
+  static init() {
     // Services
-    getIt.registerLazySingleton<HttpService>(() => DioHttpServiceImp());
-    getIt.registerLazySingleton<LocalDataService>(
+    _getIt.registerLazySingleton<HttpService>(() => DioHttpServiceImp());
+    _getIt.registerLazySingleton<LocalDataService>(
       () => PreferencesServiceImp(),
     );
 
     // Remote DataSources
-    getIt.registerLazySingleton<MoviesListDataSource>(
-      () => MoviesListDataSourceImp(getIt()),
+    _getIt.registerLazySingleton<MoviesListDataSource>(
+      () => MoviesListDataSourceImp(_getIt()),
     );
-    getIt.registerLazySingleton<AuthenticationRemoteDataSource>(
-      () => AuthenticationRemoteDataSourceImp(getIt()),
+    _getIt.registerLazySingleton<AuthenticationRemoteDataSource>(
+      () => AuthenticationRemoteDataSourceImp(_getIt()),
     );
-    getIt.registerLazySingleton<AccountDetailsDataSource>(
-      () => AccountDetailsDataSourceImp(getIt(), getIt()),
+    _getIt.registerLazySingleton<AccountDetailsDataSource>(
+      () => AccountDetailsDataSourceImp(_getIt(), _getIt()),
     );
-    getIt.registerLazySingleton<FavoriteMoviesDataSource>(
-      () => FavoriteMoviesDataSourceImp(getIt(), getIt(), getIt()),
+    _getIt.registerLazySingleton<FavoriteMoviesDataSource>(
+      () => FavoriteMoviesDataSourceImp(_getIt(), _getIt(), _getIt()),
     );
 
     // Local DataSources
-    getIt.registerLazySingleton<MoviesListLocalDataSourceDecorator>(
-      () => MoviesListLocalDataSourceDecoratorImp(getIt(), getIt()),
+    _getIt.registerLazySingleton<MoviesListLocalDataSourceDecorator>(
+      () => MoviesListLocalDataSourceDecoratorImp(_getIt(), _getIt()),
     );
-    getIt.registerLazySingleton<ListsCacheDataSource>(
-      () => ListsCacheDataSourceImp(getIt()),
+    _getIt.registerLazySingleton<ListsCacheDataSource>(
+      () => ListsCacheDataSourceImp(_getIt()),
     );
-    getIt.registerLazySingleton<AuthenticationLocalDataSource>(
-      () => AuthenticationLocalDataSourceImp(getIt()),
+    _getIt.registerLazySingleton<SessionIdDataSource>(
+      () => SessionIdDataSourceImp(_getIt()),
     );
-    getIt.registerLazySingleton<AccountDetailsLocalDataSource>(
-      () => AccountDetailsLocalDataSource(getIt()),
+    _getIt.registerLazySingleton<AccountDetailsLocalDataSource>(
+      () => AccountDetailsLocalDataSource(_getIt()),
     );
 
     // Repositories
-    getIt.registerLazySingleton<MoviesListRepository>(
-      () => MoviesListRepositoryImp(getIt()),
+    _getIt.registerLazySingleton<MoviesListRepository>(
+      () => MoviesListRepositoryImp(_getIt()),
     );
-    getIt.registerLazySingleton<ListsRepository>(
-      () => ListsRepositoryImp(getIt(), getIt()),
+    _getIt.registerLazySingleton<ListsRepository>(
+      () => ListsRepositoryImp(_getIt(), _getIt()),
     );
-    getIt.registerLazySingleton<AuthenticationRepository>(
-      () => AuthenticationRepositoryImp(getIt(), getIt()),
+    _getIt.registerLazySingleton<AuthenticationRepository>(
+      () => AuthenticationRepositoryImp(_getIt(), _getIt()),
     );
-    getIt.registerLazySingleton<AccountDetailsRepository>(
-      () => AccountDetailsRepositoryImp(getIt(), getIt()),
+    _getIt.registerLazySingleton<AccountDetailsRepository>(
+      () => AccountDetailsRepositoryImp(_getIt(), _getIt()),
     );
-    getIt.registerLazySingleton<FavoriteMoviesRepository>(
-      () => FavoriteMoviesRepositoryImp(getIt()),
+    _getIt.registerLazySingleton<FavoriteMoviesRepository>(
+      () => FavoriteMoviesRepositoryImp(_getIt()),
     );
 
     // UseCases
-    getIt.registerLazySingleton<GetMoviesListUseCase>(
-      () => GetMoviesListUseCaseImp(getIt()),
+    _getIt.registerLazySingleton<GetMoviesListUseCase>(
+      () => GetMoviesListUseCaseImp(_getIt()),
     );
-    getIt.registerLazySingleton<GetAllListsUseCase>(
-      () => GetAllListsUseCaseImp(getIt()),
+    _getIt.registerLazySingleton<GetAllListsUseCase>(
+      () => GetAllListsUseCaseImp(_getIt()),
     );
-    getIt.registerLazySingleton<LoginUseCase>(
-      () => LoginUserUseCaseImp(getIt(), getIt()),
+    _getIt.registerLazySingleton<LoginUseCase>(
+      () => LoginUserUseCaseImp(_getIt(), _getIt()),
     );
-    getIt.registerLazySingleton<GetAccountDetailsUseCase>(
-      () => GetAccountDetailsUseCaseImp(getIt()),
+    _getIt.registerLazySingleton<GetAccountDetailsUseCase>(
+      () => GetAccountDetailsUseCaseImp(_getIt()),
     );
-    getIt.registerLazySingleton<GetFavoriteMoviesListUseCase>(
-      () => GetFavoriteMoviesListUseCaseImp(getIt()),
+    _getIt.registerLazySingleton<GetFavoriteMoviesListUseCase>(
+      () => GetFavoriteMoviesListUseCaseImp(_getIt()),
     );
 
     // Controllers
-    getIt.registerLazySingleton<HomeController>(
-      () => HomeController(getIt()),
+    _getIt.registerLazySingleton<HomeController>(
+      () => HomeController(_getIt()),
     );
-    getIt.registerLazySingleton<LoginController>(
-      () => LoginController(getIt()),
+    _getIt.registerLazySingleton<LoginController>(
+      () => LoginController(_getIt()),
     );
-    getIt.registerLazySingleton<AppDrawerController>(
-      () => AppDrawerController(getIt(), getIt()),
+    _getIt.registerLazySingleton<AppDrawerController>(
+      () => AppDrawerController(_getIt(), _getIt()),
     );
-    getIt.registerLazySingleton<FavoritesController>(
-      () => FavoritesController(getIt()),
+    _getIt.registerLazySingleton<FavoritesController>(
+      () => FavoritesController(_getIt()),
     );
   }
 }

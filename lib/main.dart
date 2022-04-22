@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:movie_app/app/presentation/pages/favorites/favorites_page.dart';
 import 'package:movie_app/app/presentation/pages/home/home_page.dart';
 import 'package:movie_app/app/presentation/pages/list/list_page.dart';
 import 'package:movie_app/app/presentation/pages/login/login_page.dart';
 import 'package:movie_app/app/presentation/pages/splash/splash_page.dart';
+import 'package:movie_app/core/inject/inject.dart';
 import 'package:movie_app/core/utils/app_configs.dart';
 import 'package:movie_app/core/utils/routes_name.dart';
 
 void main() {
+  Inject.init();
   AppConfigs.debug = true;
   runApp(const MyApp());
 }

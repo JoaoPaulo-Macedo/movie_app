@@ -13,7 +13,7 @@ class AccountDetailsDataSourceImp extends AccountDetailsDataSource {
   );
 
   final HttpService _service;
-  final AuthenticationLocalDataSource _authLocalDataSource;
+  final SessionIdDataSource _authLocalDataSource;
   //TODO: solve it with a decorator? I can't depend on an implementation
 
   @override
