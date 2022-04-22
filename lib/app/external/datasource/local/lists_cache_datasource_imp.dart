@@ -12,9 +12,12 @@ class ListsCacheDataSourceImp extends ListsCacheDataSource {
   final _key = 'lists';
 
   @override
-  List<ListIdentifierEntity> getListsFromCache() {
+  Future<List<ListIdentifierEntity>> getListsFromCache() async {
     // List values = jsonDecode(await rootBundle.loadString('assets/lists.json'));
-    List<String>? stringList = _service.getStringList(_key);
+    List<String>? stringList = await _service.getStringList(
+      _key,
+      description: 'Get all lists from cache',
+    );
     List<ListIdentifierEntity> lists = [];
 
     if (stringList != null) {
@@ -34,6 +37,10 @@ class ListsCacheDataSourceImp extends ListsCacheDataSource {
       stringList.add(jsonEncode(e.toJson()));
     }
 
-    return await _service.setStringList(_key, stringList);
+    return await _service.setStringList(
+      _key,
+      stringList,
+      description: 'Set all lists in cache',
+    );
   }
 }

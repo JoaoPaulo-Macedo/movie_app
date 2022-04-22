@@ -25,7 +25,7 @@ class DioHttpServiceImp implements HttpService {
   }
 
   late Dio _dio;
-  final bool debug = AppConfigs.environment == Environment.dev;
+  final bool debug = AppConfigs.debug!;
 
   @override
   Future get(String path, {/* Map<String, dynamic>? queryParams,  */String? description}) async {
@@ -51,14 +51,13 @@ class DioHttpServiceImp implements HttpService {
     }
   }
 
-  void _log(dynamic message, [String? path, String? description]) {
-    final String logMessage = message.toString();
-    final int length = message.toString().length;
+  void _log(dynamic data, [String? path, String? description]) {
+    final String logData = data.toString();
+    final int length = data.toString().length;
 
     log(
-      logMessage.substring(0, length < 150 ? length : 150),
-      name: '$description: $path',
-      // stackTrace: StackTrace.current,
+      logData.substring(0, length < AppConfigs.debugMaxChars ? length : AppConfigs.debugMaxChars),
+      name: 'Remote - $description: $path',
     );
   }
 }

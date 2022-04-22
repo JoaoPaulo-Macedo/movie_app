@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:movie_app/app/presentation/pages/favorites/favorites_page.dart';
 import 'package:movie_app/app/presentation/pages/home/home_page.dart';
 import 'package:movie_app/app/presentation/pages/list/list_page.dart';
@@ -8,8 +9,7 @@ import 'package:movie_app/core/utils/app_configs.dart';
 import 'package:movie_app/core/utils/routes_name.dart';
 
 void main() {
-  // Inject.init();
-  AppConfigs.environment = Environment.dev;
+  AppConfigs.debug = true;
   runApp(const MyApp());
 }
 

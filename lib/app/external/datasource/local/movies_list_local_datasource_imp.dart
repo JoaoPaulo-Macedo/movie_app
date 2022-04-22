@@ -24,22 +24,29 @@ class MoviesListLocalDataSourceDecoratorImp
       return movies;
     } catch (e) {
       try {
-        return await _getInCache();
+        return _getInCache();
       } catch (e) {
         rethrow;
       }
     }
   }
 
-  _saveInCache(MoviesListEntity movies) async {
+  Future<bool> _saveInCache(MoviesListEntity movies) async {
     String moviesJsonString = jsonEncode(movies.toJson());
 
-    _service.setString(_key, moviesJsonString);
+    return await _service.setString(
+      _key,
+      moviesJsonString,
+      description: 'Set a movies list in cache',
+    );
   }
 
-  MoviesListEntity _getInCache() {
-    var cachedMoviesJson = jsonDecode(_service.getString(_key) ?? '');
+  Future<MoviesListEntity?> _getInCache() async {
+    var movie = await _service.getString(_key, description: 'Get a movie list from cache');
+    if (movie == null) return null;
 
-    return MoviesListDTO.fromJson(cachedMoviesJson);
+    var json = jsonDecode(movie);
+
+    return MoviesListDTO.fromJson(json);
   }
 }

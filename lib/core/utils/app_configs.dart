@@ -1,5 +1,6 @@
 class AppConfigs {
-  static Environment? environment;
+  static bool? debug;
+  static int debugMaxChars = 250;
 }
 
 enum Environment { dev, prod }

@@ -11,11 +11,18 @@ class AccountDetailsLocalDataSource {
   final _key = 'account_details';
 
   Future<bool> saveDetails(AccountDetailsEntity details) async {
-    return await _service.setString(_key, jsonEncode(details.toJson()));
+    return await _service.setString(
+      _key,
+      jsonEncode(details.toJson()),
+      description: 'Set account details in cache',
+    );
   }
 
-  Future<AccountDetailsEntity?>? getDetails() async {
-    String? jsonString = _service.getString(_key);
+  Future<AccountDetailsEntity?> getDetails() async {
+    String? jsonString = await _service.getString(
+      _key,
+      description: 'Get account details from cache',
+    );
 
     if (jsonString == null) return null;
 

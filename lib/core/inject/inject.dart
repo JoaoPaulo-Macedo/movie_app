@@ -40,18 +40,13 @@ import 'package:movie_app/core/domain/services/local_data_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Inject {
-  static init() {
+  static init() async {
     var getIt = GetIt.instance;
-
-    // Packages
-    getIt.registerLazySingleton<Future<SharedPreferences>>(
-      () async => await SharedPreferences.getInstance(),
-    );
 
     // Services
     getIt.registerLazySingleton<HttpService>(() => DioHttpServiceImp());
     getIt.registerLazySingleton<LocalDataService>(
-      () => PreferencesServiceImp(getIt()),
+      () => PreferencesServiceImp(),
     );
 
     // Remote DataSources
