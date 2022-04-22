@@ -1,20 +1,21 @@
 import 'dart:convert';
-
 import 'package:movie_app/app/data/dtos/account_details_dto.dart';
 import 'package:movie_app/app/domain/entities/account_details_entity.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:movie_app/core/domain/services/local_data_service.dart';
 
 class AccountDetailsLocalDataSource {
+  AccountDetailsLocalDataSource(this._service);
+
+  final LocalDataService _service;
+
   final _key = 'account_details';
 
-  saveDetails(AccountDetailsEntity details) async {
-    var prefs = await SharedPreferences.getInstance();
-    prefs.setString(_key, jsonEncode(details.toJson()));
+  Future<bool> saveDetails(AccountDetailsEntity details) async {
+    return await _service.setString(_key, jsonEncode(details.toJson()));
   }
 
   Future<AccountDetailsEntity?>? getDetails() async {
-    var prefs = await SharedPreferences.getInstance();
-    String? jsonString = prefs.getString(_key);
+    String? jsonString = _service.getString(_key);
 
     if (jsonString == null) return null;
 

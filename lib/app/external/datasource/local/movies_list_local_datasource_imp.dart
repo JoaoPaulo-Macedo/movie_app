@@ -3,13 +3,16 @@ import 'package:movie_app/app/data/datasource/movies_list_datasource.dart';
 import 'package:movie_app/app/data/datasource/movies_list_local_datasource.dart';
 import 'package:movie_app/app/data/dtos/movies_list_dto.dart';
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:movie_app/core/domain/services/local_data_service.dart';
 
-class MoviesListLocalDataSourceDecoratorImp extends MoviesListLocalDataSourceDecorator {
+class MoviesListLocalDataSourceDecoratorImp
+    extends MoviesListLocalDataSourceDecorator {
   MoviesListLocalDataSourceDecoratorImp(
     MoviesListDataSource datasource,
+    this._service,
   ) : super(datasource);
 
+  final LocalDataService _service;
   final _key = 'movies_cache';
 
   @override
@@ -29,17 +32,13 @@ class MoviesListLocalDataSourceDecoratorImp extends MoviesListLocalDataSourceDec
   }
 
   _saveInCache(MoviesListEntity movies) async {
-    var prefs = await SharedPreferences.getInstance();
-
     String moviesJsonString = jsonEncode(movies.toJson());
 
-    prefs.setString(_key, moviesJsonString);
+    _service.setString(_key, moviesJsonString);
   }
 
-  Future<MoviesListEntity> _getInCache() async {
-    var prefs = await SharedPreferences.getInstance();
-
-    var cachedMoviesJson = jsonDecode(prefs.getString(_key) ?? '');
+  MoviesListEntity _getInCache() {
+    var cachedMoviesJson = jsonDecode(_service.getString(_key) ?? '');
 
     return MoviesListDTO.fromJson(cachedMoviesJson);
   }

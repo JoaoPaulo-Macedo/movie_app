@@ -22,7 +22,10 @@ class AccountDetailsDataSourceImp extends AccountDetailsDataSource {
     if (sessionId == null) return null;
 
     final path = API.requestAccountDetails(sessionId);
-    final Response response = await _service.get(path);
+    final Response response = await _service.get(
+      path,
+      description: 'Get account details',
+    );
 
     var accountDetails = AccountDetailsDTO.fromJson(response.data);
 

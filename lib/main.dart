@@ -4,10 +4,12 @@ import 'package:movie_app/app/presentation/pages/home/home_page.dart';
 import 'package:movie_app/app/presentation/pages/list/list_page.dart';
 import 'package:movie_app/app/presentation/pages/login/login_page.dart';
 import 'package:movie_app/app/presentation/pages/splash/splash_page.dart';
+import 'package:movie_app/core/utils/app_configs.dart';
 import 'package:movie_app/core/utils/routes_name.dart';
 
 void main() {
   // Inject.init();
+  AppConfigs.environment = Environment.dev;
   runApp(const MyApp());
 }
 

@@ -42,9 +42,9 @@ abstract class _AppDrawerController with Store {
 
   @action
   onTap(BuildContext context, {required String routeName}) {
-    if (currentPage == routeName) Navigator.pop(context);
-    
-    else Navigator.pushNamedAndRemoveUntil(context, routeName, (route) => false);
-    
+    if (currentPage == routeName)
+      Navigator.pop(context);
+    else
+      Navigator.pushNamedAndRemoveUntil(context, routeName, (route) => false);
   }
 }

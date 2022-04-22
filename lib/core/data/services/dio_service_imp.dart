@@ -1,5 +1,10 @@
+// ignore_for_file: curly_braces_in_flow_control_structures
+
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:movie_app/core/domain/services/http_service.dart';
+import 'package:movie_app/core/utils/app_configs.dart';
 
 class DioHttpServiceImp implements HttpService {
   DioHttpServiceImp() {
@@ -20,21 +25,41 @@ class DioHttpServiceImp implements HttpService {
   }
 
   late Dio _dio;
+  final bool debug = AppConfigs.environment == Environment.dev;
 
   @override
-  Future get(String path, {Map<String, dynamic>? queryParamaters}) async {
-    return await _dio.get(path, queryParameters: queryParamaters);
+  Future get(String path, {/* Map<String, dynamic>? queryParams,  */String? description}) async {
+    final Response response = await _dio.get(path/* , queryParameters: queryParams */);
+
+    if (debug) _log(response.data, '${_dio.options.baseUrl}$path', description);
+
+    return response;
   }
 
   @override
-  post(String path, {Map<String, dynamic>? queryParamaters}) async {
+  post(String path, {Map<String, dynamic>? queryParams, String? description}) async {
     try {
-      Response response = await _dio.post(path, data: queryParamaters);
+      if (debug) _log(queryParams, '${_dio.options.baseUrl}$path', description);
+
+      Response response = await _dio.post(path, data: queryParams);
+
+      if (debug) _log(response.data, '', description);
 
       return response;
     } catch (e) {
       rethrow;
     }
+  }
+
+  void _log(dynamic message, [String? path, String? description]) {
+    final String logMessage = message.toString();
+    final int length = message.toString().length;
+
+    log(
+      logMessage.substring(0, length < 150 ? length : 150),
+      name: '$description: $path',
+      // stackTrace: StackTrace.current,
+    );
   }
 }
 

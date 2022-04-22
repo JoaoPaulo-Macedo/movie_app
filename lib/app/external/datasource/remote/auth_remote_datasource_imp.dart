@@ -11,7 +11,10 @@ class AuthenticationRemoteDataSourceImp extends AuthenticationRemoteDataSource {
 
   @override
   Future<RequestTokenDTO> getRequestToken() async {
-    final Response response = await _httpService.get(API.requestToken);
+    final Response response = await _httpService.get(
+      API.requestToken,
+      description: 'Get request Token for validation with login',
+    );
 
     return RequestTokenDTO.fromJson(response.data);
   }
@@ -21,7 +24,8 @@ class AuthenticationRemoteDataSourceImp extends AuthenticationRemoteDataSource {
   Future<RequestTokenDTO> validateWithLogin(Map<String, dynamic> requestBody) async {
     final Response response = await _httpService.post(
       API.validateWithLogin,
-      queryParamaters: requestBody,
+      queryParams: requestBody,
+      description: 'Post login params for validation',
     );
 
     return RequestTokenDTO.fromJson(response.data);
@@ -31,10 +35,9 @@ class AuthenticationRemoteDataSourceImp extends AuthenticationRemoteDataSource {
   Future<String> createSession(Map<String, dynamic> requestBody) async {
     final Response response = await _httpService.post(
       API.createSession,
-      queryParamaters: requestBody,
+      queryParams: requestBody,
+      description: 'Post validated token to create a session id',
     );
-
-    //session id: 01347c6d5e30edc15b253ba5a0e9eaf1b8920590
 
     return response.data['success'] ? response.data['session_id'] : null;
   }

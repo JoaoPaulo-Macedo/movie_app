@@ -18,10 +18,12 @@ import 'package:movie_app/app/external/datasource/local/auth_local_datasource_im
 import 'package:movie_app/app/external/datasource/local/lists_cache_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/account_details_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/auth_remote_datasource_imp.dart';
+import 'package:movie_app/app/external/datasource/remote/favorite_movies_datasource_imp.dart';
 import 'package:movie_app/app/presentation/pages/drawer/app_drawer_controller.dart';
 import 'package:movie_app/app/presentation/pages/favorites/favorites_controller.dart';
 import 'package:movie_app/app/presentation/pages/login/login_controller.dart';
 import 'package:movie_app/core/data/services/dio_service_imp.dart';
+import 'package:movie_app/core/data/services/preferences_service_imp.dart';
 import 'package:movie_app/core/domain/services/http_service.dart';
 import 'package:movie_app/app/data/datasource/movies_list_datasource.dart';
 import 'package:movie_app/app/data/datasource/movies_list_local_datasource.dart';
@@ -34,38 +36,50 @@ import 'package:movie_app/app/domain/usecases/get_movies_list_usecase.dart';
 import 'package:movie_app/app/external/datasource/local/movies_list_local_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/movies_list_datasource_imp.dart';
 import 'package:movie_app/app/presentation/pages/home/home_controller.dart';
+import 'package:movie_app/core/domain/services/local_data_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Inject {
   static init() {
     var getIt = GetIt.instance;
 
+    // Packages
+    getIt.registerLazySingleton<Future<SharedPreferences>>(
+      () async => await SharedPreferences.getInstance(),
+    );
+
     // Services
     getIt.registerLazySingleton<HttpService>(() => DioHttpServiceImp());
+    getIt.registerLazySingleton<LocalDataService>(
+      () => PreferencesServiceImp(getIt()),
+    );
 
-    // DataSources
+    // Remote DataSources
     getIt.registerLazySingleton<MoviesListDataSource>(
-      () => MoviesListDatasourceImp(getIt()),
-    );
-    getIt.registerLazySingleton<MoviesListLocalDataSourceDecorator>(
-      () => MoviesListLocalDataSourceDecoratorImp(getIt()),
-    );
-    getIt.registerLazySingleton<ListsCacheDataSource>(
-      () => ListsCacheDataSourceImp(),
+      () => MoviesListDataSourceImp(getIt()),
     );
     getIt.registerLazySingleton<AuthenticationRemoteDataSource>(
       () => AuthenticationRemoteDataSourceImp(getIt()),
-    );
-    getIt.registerLazySingleton<AuthenticationLocalDataSource>(
-      () => AuthenticationLocalDataSourceImp(),
-    );
-    getIt.registerLazySingleton<AccountDetailsLocalDataSource>(
-      () => AccountDetailsLocalDataSource(),
     );
     getIt.registerLazySingleton<AccountDetailsDataSource>(
       () => AccountDetailsDataSourceImp(getIt(), getIt()),
     );
     getIt.registerLazySingleton<FavoriteMoviesDataSource>(
       () => FavoriteMoviesDataSourceImp(getIt(), getIt(), getIt()),
+    );
+
+    // Local DataSources
+    getIt.registerLazySingleton<MoviesListLocalDataSourceDecorator>(
+      () => MoviesListLocalDataSourceDecoratorImp(getIt(), getIt()),
+    );
+    getIt.registerLazySingleton<ListsCacheDataSource>(
+      () => ListsCacheDataSourceImp(getIt()),
+    );
+    getIt.registerLazySingleton<AuthenticationLocalDataSource>(
+      () => AuthenticationLocalDataSourceImp(getIt()),
+    );
+    getIt.registerLazySingleton<AccountDetailsLocalDataSource>(
+      () => AccountDetailsLocalDataSource(getIt()),
     );
 
     // Repositories
