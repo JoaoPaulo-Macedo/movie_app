@@ -79,9 +79,9 @@ class Inject {
     _getIt.registerLazySingleton<AccountDetailsLocalDataSource>(
       () => AccountDetailsLocalDataSource(_getIt()),
     );
-    _getIt.registerLazySingleton<FavoriteMoviesLocalDataSource>(
-      () => FavoriteMoviesLocalDataSourceImp(_getIt()),
-    );
+    // _getIt.registerLazySingleton<FavoriteMoviesLocalDataSource>(
+    //   () => FavoriteMoviesLocalDataSourceImp(_getIt()),
+    // );
 
     // Repositories
     _getIt.registerLazySingleton<MoviesListRepository>(
@@ -97,7 +97,7 @@ class Inject {
       () => AccountDetailsRepositoryImp(_getIt(), _getIt()),
     );
     _getIt.registerLazySingleton<FavoriteMoviesRepository>(
-      () => FavoriteMoviesRepositoryImp(_getIt(), _getIt()),
+      () => FavoriteMoviesRepositoryImp(_getIt()/* , _getIt() */),
     );
 
     // UseCases
@@ -126,9 +126,6 @@ class Inject {
     );
     _getIt.registerLazySingleton<AppDrawerController>(
       () => AppDrawerController(_getIt(), _getIt()),
-    );
-    _getIt.registerLazySingleton<FavoritesController>(
-      () => FavoritesController(_getIt()),
     );
   }
 }

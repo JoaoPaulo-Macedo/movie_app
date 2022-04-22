@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:movie_app/app/domain/entities/favorite_movies_list_entity.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
@@ -9,33 +10,51 @@ class MovieController = _MovieController with _$MovieController;
 
 // TODO: make favorites and home controller one
 abstract class _MovieController with Store {
-  _MovieController(this._favoriteUseCase, this.movie) {
+  _MovieController(this._favoriteUseCase, this.movie, {this.favorite = false}) {
     init();
   }
 
   final FavoriteMoviesListUseCase _favoriteUseCase;
   final MovieEntity movie;
 
+  ValueNotifier<bool> loading = ValueNotifier(false);
+
   @observable
-  bool favorite = false;
+  bool favorite;
   @observable
-  bool isLoading = true;
+  bool isLoading = false;
   @observable
   int page = 1;
 
-  init() async {
-    //TODO: get from cache, repository decides
-    FavoriteMoviesListEntity favorites = await _favoriteUseCase.getMovies();
-    favorite = favorites.movies.any((e) => e.id == movie.id);
+  BuildContext? _context;
+  bool? _favorite;
+  bool _toggle = false;
+  bool _close = false;
 
-    isLoading = false;
+  init() {
+    _favorite = favorite;
+
+    loading.addListener(() {
+      if (_toggle) {
+        _toggle = false;
+        _togglefavorite();
+      }
+      if (_close) _onClose(_context!);
+    });
   }
 
   @action
-  togglefavorite() async {
-    if (isLoading) return;
+  togglefavorite() {
+    if (loading.value == true) return;
 
-    isLoading = true;
+    _toggle = true;
+    loading.value = true;
+  }
+
+  _togglefavorite() async {
+    // if (isLoading) return;
+
+    // isLoading = true;
 
     if (favorite) {
       favorite = !favorite;
@@ -45,6 +64,20 @@ abstract class _MovieController with Store {
       await _favoriteUseCase.saveFavorite(movie, page);
     }
 
-    isLoading = false;
+    loading.value = false;
+    // isLoading = false;
+  }
+
+  onClose(BuildContext context) {
+    _context = context;
+    _close = true;
+    loading.value = true;
+  }
+
+  //TODO: gambiarras
+  _onClose(BuildContext context) async {
+    bool changed = _favorite != favorite;
+    loading.dispose();
+    Navigator.pop(context, [changed]);
   }
 }

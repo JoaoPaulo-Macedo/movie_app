@@ -39,19 +39,41 @@ mixin _$MovieController on _MovieController, Store {
     });
   }
 
-  final _$togglefavoriteAsyncAction =
-      AsyncAction('_MovieController.togglefavorite');
+  final _$pageAtom = Atom(name: '_MovieController.page');
 
   @override
-  Future togglefavorite() {
-    return _$togglefavoriteAsyncAction.run(() => super.togglefavorite());
+  int get page {
+    _$pageAtom.reportRead();
+    return super.page;
+  }
+
+  @override
+  set page(int value) {
+    _$pageAtom.reportWrite(value, super.page, () {
+      super.page = value;
+    });
+  }
+
+  final _$_MovieControllerActionController =
+      ActionController(name: '_MovieController');
+
+  @override
+  dynamic togglefavorite() {
+    final _$actionInfo = _$_MovieControllerActionController.startAction(
+        name: '_MovieController.togglefavorite');
+    try {
+      return super.togglefavorite();
+    } finally {
+      _$_MovieControllerActionController.endAction(_$actionInfo);
+    }
   }
 
   @override
   String toString() {
     return '''
 favorite: ${favorite},
-isLoading: ${isLoading}
+isLoading: ${isLoading},
+page: ${page}
     ''';
   }
 }

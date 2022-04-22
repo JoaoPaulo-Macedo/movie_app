@@ -5,20 +5,20 @@ import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/domain/repositories/favorite_movies_repository.dart';
 
 class FavoriteMoviesRepositoryImp extends FavoriteMoviesRepository {
-  FavoriteMoviesRepositoryImp(this._remoteDataSource, this._localDataSource);
+  FavoriteMoviesRepositoryImp(this._remoteDataSource/* , this._localDataSource */);
 
   final FavoriteMoviesRemoteDataSource _remoteDataSource;
-  final FavoriteMoviesLocalDataSource _localDataSource;
+  // final FavoriteMoviesLocalDataSource _localDataSource;
 
   @override
   Future<FavoriteMoviesListEntity> getFavorites(int page) async {
     try {
-      FavoriteMoviesListEntity? list = await _localDataSource.getFavorites(page);
+      // FavoriteMoviesListEntity? list = await _localDataSource.getFavorites(page);
 
-      if (list != null) return list;
+      // if (list != null) return list;
 
-      list = await _remoteDataSource.getFavorites(page);
-      _localDataSource.updateList(list);
+      var list = await _remoteDataSource.getFavorites(page);
+      // _localDataSource.updateList(list);
 
       return list;
     } catch (e) {
@@ -29,12 +29,12 @@ class FavoriteMoviesRepositoryImp extends FavoriteMoviesRepository {
   @override
   Future<bool> toggleFavorite(MovieEntity movie, bool favorite, int page) async {
     try {
-      bool remote = await _remoteDataSource.toggleFavorite(movie, favorite);
+      return await _remoteDataSource.toggleFavorite(movie, favorite);
 
-      var updatedList = await _remoteDataSource.getFavorites(page);
-      bool local = await _localDataSource.updateList(updatedList);
+      // var updatedList = await _remoteDataSource.getFavorites(page);
+      // bool local = await _localDataSource.updateList(updatedList);
 
-      return remote && local;
+      // return remote && local;
     } catch (e) {
       rethrow;
     }

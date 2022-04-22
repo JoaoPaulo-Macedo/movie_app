@@ -7,9 +7,10 @@ import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/presentation/pages/movie/movie_controller.dart';
 
 class MoviePage extends StatefulWidget {
-  const MoviePage(this.movie, {Key? key}) : super(key: key);
+  const MoviePage(this.movie, {Key? key, this.favorite = false}) : super(key: key);
 
   final MovieEntity movie;
+  final bool favorite;
 
   @override
   State<MoviePage> createState() => _MoviePageState();
@@ -25,6 +26,7 @@ class _MoviePageState extends State<MoviePage> {
     controller = MovieController(
       GetIt.instance.get<FavoriteMoviesListUseCase>(),
       widget.movie,
+      favorite: widget.favorite,
     );
   }
 
@@ -41,25 +43,30 @@ class _MoviePageState extends State<MoviePage> {
             movieId: widget.movie.id,
           ),
         ),
-        Observer(
-          builder: (context) {
-            return Scaffold(
-              backgroundColor: Colors.transparent,
-              appBar: AppBar(
-                elevation: 0,
-                backgroundColor: Colors.black38,
-                actions: [
-                  IconButton(
-                    icon: Icon(
-                      controller.favorite ? Icons.favorite : Icons.favorite_border,
-                      size: 25,
-                    ),
-                    tooltip: 'Favorite',
-                    onPressed: controller.togglefavorite,
-                  ),
-                ],
+        Observer(builder: (context) {
+          return Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              elevation: 0,
+              backgroundColor: Colors.black38,
+              leading: IconButton(
+                icon: const Icon(Icons.close),
+                iconSize: 25,
+                tooltip: 'Close',
+                onPressed: () => controller.onClose(context),
               ),
-              /* body: Column(
+              actions: [
+                IconButton(
+                  icon: Icon(
+                    controller.favorite ? Icons.favorite : Icons.favorite_border,
+                    size: 25,
+                  ),
+                  tooltip: 'Favorite',
+                  onPressed: controller.togglefavorite,
+                ),
+              ],
+            ),
+            /* body: Column(
                 children: [
                   Text(
                     movie.title,
@@ -67,9 +74,8 @@ class _MoviePageState extends State<MoviePage> {
                   ),
                 ],
               ), */
-            );
-          }
-        ),
+          );
+        }),
       ],
     );
   }

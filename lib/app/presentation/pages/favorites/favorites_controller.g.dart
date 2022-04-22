@@ -115,13 +115,22 @@ mixin _$FavoritesController on _FavoritesController, Store {
     });
   }
 
+  final _$openMoviePageAsyncAction =
+      AsyncAction('_FavoritesController.openMoviePage');
+
+  @override
+  Future openMoviePage(BuildContext context, MovieEntity movie) {
+    return _$openMoviePageAsyncAction
+        .run(() => super.openMoviePage(context, movie));
+  }
+
   final _$_FavoritesControllerActionController =
       ActionController(name: '_FavoritesController');
 
   @override
   bool isListEmpty() {
     final _$actionInfo = _$_FavoritesControllerActionController.startAction(
-        name: '_FavoritesController.isEmpty');
+        name: '_FavoritesController.isListEmpty');
     try {
       return super.isListEmpty();
     } finally {
@@ -157,17 +166,6 @@ mixin _$FavoritesController on _FavoritesController, Store {
         name: '_FavoritesController.advancePage');
     try {
       return super.advancePage();
-    } finally {
-      _$_FavoritesControllerActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic openMoviePage(BuildContext context, MovieEntity movie) {
-    final _$actionInfo = _$_FavoritesControllerActionController.startAction(
-        name: '_FavoritesController.openMoviePage');
-    try {
-      return super.openMoviePage(context, movie);
     } finally {
       _$_FavoritesControllerActionController.endAction(_$actionInfo);
     }

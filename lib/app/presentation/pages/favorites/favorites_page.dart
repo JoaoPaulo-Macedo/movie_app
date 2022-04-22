@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:movie_app/app/domain/usecases/favorite_movies_list_usecase.dart';
 import 'package:movie_app/app/presentation/components/app_card.dart';
 import 'package:movie_app/app/presentation/pages/drawer/app_drawer.dart';
 import 'package:movie_app/app/presentation/pages/favorites/favorites_controller.dart';
@@ -19,7 +20,9 @@ class _FavoritesPageState extends State<FavoritesPage> {
   void initState() {
     super.initState();
 
-    controller = GetIt.instance.get<FavoritesController>();
+    controller = FavoritesController(
+      GetIt.instance.get<FavoriteMoviesListUseCase>()
+    );
   }
 
   @override

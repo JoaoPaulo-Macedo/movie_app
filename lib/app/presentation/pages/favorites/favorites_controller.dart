@@ -12,11 +12,11 @@ class FavoritesController = _FavoritesController with _$FavoritesController;
 
 // TODO: make favorites and home controller one
 abstract class _FavoritesController with Store {
-  _FavoritesController(this._useCase) {
+  _FavoritesController(this._favoriteUseCase) {
     fetch();
   }
 
-  final FavoriteMoviesListUseCase _useCase;
+  final FavoriteMoviesListUseCase _favoriteUseCase;
 
   @observable
   FavoriteMoviesListEntity? moviesList;
@@ -39,13 +39,21 @@ abstract class _FavoritesController with Store {
     isLoading = true;
 
     if (_cachedMovies.isEmpty || !_cachedMovies.keys.contains(page)) {
-      moviesList = await _useCase.getMovies(page);
-      _cachedMovies[page] = moviesList!.movies;
+      await _loadList();
     } else {
       moviesList = moviesList!.copyWith(movies: _cachedMovies[page]!);
     }
 
     if (textController.text.isNotEmpty) onSearch(textController.text);
+
+    isLoading = false;
+  }
+
+  _loadList() async {
+    isLoading = true;
+
+    moviesList = await _favoriteUseCase.getMovies(page);
+    _cachedMovies[page] = moviesList!.movies;
 
     isLoading = false;
   }
@@ -86,13 +94,15 @@ abstract class _FavoritesController with Store {
   }
 
   @action
-  openMoviePage(BuildContext context, MovieEntity movie) {
-    Navigator.push(
+  openMoviePage(BuildContext context, MovieEntity movie) async {
+    List? reload = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => MoviePage(movie),
+        builder: (_) => MoviePage(movie, favorite: true),
         fullscreenDialog: true,
       ),
     );
+
+    if (reload == null || reload[0]) await _loadList();
   }
 }
