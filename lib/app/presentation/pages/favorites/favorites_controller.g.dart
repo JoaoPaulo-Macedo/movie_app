@@ -119,6 +119,17 @@ mixin _$FavoritesController on _FavoritesController, Store {
       ActionController(name: '_FavoritesController');
 
   @override
+  bool isListEmpty() {
+    final _$actionInfo = _$_FavoritesControllerActionController.startAction(
+        name: '_FavoritesController.isEmpty');
+    try {
+      return super.isListEmpty();
+    } finally {
+      _$_FavoritesControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic onSearch(String? value) {
     final _$actionInfo = _$_FavoritesControllerActionController.startAction(
         name: '_FavoritesController.onSearch');

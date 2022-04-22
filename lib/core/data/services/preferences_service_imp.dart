@@ -17,7 +17,7 @@ class PreferencesServiceImp extends LocalDataService {
   }
 
   @override
-  Future<String?> getString(String key, {String? description}) async {
+  Future<String?> getString(String key, {required String? description}) async {
     if (_prefs == null) await init();
 
     String? data = _prefs!.getString(key);
@@ -28,7 +28,7 @@ class PreferencesServiceImp extends LocalDataService {
   }
 
   @override
-  Future<List<String>?> getStringList(String key, {String? description}) async {
+  Future<List<String>?> getStringList(String key, {required String? description}) async {
     if (_prefs == null) await init();
 
     List<String>? data = _prefs!.getStringList(key);
@@ -39,7 +39,7 @@ class PreferencesServiceImp extends LocalDataService {
   }
 
   @override
-  Future<bool> setString(String key, String value, {String? description}) async {
+  Future<bool> setString(String key, String value, {required String? description}) async {
     if (_prefs == null) await init();
 
     if (debug) _log(value, description);
@@ -61,7 +61,7 @@ class PreferencesServiceImp extends LocalDataService {
   }
 
   @override
-  Future<bool> remove(String key, {String? description}) async {
+  Future<bool> remove(String key, {required String? description}) async {
     if (_prefs == null) await init();
 
     if (debug) _log('SharedPreferences\' remove()', description);
@@ -70,7 +70,7 @@ class PreferencesServiceImp extends LocalDataService {
   }
 
   @override
-  Future<bool> clear({String? description}) async {
+  Future<bool> clear({required String? description}) async {
     if (_prefs == null) await init();
 
     if (debug) _log('SharedPreferences\' clear()', description);

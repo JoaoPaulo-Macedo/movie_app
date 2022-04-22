@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:movie_app/app/domain/entities/favorite_movies_list_entity.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
-import 'package:movie_app/app/domain/usecases/get_favorite_movies_list_usecase.dart';
+import 'package:movie_app/app/domain/usecases/favorite_movies_list_usecase.dart';
 import 'package:movie_app/app/presentation/dtos/favorite_movies_list_dto.dart';
-import 'package:movie_app/app/presentation/pages/movie/movie_details_page.dart';
+import 'package:movie_app/app/presentation/pages/movie/movie_page.dart';
 
 part 'favorites_controller.g.dart';
 
@@ -16,7 +16,7 @@ abstract class _FavoritesController with Store {
     fetch();
   }
 
-  final GetFavoriteMoviesListUseCase _useCase;
+  final FavoriteMoviesListUseCase _useCase;
 
   @observable
   FavoriteMoviesListEntity? moviesList;
@@ -39,7 +39,7 @@ abstract class _FavoritesController with Store {
     isLoading = true;
 
     if (_cachedMovies.isEmpty || !_cachedMovies.keys.contains(page)) {
-      moviesList = await _useCase(page);
+      moviesList = await _useCase.getMovies(page);
       _cachedMovies[page] = moviesList!.movies;
     } else {
       moviesList = moviesList!.copyWith(movies: _cachedMovies[page]!);
@@ -49,6 +49,9 @@ abstract class _FavoritesController with Store {
 
     isLoading = false;
   }
+
+  @action
+  bool isListEmpty() => moviesList?.movies == null || moviesList!.movies.isEmpty;
 
   @action
   onSearch(String? value) {
@@ -87,7 +90,7 @@ abstract class _FavoritesController with Store {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => MovieDetailsPage(movie),
+        builder: (_) => MoviePage(movie),
         fullscreenDialog: true,
       ),
     );

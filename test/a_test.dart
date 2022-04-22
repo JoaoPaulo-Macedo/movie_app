@@ -15,6 +15,7 @@ import 'package:movie_app/app/external/datasource/remote/account_details_datasou
 import 'package:movie_app/app/external/datasource/remote/auth_remote_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/movies_list_datasource_imp.dart';
 import 'package:movie_app/core/data/services/dio_service_imp.dart';
+import 'package:movie_app/core/data/services/preferences_service_imp.dart';
 
 void main() {
   // test('Get a movies list from api', () async {

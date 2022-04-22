@@ -4,7 +4,7 @@ import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/app/domain/usecases/get_movies_list_usecase.dart';
 import 'package:movie_app/app/presentation/dtos/movies_list_dto.dart';
-import 'package:movie_app/app/presentation/pages/movie/movie_details_page.dart';
+import 'package:movie_app/app/presentation/pages/movie/movie_page.dart';
 
 part 'list_controller.g.dart';
 
@@ -98,7 +98,7 @@ abstract class _ListController with Store {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => MovieDetailsPage(movie),
+        builder: (_) => MoviePage(movie),
         fullscreenDialog: true,
       ),
     );

@@ -7,10 +7,14 @@ class FavoriteMoviesListEntity {
     required this.totalPages,
     required this.totalResults,
   });
-  
+
   final int page;
   final List<MovieEntity> movies;
   final int totalPages;
   final int totalResults;
 
+  @override
+  String toString() {
+    return 'page: $page, movies: $movies, totalPages: $totalPages, totalResults: $totalResults';
+  }
 }

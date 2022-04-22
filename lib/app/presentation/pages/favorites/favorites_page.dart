@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:movie_app/app/presentation/components/app_card.dart';
 import 'package:movie_app/app/presentation/pages/drawer/app_drawer.dart';
 import 'package:movie_app/app/presentation/pages/favorites/favorites_controller.dart';
 
@@ -25,32 +27,47 @@ class _FavoritesPageState extends State<FavoritesPage> {
     return Scaffold(
       appBar: AppBar(),
       drawer: const AppDrawer(),
-      body: const Center(
-        child: Text(
-          'You have no favorites yet :(',
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
-      /* body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView.separated(
-                itemCount: 10,
-                padding: EdgeInsets.zero,
-                separatorBuilder: (_, __) => const SizedBox(height: 10),
-                itemBuilder: (_, listId) {
-                  return Container(
-                    height: 140,
-                    decoration: BoxDecoration(color: Theme.of(context).cardColor),
-                  );
-                },
+      body: Observer(
+        builder: (context) {
+          if (controller.isLoading) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: Theme.of(context).primaryColor,
               ),
+            );
+          }
+
+          if (controller.isListEmpty()) {
+            return const Center(
+              child: Text(
+                'You have no favorites yet :(',
+                style: TextStyle(fontSize: 20),
+              ),
+            );
+          }
+
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView.separated(
+                    itemCount: controller.moviesList?.movies.length ?? 0,
+                    padding: EdgeInsets.zero,
+                    separatorBuilder: (_, __) => const SizedBox(height: 10),
+                    itemBuilder: (_, index) {
+                      return AppCard.movie(
+                        controller.moviesList!.movies[index],
+                        controller.openMoviePage,
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ), */
+          );
+        },
+      ),
     );
   }
 }

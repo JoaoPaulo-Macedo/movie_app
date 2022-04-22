@@ -13,7 +13,6 @@ class DioHttpServiceImp implements HttpService {
         baseUrl: 'https://api.themoviedb.org/',
         headers: {
           'content-type': 'application/json;charset=utf-8',
-          // our:
           'authorization':
               'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMWZlMTMyZDk3NDBlNzAyZWFkYmZhN2M1Zjg0NzZmZiIsInN1YiI6IjYyNWVlNmFjZTYxZTZkMDA1MGY1ZjI4NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.RBt_YcOAiaF14hGbdE6vUlipQ0NKH8Bn06Q-dbXQLbM',
           // other:
@@ -28,7 +27,7 @@ class DioHttpServiceImp implements HttpService {
   final bool debug = AppConfigs.debug!;
 
   @override
-  Future get(String path, {/* Map<String, dynamic>? queryParams,  */String? description}) async {
+  Future get(String path, {/* Map<String, dynamic>? queryParams,  */required String? description}) async {
     final Response response = await _dio.get(path/* , queryParameters: queryParams */);
 
     if (debug) _log(response.data, '${_dio.options.baseUrl}$path', description);
@@ -37,7 +36,7 @@ class DioHttpServiceImp implements HttpService {
   }
 
   @override
-  post(String path, {Map<String, dynamic>? queryParams, String? description}) async {
+  post(String path, {Map<String, dynamic>? queryParams, required String? description}) async {
     try {
       if (debug) _log(queryParams, '${_dio.options.baseUrl}$path', description);
 

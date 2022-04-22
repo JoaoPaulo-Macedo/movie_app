@@ -20,10 +20,12 @@ class API {
     required String accountId,
     required String sessionId,
   }) {
-    return '3/account//favorite/movies?api_key=$_apiKey&session_id=$sessionId&page=$page';
+    return '3/account/$accountId/favorite/movies?api_key=$_apiKey&session_id=$sessionId&page=$page';
+  }
+
+  static toggleFavorite({required String accountId, required String sessionId}) {
+    return '3/account/$accountId/favorite?api_key=$_apiKey&session_id=$sessionId';
   }
 
   // static const REQUEST_MOVIE_LIST = 'list/1?page=1';
-
-  // 3/account/{account_id}/favorite/movies?api_key=...&session_id=...&language=en-US&sort_by=created_at.asc&page=1
 }

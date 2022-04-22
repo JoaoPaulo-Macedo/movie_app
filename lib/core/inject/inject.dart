@@ -2,7 +2,8 @@ import 'package:get_it/get_it.dart';
 import 'package:movie_app/app/data/datasource/account_details_datasource.dart';
 import 'package:movie_app/app/data/datasource/auth_local_datasource.dart';
 import 'package:movie_app/app/data/datasource/auth_remote_datasource.dart';
-import 'package:movie_app/app/data/datasource/favorite_movies_datasource.dart';
+import 'package:movie_app/app/data/datasource/favorite_movies_local_datasource.dart';
+import 'package:movie_app/app/data/datasource/favorite_movies_remote_datasource.dart';
 import 'package:movie_app/app/data/datasource/lists_cache_datasource.dart';
 import 'package:movie_app/app/data/repositories/account_details_repository_imp.dart';
 import 'package:movie_app/app/data/repositories/auth_repository_imp.dart';
@@ -11,14 +12,15 @@ import 'package:movie_app/app/domain/repositories/account_details_repository.dar
 import 'package:movie_app/app/domain/repositories/auth_repository.dart';
 import 'package:movie_app/app/domain/repositories/favorite_movies_repository.dart';
 import 'package:movie_app/app/domain/usecases/get_account_details_usecase.dart';
-import 'package:movie_app/app/domain/usecases/get_favorite_movies_list_usecase.dart';
+import 'package:movie_app/app/domain/usecases/favorite_movies_list_usecase.dart';
 import 'package:movie_app/app/domain/usecases/login_usecase.dart';
 import 'package:movie_app/app/external/datasource/local/account_details_local_datasource_imp.dart';
+import 'package:movie_app/app/external/datasource/local/favorite_movies_local_darasource_imp.dart';
 import 'package:movie_app/app/external/datasource/local/session_id_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/local/lists_cache_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/account_details_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/auth_remote_datasource_imp.dart';
-import 'package:movie_app/app/external/datasource/remote/favorite_movies_datasource_imp.dart';
+import 'package:movie_app/app/external/datasource/remote/favorite_movies_remote_datasource_imp.dart';
 import 'package:movie_app/app/presentation/pages/drawer/app_drawer_controller.dart';
 import 'package:movie_app/app/presentation/pages/favorites/favorites_controller.dart';
 import 'package:movie_app/app/presentation/pages/login/login_controller.dart';
@@ -60,8 +62,8 @@ class Inject {
     _getIt.registerLazySingleton<AccountDetailsDataSource>(
       () => AccountDetailsDataSourceImp(_getIt(), _getIt()),
     );
-    _getIt.registerLazySingleton<FavoriteMoviesDataSource>(
-      () => FavoriteMoviesDataSourceImp(_getIt(), _getIt(), _getIt()),
+    _getIt.registerLazySingleton<FavoriteMoviesRemoteDataSource>(
+      () => FavoriteMoviesRemoteDataSourceImp(_getIt(), _getIt(), _getIt()),
     );
 
     // Local DataSources
@@ -76,6 +78,9 @@ class Inject {
     );
     _getIt.registerLazySingleton<AccountDetailsLocalDataSource>(
       () => AccountDetailsLocalDataSource(_getIt()),
+    );
+    _getIt.registerLazySingleton<FavoriteMoviesLocalDataSource>(
+      () => FavoriteMoviesLocalDataSourceImp(_getIt()),
     );
 
     // Repositories
@@ -92,7 +97,7 @@ class Inject {
       () => AccountDetailsRepositoryImp(_getIt(), _getIt()),
     );
     _getIt.registerLazySingleton<FavoriteMoviesRepository>(
-      () => FavoriteMoviesRepositoryImp(_getIt()),
+      () => FavoriteMoviesRepositoryImp(_getIt(), _getIt()),
     );
 
     // UseCases
@@ -108,8 +113,8 @@ class Inject {
     _getIt.registerLazySingleton<GetAccountDetailsUseCase>(
       () => GetAccountDetailsUseCaseImp(_getIt()),
     );
-    _getIt.registerLazySingleton<GetFavoriteMoviesListUseCase>(
-      () => GetFavoriteMoviesListUseCaseImp(_getIt()),
+    _getIt.registerLazySingleton<FavoriteMoviesListUseCase>(
+      () => FavoriteMoviesListUseCaseImp(_getIt()),
     );
 
     // Controllers
