@@ -27,13 +27,13 @@ mixin _$ListController on _ListController, Store {
   final _$_cachedMoviesAtom = Atom(name: '_ListController._cachedMovies');
 
   @override
-  Map<int, List<MovieEntity>> get _cachedMovies {
+  Map<int, List<MovieEntity>>? get _cachedMovies {
     _$_cachedMoviesAtom.reportRead();
     return super._cachedMovies;
   }
 
   @override
-  set _cachedMovies(Map<int, List<MovieEntity>> value) {
+  set _cachedMovies(Map<int, List<MovieEntity>>? value) {
     _$_cachedMoviesAtom.reportWrite(value, super._cachedMovies, () {
       super._cachedMovies = value;
     });
@@ -66,21 +66,6 @@ mixin _$ListController on _ListController, Store {
   set page(int value) {
     _$pageAtom.reportWrite(value, super.page, () {
       super.page = value;
-    });
-  }
-
-  final _$favoriteAtom = Atom(name: '_ListController.favorite');
-
-  @override
-  bool get favorite {
-    _$favoriteAtom.reportRead();
-    return super.favorite;
-  }
-
-  @override
-  set favorite(bool value) {
-    _$favoriteAtom.reportWrite(value, super.favorite, () {
-      super.favorite = value;
     });
   }
 
@@ -144,13 +129,6 @@ mixin _$ListController on _ListController, Store {
     });
   }
 
-  final _$fetchAsyncAction = AsyncAction('_ListController.fetch');
-
-  @override
-  Future fetch() {
-    return _$fetchAsyncAction.run(() => super.fetch());
-  }
-
   final _$_ListControllerActionController =
       ActionController(name: '_ListController');
 
@@ -204,7 +182,6 @@ mixin _$ListController on _ListController, Store {
 moviesList: ${moviesList},
 listId: ${listId},
 page: ${page},
-favorite: ${favorite},
 isLoading: ${isLoading},
 isSearching: ${isSearching},
 searchFocus: ${searchFocus},

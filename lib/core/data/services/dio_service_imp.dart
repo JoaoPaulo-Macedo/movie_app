@@ -30,7 +30,7 @@ class DioHttpServiceImp implements HttpService {
   Future get(String path, {/* Map<String, dynamic>? queryParams,  */required String? description}) async {
     final Response response = await _dio.get(path/* , queryParameters: queryParams */);
 
-    if (debug) _log(response.data, '${_dio.options.baseUrl}$path', description);
+    if (debug) _log(response.data, '${_dio.options.baseUrl}$path', description, true);
 
     return response;
   }
@@ -42,7 +42,7 @@ class DioHttpServiceImp implements HttpService {
 
       Response response = await _dio.post(path, data: queryParams);
 
-      if (debug) _log(response.data, '', description);
+      if (debug) _log(response.data, '', description, true);
 
       return response;
     } catch (e) {
@@ -50,13 +50,13 @@ class DioHttpServiceImp implements HttpService {
     }
   }
 
-  void _log(dynamic data, [String? path, String? description]) {
+  void _log(dynamic data, [String? path, String? description, bool response = false]) {
     final String logData = data.toString();
     final int length = data.toString().length;
 
     log(
       logData.substring(0, length < AppConfigs.debugMaxChars ? length : AppConfigs.debugMaxChars),
-      name: 'Remote - $description: $path',
+      name: 'Remote${response ? ' - Response' : ''}: $description: $path',
     );
   }
 }

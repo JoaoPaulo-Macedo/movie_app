@@ -36,8 +36,6 @@ abstract class _FavoritesController with Store {
   TextEditingController textController = TextEditingController();
 
   fetch() async {
-    isLoading = true;
-
     if (_cachedMovies.isEmpty || !_cachedMovies.keys.contains(page)) {
       await _loadList();
     } else {
@@ -45,8 +43,6 @@ abstract class _FavoritesController with Store {
     }
 
     if (textController.text.isNotEmpty) onSearch(textController.text);
-
-    isLoading = false;
   }
 
   _loadList() async {

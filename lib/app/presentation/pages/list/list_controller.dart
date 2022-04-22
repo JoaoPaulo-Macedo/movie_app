@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:movie_app/app/domain/entities/favorite_movies_list_entity.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
+import 'package:movie_app/app/domain/usecases/favorite_movies_list_usecase.dart';
 import 'package:movie_app/app/domain/usecases/get_movies_list_usecase.dart';
 import 'package:movie_app/app/presentation/dtos/movies_list_dto.dart';
 import 'package:movie_app/app/presentation/pages/movie/movie_page.dart';
@@ -12,19 +14,22 @@ class ListController = _ListController with _$ListController;
 
 abstract class _ListController with Store {
   _ListController(
-    this._useCase, {
+    this._moviesUseCase,
+    this._favoritesUseCase, {
     required this.listId,
   }) {
-    fetch();
+    _init();
   }
 
-  final GetMoviesListUseCase _useCase;
+  final GetMoviesListUseCase _moviesUseCase;
+  final FavoriteMoviesListUseCase _favoritesUseCase;
 
   @observable
   MoviesListEntity? moviesList;
   @observable
-  // ignore: prefer_final_fields
-  Map<int, List<MovieEntity>> _cachedMovies = {};
+  Map<int, List<MovieEntity>>? _cachedMovies;
+
+  FavoriteMoviesListEntity? _favoriteMovies;
 
   // @computed
   // bool get valid => isLoading && isSearching;
@@ -33,11 +38,9 @@ abstract class _ListController with Store {
   int listId;
   @observable
   int page = 1;
-  @observable
-  bool favorite = false;
 
   @observable
-  bool isLoading = true;
+  bool isLoading = false;
   @observable
   bool isSearching = false;
   @observable
@@ -45,15 +48,28 @@ abstract class _ListController with Store {
   @observable
   TextEditingController textController = TextEditingController();
 
-  @action
-  fetch() async {
+  _init() async {
     isLoading = true;
 
-    if (_cachedMovies.isEmpty || !_cachedMovies.keys.contains(page)) {
-      moviesList = await _useCase(list: listId, page: page);
-      _cachedMovies[page] = moviesList!.movies;
-    } else {
-      moviesList = moviesList!.copyWith(movies: _cachedMovies[page]!);
+    moviesList = await _moviesUseCase(list: listId, page: page);
+    _cachedMovies = {page: moviesList!.movies};
+
+    _favoriteMovies = await _favoritesUseCase.getMovies();
+
+    isLoading = false;
+  }
+
+  _fetch() async {
+    isLoading = true;
+
+    if (!_cachedMovies!.keys.contains(page)) {
+      moviesList = await _moviesUseCase(list: listId, page: page);
+
+      _cachedMovies = {page: moviesList!.movies};
+    } //
+
+    else {
+      moviesList = moviesList!.copyWith(movies: _cachedMovies![page]!);
     }
 
     if (textController.text.isNotEmpty) onSearch(textController.text);
@@ -63,10 +79,10 @@ abstract class _ListController with Store {
 
   @action
   onSearch(String? value) {
-    if (_cachedMovies.isEmpty) return;
+    if (_cachedMovies == null) return;
     if (value == null) return;
 
-    List<MovieEntity> list = _cachedMovies[page]!
+    List<MovieEntity> list = _cachedMovies![page]!
         .where((e) => e.title.toLowerCase().contains(value.toLowerCase()))
         .toList();
 
@@ -80,7 +96,7 @@ abstract class _ListController with Store {
 
     page -= 1;
 
-    fetch();
+    _fetch();
   }
 
   @action
@@ -90,15 +106,17 @@ abstract class _ListController with Store {
 
     page += 1;
 
-    fetch();
+    _fetch();
   }
 
   @action
   openMoviePage(BuildContext context, MovieEntity movie) {
+    bool favorite = _favoriteMovies!.movies.any((e) => e.id == movie.id);
+
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => MoviePage(movie),
+        builder: (_) => MoviePage(movie, favorite: favorite),
         fullscreenDialog: true,
       ),
     );

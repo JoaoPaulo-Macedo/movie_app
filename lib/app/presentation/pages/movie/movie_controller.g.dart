@@ -24,18 +24,18 @@ mixin _$MovieController on _MovieController, Store {
     });
   }
 
-  final _$isLoadingAtom = Atom(name: '_MovieController.isLoading');
+  final _$loadingAtom = Atom(name: '_MovieController.loading');
 
   @override
-  bool get isLoading {
-    _$isLoadingAtom.reportRead();
-    return super.isLoading;
+  ValueNotifier<bool> get loading {
+    _$loadingAtom.reportRead();
+    return super.loading;
   }
 
   @override
-  set isLoading(bool value) {
-    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
-      super.isLoading = value;
+  set loading(ValueNotifier<bool> value) {
+    _$loadingAtom.reportWrite(value, super.loading, () {
+      super.loading = value;
     });
   }
 
@@ -69,10 +69,21 @@ mixin _$MovieController on _MovieController, Store {
   }
 
   @override
+  dynamic onClose(BuildContext context) {
+    final _$actionInfo = _$_MovieControllerActionController.startAction(
+        name: '_MovieController.onClose');
+    try {
+      return super.onClose(context);
+    } finally {
+      _$_MovieControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 favorite: ${favorite},
-isLoading: ${isLoading},
+loading: ${loading},
 page: ${page}
     ''';
   }

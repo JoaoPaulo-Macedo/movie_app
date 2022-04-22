@@ -7,11 +7,9 @@ class ListDetails extends StatelessWidget {
   const ListDetails({
     Key? key,
     required this.controller,
-    required this.function,
   }) : super(key: key);
 
   final ListController controller;
-  final void Function() function;
 
   @override
   Widget build(BuildContext context) {

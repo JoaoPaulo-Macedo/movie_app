@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:movie_app/app/domain/usecases/favorite_movies_list_usecase.dart';
 import 'package:movie_app/app/domain/usecases/get_movies_list_usecase.dart';
 import 'package:movie_app/app/presentation/components/list_details.dart';
 import 'package:movie_app/app/presentation/components/app_card.dart';
@@ -24,6 +25,7 @@ class _ListPageState extends State<ListPage> {
 
     controller = ListController(
       GetIt.I.get<GetMoviesListUseCase>(),
+      GetIt.I.get<FavoriteMoviesListUseCase>(),
       listId: listId,
     );
 
@@ -63,10 +65,7 @@ class _ListPageState extends State<ListPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ListDetails(
-                    controller: controller,
-                    function: () => controller.fetch(),
-                  ),
+                  ListDetails(controller: controller),
                   const SizedBox(height: 15),
                   Visibility(
                     visible: controller.isLoading,
