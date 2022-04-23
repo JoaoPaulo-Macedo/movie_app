@@ -58,13 +58,15 @@ class _MoviePageState extends State<MoviePage> {
                       children: [
                         Text(
                           controller.movie.title,
-                          style: TextStyle(fontSize: 25),
+                          style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 15),
-                        Text(controller.movie.overview ?? ''),
-                        Text(controller.movie.overview ?? ''),
-                        Text(controller.movie.overview ?? ''),
-                        Text(controller.movie.overview ?? ''),
+                        Text(
+                          controller.movie.overview ?? '',
+                          style: textTheme.caption!.copyWith(fontSize: 14, letterSpacing: 1.3),
+                        ),
+                        const SizedBox(height: 15),
+                        Text(controller.movie.voteAverage.toString()),
                       ],
                     ),
                   ),

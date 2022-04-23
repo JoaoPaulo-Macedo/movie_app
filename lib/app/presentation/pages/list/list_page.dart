@@ -9,7 +9,9 @@ import 'package:movie_app/app/presentation/components/search_appbar_action.dart'
 import 'package:movie_app/app/presentation/pages/list/list_controller.dart';
 
 class ListPage extends StatefulWidget {
-  const ListPage({Key? key}) : super(key: key);
+  const ListPage({Key? key, required this.listId}) : super(key: key);
+
+  final int listId;
 
   @override
   State<ListPage> createState() => _ListPageState();
@@ -19,16 +21,26 @@ class _ListPageState extends State<ListPage> {
   late ListController controller;
 
   @override
-  Widget build(BuildContext context) {
-    //TODO: fix it
-    int listId = ModalRoute.of(context)!.settings.arguments as int;
+  void initState() {
+    super.initState();
 
     controller = ListController(
       GetIt.I.get<GetMoviesListUseCase>(),
       GetIt.I.get<FavoriteMoviesListUseCase>(),
-      listId: listId,
+      listId: widget.listId,
     );
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    //TODO: fix it
+    /* int listId = ModalRoute.of(context)!.settings.arguments as int;
+
+    controller = ListController(
+      GetIt.I.get<GetMoviesListUseCase>(),
+      GetIt.I.get<FavoriteMoviesListUseCase>(),
+      listId: widget.listId,
+    ); */
     return Observer(
       builder: (_) {
         if (controller.moviesList == null) {
@@ -56,8 +68,7 @@ class _ListPageState extends State<ListPage> {
                       controller.searchFocus.requestFocus();
                     },
                   ),
-                if (controller.isSearching)
-                  SearchAppBarAction(controller: controller),
+                if (controller.isSearching) SearchAppBarAction(controller: controller),
               ],
             ),
             body: Padding(
