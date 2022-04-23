@@ -66,7 +66,15 @@ class _MoviePageState extends State<MoviePage> {
                           style: textTheme.caption!.copyWith(fontSize: 14, letterSpacing: 1.3),
                         ),
                         const SizedBox(height: 15),
-                        Text(controller.movie.voteAverage.toString()),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(controller.movie.voteCount.toString()),
+                            const SizedBox(width: 15),
+                            Text(controller.movie.voteAverage.toString()),
+                            const Icon(Icons.star, size: 15),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -81,25 +89,29 @@ class _MoviePageState extends State<MoviePage> {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               height: 50,
-              decoration: BoxDecoration(color: Colors.black26),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.close),
-                    iconSize: 30,
-                    tooltip: 'Close',
-                    onPressed: () => controller.onClose(context),
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      controller.favorite ? Icons.favorite : Icons.favorite_border,
-                    ),
-                    iconSize: 30,
-                    tooltip: 'Favorite',
-                    onPressed: controller.togglefavorite,
-                  ),
-                ],
+              decoration: const BoxDecoration(color: Colors.black26),
+              child: Observer(
+                builder: (context) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.close),
+                        iconSize: 30,
+                        tooltip: 'Close',
+                        onPressed: () => controller.onClose(context),
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          controller.favorite ? Icons.favorite : Icons.favorite_border,
+                        ),
+                        iconSize: 30,
+                        tooltip: 'Favorite',
+                        onPressed: controller.togglefavorite,
+                      ),
+                    ],
+                  );
+                }
               ),
             ),
           ),
