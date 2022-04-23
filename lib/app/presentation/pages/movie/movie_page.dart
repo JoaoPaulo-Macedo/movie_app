@@ -32,41 +32,104 @@ class _MoviePageState extends State<MoviePage> {
 
   @override
   Widget build(BuildContext context) {
-    // final textTheme = Theme.of(context).textTheme;
+    final textTheme = Theme.of(context).textTheme;
 
     return Stack(
       children: [
-        SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: AppPoster.movie(
-            posterPath: widget.movie.posterPath,
-            movieId: widget.movie.id,
+        Scaffold(
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: AppPoster.movie(
+                  posterPath: widget.movie.posterPath,
+                  movieId: widget.movie.id,
+                  applyBorders: false,
+                ),
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          controller.movie.title,
+                          style: TextStyle(fontSize: 25),
+                        ),
+                        const SizedBox(height: 15),
+                        Text(controller.movie.overview ?? ''),
+                        Text(controller.movie.overview ?? ''),
+                        Text(controller.movie.overview ?? ''),
+                        Text(controller.movie.overview ?? ''),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-        Observer(builder: (context) {
-          return Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: AppBar(
-              elevation: 0,
-              backgroundColor: Colors.black38,
-              leading: IconButton(
-                icon: const Icon(Icons.close),
-                iconSize: 25,
-                tooltip: 'Close',
-                onPressed: () => controller.onClose(context),
-              ),
-              actions: [
-                IconButton(
-                  icon: Icon(
-                    controller.favorite ? Icons.favorite : Icons.favorite_border,
-                    size: 25,
+        SafeArea(
+          child: Material(
+            color: Colors.transparent,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              height: 50,
+              decoration: BoxDecoration(color: Colors.black26),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.close),
+                    iconSize: 30,
+                    tooltip: 'Close',
+                    onPressed: () => controller.onClose(context),
                   ),
-                  tooltip: 'Favorite',
-                  onPressed: controller.togglefavorite,
-                ),
-              ],
+                  IconButton(
+                    icon: Icon(
+                      controller.favorite ? Icons.favorite : Icons.favorite_border,
+                    ),
+                    iconSize: 30,
+                    tooltip: 'Favorite',
+                    onPressed: controller.togglefavorite,
+                  ),
+                ],
+              ),
             ),
-            /* body: Column(
+          ),
+        ),
+        /* Observer(
+          builder: (context) {
+            return SafeArea(
+              child: Scaffold(
+                backgroundColor: Colors.transparent,
+                appBar: AppBar(
+                  elevation: 0,
+                  backgroundColor: Colors.black26,
+                  leading: IconButton(
+                    icon: const Icon(Icons.close),
+                    padding: const EdgeInsets.only(left: 5),
+                    iconSize: 30,
+                    tooltip: 'Close',
+                    onPressed: () => controller.onClose(context),
+                  ),
+                  actions: [
+                    IconButton(
+                      icon: Icon(
+                        controller.favorite ? Icons.favorite : Icons.favorite_border,
+                      ),
+                      iconSize: 30,
+                      padding: const EdgeInsets.only(right: 15),
+                      tooltip: 'Favorite',
+                      onPressed: controller.togglefavorite,
+                    ),
+                  ],
+                ),
+                /* body: Column(
                 children: [
                   Text(
                     movie.title,
@@ -74,8 +137,10 @@ class _MoviePageState extends State<MoviePage> {
                   ),
                 ],
               ), */
-          );
-        }),
+              ),
+            );
+          },
+        ), */
       ],
     );
   }

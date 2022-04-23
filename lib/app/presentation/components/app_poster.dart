@@ -3,34 +3,45 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/core/utils/api_utils.dart';
 
 class AppPoster extends StatelessWidget {
-  const AppPoster._({
+  AppPoster._({
     Key? key,
     this.posterPath,
     this.movieId,
+    this.applyBorders = true,
   }) : super(key: key);
 
-  factory AppPoster.list(String? posterPath) => AppPoster._(posterPath: posterPath);
-  factory AppPoster.movie({required String? posterPath, required int movieId}) {
+  factory AppPoster.list(String? posterPath, {bool? applyBorders}) {
+    return AppPoster._(
+      posterPath: posterPath,
+      applyBorders: applyBorders,
+    );
+  }
+  factory AppPoster.movie({required String? posterPath, required int movieId, bool? applyBorders}) {
     return AppPoster._(
       posterPath: posterPath,
       movieId: movieId,
+      applyBorders: applyBorders,
     );
   }
 
   final Object? movieId;
   final String? posterPath;
+  bool? applyBorders;
 
   @override
   Widget build(BuildContext context) {
     const double posterWidth = 93.5;
+    applyBorders ??= false;
 
     return Hero(
       tag: movieId ?? Object(),
       child: ClipRRect(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(15),
-          bottomLeft: Radius.circular(15),
-        ),
+        borderRadius: applyBorders!
+            ? const BorderRadius.only(
+                topLeft: Radius.circular(15),
+                bottomLeft: Radius.circular(15),
+              )
+            : BorderRadius.zero,
         child: CachedNetworkImage(
           imageUrl: API.requestImg(posterPath ?? ''),
           width: posterWidth,
