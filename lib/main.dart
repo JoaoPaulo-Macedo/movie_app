@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/app/presentation/pages/favorites/favorites_page.dart';
 import 'package:movie_app/app/presentation/pages/home/home_page.dart';
-import 'package:movie_app/app/presentation/pages/list/list_page.dart';
 import 'package:movie_app/app/presentation/pages/login/login_page.dart';
 import 'package:movie_app/app/presentation/pages/splash/splash_page.dart';
 import 'package:movie_app/core/inject/inject.dart';

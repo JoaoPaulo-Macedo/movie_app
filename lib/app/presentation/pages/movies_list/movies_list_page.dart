@@ -3,28 +3,29 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:movie_app/app/domain/usecases/favorite_movies_list_usecase.dart';
 import 'package:movie_app/app/domain/usecases/get_movies_list_usecase.dart';
-import 'package:movie_app/app/presentation/components/list_details.dart';
+import 'package:movie_app/app/presentation/components/movies_list_details.dart';
 import 'package:movie_app/app/presentation/components/app_card.dart';
 import 'package:movie_app/app/presentation/components/search_appbar_action.dart';
-import 'package:movie_app/app/presentation/pages/list/list_controller.dart';
+import 'package:movie_app/app/presentation/pages/movies_list/movies_list_controller.dart';
 
-class ListPage extends StatefulWidget {
-  const ListPage({Key? key, required this.listId}) : super(key: key);
+class MoviesListPage extends StatefulWidget {
+  const MoviesListPage({Key? key, required this.listId}) : super(key: key);
 
   final int listId;
 
   @override
-  State<ListPage> createState() => _ListPageState();
+  State<MoviesListPage> createState() => _MoviesListPageState();
 }
 
-class _ListPageState extends State<ListPage> {
-  late ListController controller;
+class _MoviesListPageState extends State<MoviesListPage> {
+  late MoviesListController controller;
 
   @override
   void initState() {
     super.initState();
 
-    controller = ListController(
+    controller = MoviesListController(
+      context,
       GetIt.I.get<GetMoviesListUseCase>(),
       GetIt.I.get<FavoriteMoviesListUseCase>(),
       listId: widget.listId,
@@ -33,17 +34,9 @@ class _ListPageState extends State<ListPage> {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: fix it
-    /* int listId = ModalRoute.of(context)!.settings.arguments as int;
-
-    controller = ListController(
-      GetIt.I.get<GetMoviesListUseCase>(),
-      GetIt.I.get<FavoriteMoviesListUseCase>(),
-      listId: widget.listId,
-    ); */
     return Observer(
       builder: (_) {
-        if (controller.moviesList == null) {
+        if (controller.movies.isEmpty) {
           return const Center(
             child: CircularProgressIndicator(color: Colors.white),
           );
@@ -52,6 +45,7 @@ class _ListPageState extends State<ListPage> {
         return GestureDetector(
           onTap: () {
             controller.searchFocus.unfocus();
+
             if (controller.textController.text.isEmpty) {
               controller.isSearching = false;
             }
@@ -68,7 +62,8 @@ class _ListPageState extends State<ListPage> {
                       controller.searchFocus.requestFocus();
                     },
                   ),
-                if (controller.isSearching) SearchAppBarAction(controller: controller),
+                if (controller.isSearching)
+                  SearchAppBarAction(controller: controller),
               ],
             ),
             body: Padding(
@@ -76,7 +71,7 @@ class _ListPageState extends State<ListPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ListDetails(controller: controller),
+                  MoviesListDetails(controller: controller),
                   const SizedBox(height: 15),
                   Visibility(
                     visible: controller.isLoading,
@@ -90,12 +85,12 @@ class _ListPageState extends State<ListPage> {
                     visible: !controller.isLoading,
                     child: Expanded(
                       child: ListView.separated(
-                        itemCount: controller.moviesList!.movies.length,
+                        itemCount: controller.movies.length,
                         padding: EdgeInsets.zero,
                         separatorBuilder: (_, __) => const SizedBox(height: 10),
                         itemBuilder: (_, index) {
                           return AppCard.movie(
-                            controller.moviesList!.movies[index],
+                            controller.movies[index],
                             controller.openMoviePage,
                           );
                         },

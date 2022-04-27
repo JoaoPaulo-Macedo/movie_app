@@ -5,7 +5,6 @@ import 'package:movie_app/app/domain/usecases/login_usecase.dart';
 import 'package:movie_app/app/presentation/components/login_form.dart';
 import 'package:movie_app/app/presentation/components/logo.dart';
 import 'package:movie_app/app/presentation/pages/login/login_controller.dart';
-import 'package:movie_app/core/inject/inject.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -16,52 +15,53 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   late LoginController controller;
+  bool isKeyboardOpen = false;
 
   @override
   void initState() {
     super.initState();
 
-    // Inject.init();
-
-    controller =
-        LoginController(GetIt.instance.get<LoginUseCase>(), context: context);
+    controller = LoginController(context, GetIt.instance.get<LoginUseCase>());
   }
 
   @override
   Widget build(BuildContext context) {
     //TODO: state on page
-    return Observer(
-      builder: (context) {
-        //TODO: solve it
-        if (!controller.build) return const SizedBox();
+    isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom != 0;
 
-        return GestureDetector(
-          onTap: controller.unfocus,
-          child: Scaffold(
-            // resizeToAvoidBottomInset: false,
-            body: SafeArea(
-              child: Stack(
+    return GestureDetector(
+      onTap: controller.unfocus,
+      child: Scaffold(
+        // resizeToAvoidBottomInset: false,
+        body: SafeArea(
+          child: Observer(
+            builder: (context) {
+              //TODO: solve it
+              if (!controller.build) return const SizedBox();
+
+              return Stack(
                 alignment: Alignment.topCenter,
                 children: [
                   Center(child: LoginForm(controller)),
                   AnimatedSwitcher(
                     duration: const Duration(milliseconds: 130),
-                    child: MediaQuery.of(context).viewInsets.bottom == 0
-                        ? Padding(
+                    child: isKeyboardOpen
+                        ? null
+                        : Padding(
                             padding: const EdgeInsets.only(top: 35),
                             child: Logo(
                               key: const ValueKey('logo_key'),
                               height: MediaQuery.of(context).size.height / 9,
                             ),
-                          )
-                        : null,
+                          ),
+                    // : null,
                   ),
                 ],
-              ),
-            ),
+              );
+            },
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

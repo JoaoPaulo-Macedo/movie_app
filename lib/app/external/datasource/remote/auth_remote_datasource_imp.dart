@@ -32,7 +32,7 @@ class AuthenticationRemoteDataSourceImp extends AuthenticationRemoteDataSource {
   }
 
   @override
-  Future<String> createSession(Map<String, dynamic> requestBody) async {
+  Future<String?> createSession(Map<String, dynamic> requestBody) async {
     final Response response = await _httpService.post(
       API.createSession,
       queryParams: requestBody,

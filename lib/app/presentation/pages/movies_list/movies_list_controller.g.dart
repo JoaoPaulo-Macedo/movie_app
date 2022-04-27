@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'list_controller.dart';
+part of 'movies_list_controller.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,23 +8,23 @@ part of 'list_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$ListController on _ListController, Store {
-  final _$moviesListAtom = Atom(name: '_ListController.moviesList');
+mixin _$MoviesListController on _MoviesListController, Store {
+  final _$moviesAtom = Atom(name: '_MoviesListController.movies');
 
   @override
-  MoviesListEntity? get moviesList {
-    _$moviesListAtom.reportRead();
-    return super.moviesList;
+  List<MovieEntity> get movies {
+    _$moviesAtom.reportRead();
+    return super.movies;
   }
 
   @override
-  set moviesList(MoviesListEntity? value) {
-    _$moviesListAtom.reportWrite(value, super.moviesList, () {
-      super.moviesList = value;
+  set movies(List<MovieEntity> value) {
+    _$moviesAtom.reportWrite(value, super.movies, () {
+      super.movies = value;
     });
   }
 
-  final _$_cachedMoviesAtom = Atom(name: '_ListController._cachedMovies');
+  final _$_cachedMoviesAtom = Atom(name: '_MoviesListController._cachedMovies');
 
   @override
   Map<int, List<MovieEntity>>? get _cachedMovies {
@@ -39,7 +39,7 @@ mixin _$ListController on _ListController, Store {
     });
   }
 
-  final _$listIdAtom = Atom(name: '_ListController.listId');
+  final _$listIdAtom = Atom(name: '_MoviesListController.listId');
 
   @override
   int get listId {
@@ -54,7 +54,7 @@ mixin _$ListController on _ListController, Store {
     });
   }
 
-  final _$pageAtom = Atom(name: '_ListController.page');
+  final _$pageAtom = Atom(name: '_MoviesListController.page');
 
   @override
   int get page {
@@ -69,7 +69,7 @@ mixin _$ListController on _ListController, Store {
     });
   }
 
-  final _$isLoadingAtom = Atom(name: '_ListController.isLoading');
+  final _$isLoadingAtom = Atom(name: '_MoviesListController.isLoading');
 
   @override
   bool get isLoading {
@@ -84,7 +84,7 @@ mixin _$ListController on _ListController, Store {
     });
   }
 
-  final _$isSearchingAtom = Atom(name: '_ListController.isSearching');
+  final _$isSearchingAtom = Atom(name: '_MoviesListController.isSearching');
 
   @override
   bool get isSearching {
@@ -99,7 +99,7 @@ mixin _$ListController on _ListController, Store {
     });
   }
 
-  final _$searchFocusAtom = Atom(name: '_ListController.searchFocus');
+  final _$searchFocusAtom = Atom(name: '_MoviesListController.searchFocus');
 
   @override
   FocusNode get searchFocus {
@@ -114,7 +114,8 @@ mixin _$ListController on _ListController, Store {
     });
   }
 
-  final _$textControllerAtom = Atom(name: '_ListController.textController');
+  final _$textControllerAtom =
+      Atom(name: '_MoviesListController.textController');
 
   @override
   TextEditingController get textController {
@@ -129,57 +130,57 @@ mixin _$ListController on _ListController, Store {
     });
   }
 
-  final _$_ListControllerActionController =
-      ActionController(name: '_ListController');
+  final _$_MoviesListControllerActionController =
+      ActionController(name: '_MoviesListController');
 
   @override
   dynamic onSearch(String? value) {
-    final _$actionInfo = _$_ListControllerActionController.startAction(
-        name: '_ListController.onSearch');
+    final _$actionInfo = _$_MoviesListControllerActionController.startAction(
+        name: '_MoviesListController.onSearch');
     try {
       return super.onSearch(value);
     } finally {
-      _$_ListControllerActionController.endAction(_$actionInfo);
+      _$_MoviesListControllerActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic backPage() {
-    final _$actionInfo = _$_ListControllerActionController.startAction(
-        name: '_ListController.backPage');
+  dynamic backPage(BuildContext context) {
+    final _$actionInfo = _$_MoviesListControllerActionController.startAction(
+        name: '_MoviesListController.backPage');
     try {
-      return super.backPage();
+      return super.backPage(context);
     } finally {
-      _$_ListControllerActionController.endAction(_$actionInfo);
+      _$_MoviesListControllerActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic advancePage() {
-    final _$actionInfo = _$_ListControllerActionController.startAction(
-        name: '_ListController.advancePage');
+  dynamic advancePage(BuildContext context) {
+    final _$actionInfo = _$_MoviesListControllerActionController.startAction(
+        name: '_MoviesListController.advancePage');
     try {
-      return super.advancePage();
+      return super.advancePage(context);
     } finally {
-      _$_ListControllerActionController.endAction(_$actionInfo);
+      _$_MoviesListControllerActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic openMoviePage(BuildContext context, MovieEntity movie) {
-    final _$actionInfo = _$_ListControllerActionController.startAction(
-        name: '_ListController.openMoviePage');
+    final _$actionInfo = _$_MoviesListControllerActionController.startAction(
+        name: '_MoviesListController.openMoviePage');
     try {
       return super.openMoviePage(context, movie);
     } finally {
-      _$_ListControllerActionController.endAction(_$actionInfo);
+      _$_MoviesListControllerActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   String toString() {
     return '''
-moviesList: ${moviesList},
+movies: ${movies},
 listId: ${listId},
 page: ${page},
 isLoading: ${isLoading},

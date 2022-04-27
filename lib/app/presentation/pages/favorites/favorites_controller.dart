@@ -3,8 +3,10 @@ import 'package:mobx/mobx.dart';
 import 'package:movie_app/app/domain/entities/favorite_movies_list_entity.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/domain/usecases/favorite_movies_list_usecase.dart';
+import 'package:movie_app/app/presentation/components/app_snackbar.dart';
 import 'package:movie_app/app/presentation/dtos/favorite_movies_list_dto.dart';
 import 'package:movie_app/app/presentation/pages/movie/movie_page.dart';
+import 'package:movie_app/core/utils/failure.dart';
 
 part 'favorites_controller.g.dart';
 
@@ -12,8 +14,8 @@ class FavoritesController = _FavoritesController with _$FavoritesController;
 
 // TODO: make favorites and home controller one
 abstract class _FavoritesController with Store {
-  _FavoritesController(this._favoriteUseCase) {
-    fetch();
+  _FavoritesController(BuildContext context, this._favoriteUseCase) {
+    _fetch(context);
   }
 
   final FavoriteMoviesListUseCase _favoriteUseCase;
@@ -35,9 +37,9 @@ abstract class _FavoritesController with Store {
   @observable
   TextEditingController textController = TextEditingController();
 
-  fetch() async {
+  _fetch(BuildContext context) async {
     if (_cachedMovies.isEmpty || !_cachedMovies.keys.contains(page)) {
-      await _loadList();
+      await _loadList(context);
     } else {
       moviesList = moviesList!.copyWith(movies: _cachedMovies[page]!);
     }
@@ -45,13 +47,25 @@ abstract class _FavoritesController with Store {
     if (textController.text.isNotEmpty) onSearch(textController.text);
   }
 
-  _loadList() async {
-    isLoading = true;
+  _loadList(BuildContext context) async {
+    try {
+      isLoading = true;
 
-    moviesList = await _favoriteUseCase.getMovies(page);
-    _cachedMovies[page] = moviesList!.movies;
+      moviesList = await _favoriteUseCase.getMovies(page);
+      _cachedMovies[page] = moviesList!.movies;
 
-    isLoading = false;
+      isLoading = false;
+    } on Failure catch (e) {
+      //TODO: Should the controller call a ui widget?
+      AppSnackBar.show(
+        context,
+        message: e.message,
+        description: e.description,
+        type: AppSnackBarType.error,
+      );
+
+      isLoading = false;
+    }
   }
 
   @action
@@ -70,23 +84,23 @@ abstract class _FavoritesController with Store {
   }
 
   @action
-  backPage() {
+  backPage(BuildContext context) {
     if (page == 1) return;
     if (isLoading) return;
 
     page -= 1;
 
-    fetch();
+    _fetch(context);
   }
 
   @action
-  advancePage() {
+  advancePage(BuildContext context) {
     if (page == moviesList!.totalPages) return;
     if (isLoading) return;
 
     page += 1;
 
-    fetch();
+    _fetch(context);
   }
 
   @action
@@ -99,6 +113,6 @@ abstract class _FavoritesController with Store {
       ),
     );
 
-    if (reload == null || reload[0]) await _loadList();
+    if (reload == null || reload[0]) await _loadList(context);
   }
 }

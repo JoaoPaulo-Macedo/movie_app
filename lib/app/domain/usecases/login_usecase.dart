@@ -3,7 +3,7 @@ import 'package:movie_app/app/domain/repositories/account_details_repository.dar
 import 'package:movie_app/app/domain/repositories/auth_repository.dart';
 
 abstract class LoginUseCase {
-  Future<bool> call(String username, String password);
+  call(String username, String password);
   Future<bool> isLogedIn();
   Future<void> logOut();
 }
@@ -15,14 +15,12 @@ class LoginUserUseCaseImp extends LoginUseCase {
   final AccountDetailsRepository _accountDetailsRepository;
 
   @override
-  Future<bool> call(String username, String password) async {
-    bool success = await _repository.loginUser(
+  call(String username, String password) async {
+    await _repository.loginUser(
       LoginParamsEntity(username: username, password: password),
     );
 
-    if (success) await _accountDetailsRepository();
-
-    return success;
+    await _accountDetailsRepository();
   }
 
   @override

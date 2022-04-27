@@ -5,27 +5,32 @@ import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/app/domain/usecases/favorite_movies_list_usecase.dart';
 import 'package:movie_app/app/domain/usecases/get_movies_list_usecase.dart';
+import 'package:movie_app/app/presentation/components/app_snackbar.dart';
 import 'package:movie_app/app/presentation/dtos/movies_list_dto.dart';
 import 'package:movie_app/app/presentation/pages/movie/movie_page.dart';
+import 'package:movie_app/core/utils/failure.dart';
 
-part 'list_controller.g.dart';
+part 'movies_list_controller.g.dart';
 
-class ListController = _ListController with _$ListController;
+class MoviesListController = _MoviesListController with _$MoviesListController;
 
-abstract class _ListController with Store {
-  _ListController(
+abstract class _MoviesListController with Store {
+  _MoviesListController(
+    BuildContext context,
     this._moviesUseCase,
     this._favoritesUseCase, {
     required this.listId,
   }) {
-    _init();
+    _init(context);
   }
 
   final GetMoviesListUseCase _moviesUseCase;
   final FavoriteMoviesListUseCase _favoritesUseCase;
 
-  @observable
   MoviesListEntity? moviesList;
+
+  @observable
+  List<MovieEntity> movies = [];
   @observable
   Map<int, List<MovieEntity>>? _cachedMovies;
 
@@ -40,7 +45,7 @@ abstract class _ListController with Store {
   int page = 1;
 
   @observable
-  bool isLoading = false;
+  bool isLoading = true;
   @observable
   bool isSearching = false;
   @observable
@@ -48,33 +53,59 @@ abstract class _ListController with Store {
   @observable
   TextEditingController textController = TextEditingController();
 
-  _init() async {
-    isLoading = true;
-
-    moviesList = await _moviesUseCase(list: listId, page: page);
-    _cachedMovies = {page: moviesList!.movies};
-
-    _favoriteMovies = await _favoritesUseCase.getMovies();
-
-    isLoading = false;
-  }
-
-  _fetch() async {
-    isLoading = true;
-
-    if (!_cachedMovies!.keys.contains(page)) {
+  _init(BuildContext context) async {
+    try {
       moviesList = await _moviesUseCase(list: listId, page: page);
 
+      movies = moviesList?.movies ?? [];
       _cachedMovies = {page: moviesList!.movies};
-    } //
 
-    else {
-      moviesList = moviesList!.copyWith(movies: _cachedMovies![page]!);
+      _favoriteMovies = await _favoritesUseCase.getMovies();
+
+      isLoading = false;
+    } on Failure catch (e) {
+      //TODO: Should the controller call a ui widget?
+      AppSnackBar.show(
+        context,
+        message: e.message,
+        description: e.description,
+        type: AppSnackBarType.error,
+      );
+
+      isLoading = false;
     }
+  }
 
-    if (textController.text.isNotEmpty) onSearch(textController.text);
+  _fetch(BuildContext context) async {
+    try {
+      isLoading = true;
 
-    isLoading = false;
+      if (!_cachedMovies!.keys.contains(page)) {
+        var list = await _moviesUseCase(list: listId, page: page);
+
+        movies = list!.movies;
+        _cachedMovies!.addAll({page: movies});
+      } //
+      else {
+        var list = moviesList!.copyWith(movies: _cachedMovies![page]!);
+
+        movies = list.movies;
+      }
+
+      if (textController.text.isNotEmpty) onSearch(textController.text);
+
+      isLoading = false;
+    } on Failure catch (e) {
+      //TODO: Should the controller call a ui widget?
+      AppSnackBar.show(
+        context,
+        message: e.message,
+        description: e.description,
+        type: AppSnackBarType.error,
+      );
+
+      isLoading = false;
+    }
   }
 
   @action
@@ -82,31 +113,33 @@ abstract class _ListController with Store {
     if (_cachedMovies == null) return;
     if (value == null) return;
 
-    List<MovieEntity> list = _cachedMovies![page]!
+    List<MovieEntity> searchList = _cachedMovies![page]!
         .where((e) => e.title.toLowerCase().contains(value.toLowerCase()))
         .toList();
 
-    moviesList = moviesList!.copyWith(movies: list);
+    var list = moviesList!.copyWith(movies: searchList);
+
+    movies = list.movies;
   }
 
   @action
-  backPage() {
+  backPage(BuildContext context) {
     if (page == 1) return;
     if (isLoading) return;
 
     page -= 1;
 
-    _fetch();
+    _fetch(context);
   }
 
   @action
-  advancePage() {
+  advancePage(BuildContext context) {
     if (page == moviesList!.totalPages) return;
     if (isLoading) return;
 
     page += 1;
 
-    _fetch();
+    _fetch(context);
   }
 
   @action

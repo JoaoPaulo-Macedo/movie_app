@@ -39,13 +39,6 @@ mixin _$HomeController on _HomeController, Store {
     });
   }
 
-  final _$fetchAsyncAction = AsyncAction('_HomeController.fetch');
-
-  @override
-  Future fetch() {
-    return _$fetchAsyncAction.run(() => super.fetch());
-  }
-
   final _$_HomeControllerActionController =
       ActionController(name: '_HomeController');
 

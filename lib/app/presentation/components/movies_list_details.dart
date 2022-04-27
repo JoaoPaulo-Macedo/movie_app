@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/app/presentation/components/pagination.dart';
-import 'package:movie_app/app/presentation/pages/list/list_controller.dart';
+import 'package:movie_app/app/presentation/pages/movies_list/movies_list_controller.dart';
 
-class ListDetails extends StatelessWidget {
-  const ListDetails({
+class MoviesListDetails extends StatelessWidget {
+  const MoviesListDetails({
     Key? key,
     required this.controller,
   }) : super(key: key);
 
-  final ListController controller;
+  final MoviesListController controller;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    MoviesListEntity moviesList = controller.moviesList as MoviesListEntity;
+    MoviesListEntity? moviesList = controller.moviesList;
     const horizontalPadding = 5.0;
+
+    if (moviesList == null) return const SizedBox();
 
     return Column(
       children: [
@@ -56,8 +58,8 @@ class ListDetails extends StatelessWidget {
             Pagination(
               page: controller.page,
               totalPages: moviesList.totalPages,
-              backPage: controller.backPage,
-              advancePage: controller.advancePage,
+              backPage: () => controller.backPage(context),
+              advancePage: () => controller.advancePage(context),
             )
           ],
         ),

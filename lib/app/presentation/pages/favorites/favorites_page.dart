@@ -21,7 +21,8 @@ class _FavoritesPageState extends State<FavoritesPage> {
     super.initState();
 
     controller = FavoritesController(
-      GetIt.instance.get<FavoriteMoviesListUseCase>()
+      context,
+      GetIt.instance.get<FavoriteMoviesListUseCase>(),
     );
   }
 
@@ -43,8 +44,8 @@ class _FavoritesPageState extends State<FavoritesPage> {
           if (controller.isListEmpty()) {
             return const Center(
               child: Text(
-                'You have no favorites yet :(',
-                style: TextStyle(fontSize: 20),
+                'You have no favorites :(',
+                style: TextStyle(fontSize: 24),
               ),
             );
           }

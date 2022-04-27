@@ -118,12 +118,6 @@ class Inject {
     );
 
     // Controllers
-    _getIt.registerLazySingleton<HomeController>(
-      () => HomeController(_getIt()),
-    );
-    _getIt.registerLazySingleton<LoginController>(
-      () => LoginController(_getIt()),
-    );
     _getIt.registerLazySingleton<AppDrawerController>(
       () => AppDrawerController(_getIt(), _getIt()),
     );

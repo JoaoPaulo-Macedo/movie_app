@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:movie_app/core/domain/services/http_service.dart';
 import 'package:movie_app/core/utils/api_utils.dart';
 import 'package:movie_app/app/data/datasource/movies_list_datasource.dart';
@@ -11,14 +12,10 @@ class MoviesListDataSourceImp implements MoviesListDataSource {
 
   @override
   Future<MoviesListEntity?> call(int list, int page) async {
-    try {
-      var result = await _httpService.get(
-        API.requestMoviesList(list, page),
-        description: 'Get a list of movies according to pagination',
-      );
-      return MoviesListDTO.fromJson(result.data);
-    } catch (e) {
-      rethrow;
-    }
+    var result = await _httpService.get(
+      API.requestMoviesList(list, page),
+      description: 'Get a list of movies according to pagination',
+    );
+    return MoviesListDTO.fromJson(result.data);
   }
 }

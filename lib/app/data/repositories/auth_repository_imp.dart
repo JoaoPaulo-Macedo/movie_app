@@ -1,8 +1,13 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:movie_app/app/data/datasource/auth_remote_datasource.dart';
 import 'package:movie_app/app/data/datasource/auth_local_datasource.dart';
+import 'package:movie_app/app/data/dtos/request_token_dto.dart';
 import 'package:movie_app/app/domain/entities/login_params_entity.dart';
 import 'package:movie_app/app/domain/repositories/auth_repository.dart';
 import 'package:movie_app/core/inject/inject.dart';
+import 'package:movie_app/core/utils/failure.dart';
 
 class AuthenticationRepositoryImp implements AuthenticationRepository {
   AuthenticationRepositoryImp(
@@ -14,34 +19,38 @@ class AuthenticationRepositoryImp implements AuthenticationRepository {
   final SessionIdDataSource _localSessionDataSource;
 
   @override
-  Future<bool> loginUser(LoginParamsEntity loginParams) async {
-    var token = await _requestToken();
-
+  loginUser(LoginParamsEntity loginParams) async {
     try {
-      Map<String, dynamic> params = loginParams.toJson();
-      params.putIfAbsent('request_token', () => token);
+      RequestTokenDTO token = await _remoteAuthDataSource.getRequestToken();
 
-      var validateWithLogin = await _remoteAuthDataSource.validateWithLogin(params);
+      Map<String, dynamic> params = loginParams.toJson();
+      params.putIfAbsent('request_token', () => token.requestToken);
+
+      token = await _remoteAuthDataSource.validateWithLogin(params);
 
       final sessionId = await _remoteAuthDataSource.createSession(
-        validateWithLogin.toJson(),
+        token.toJson(),
       );
-      await _localSessionDataSource.saveSessionId(sessionId);
 
-      return true;
+      if (sessionId != null) saveSessionID(sessionId);
+    } on SocketException {
+      throw Failure.connection();
+    } on DioError catch (e) {
+      if (e.type == DioErrorType.response) {
+        throw Failure(
+          'Invalid Credentials!',
+          description: e.response?.statusMessage,
+        );
+      }
+
+      throw Failure.fromDioError(e);
     } catch (e) {
-      rethrow;
+      throw Failure.unexpected();
     }
   }
 
-  Future<String> _requestToken() async {
-    try {
-      final request = await _remoteAuthDataSource.getRequestToken();
-
-      return request.requestToken;
-    } catch (e) {
-      rethrow;
-    }
+  Future<bool> saveSessionID(String sessionId) async {
+    return await _localSessionDataSource.saveSessionId(sessionId);
   }
 
   @override

@@ -150,22 +150,22 @@ mixin _$FavoritesController on _FavoritesController, Store {
   }
 
   @override
-  dynamic backPage() {
+  dynamic backPage(BuildContext context) {
     final _$actionInfo = _$_FavoritesControllerActionController.startAction(
         name: '_FavoritesController.backPage');
     try {
-      return super.backPage();
+      return super.backPage(context);
     } finally {
       _$_FavoritesControllerActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic advancePage() {
+  dynamic advancePage(BuildContext context) {
     final _$actionInfo = _$_FavoritesControllerActionController.startAction(
         name: '_FavoritesController.advancePage');
     try {
-      return super.advancePage();
+      return super.advancePage(context);
     } finally {
       _$_FavoritesControllerActionController.endAction(_$actionInfo);
     }
