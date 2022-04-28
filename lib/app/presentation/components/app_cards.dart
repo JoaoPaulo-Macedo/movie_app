@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/app/domain/entities/list_identifier_entity.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/presentation/components/app_poster.dart';
@@ -11,7 +12,7 @@ class ListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final primaryColor = Theme.of(context).primaryColor;
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(15),
@@ -34,8 +35,8 @@ class ListCard extends StatelessWidget {
                       children: [
                         Text(
                           list.name,
-                          maxLines: 2,
-                          style: textTheme.headline6,
+                          maxLines: 3,
+                          style: GoogleFonts.lora(fontSize: 18),
                           overflow: TextOverflow.ellipsis,
                         ),
                         const Spacer(),
@@ -45,9 +46,12 @@ class ListCard extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                Text(list.averageRating?.toStringAsFixed(2) ?? ''),
+                                Text(
+                                  list.averageRating?.toStringAsFixed(2) ?? '',
+                                  style: const TextStyle(fontSize: 11),
+                                ),
                                 const SizedBox(width: 3),
-                                const Icon(Icons.star, size: 13),
+                                const Icon(Icons.star, size: 10),
                               ],
                             ),
                           ],

@@ -24,97 +24,6 @@ mixin _$FavoritesController on _FavoritesController, Store {
     });
   }
 
-  final _$_cachedMoviesAtom = Atom(name: '_FavoritesController._cachedMovies');
-
-  @override
-  Map<int, List<MovieEntity>> get _cachedMovies {
-    _$_cachedMoviesAtom.reportRead();
-    return super._cachedMovies;
-  }
-
-  @override
-  set _cachedMovies(Map<int, List<MovieEntity>> value) {
-    _$_cachedMoviesAtom.reportWrite(value, super._cachedMovies, () {
-      super._cachedMovies = value;
-    });
-  }
-
-  final _$pageAtom = Atom(name: '_FavoritesController.page');
-
-  @override
-  int get page {
-    _$pageAtom.reportRead();
-    return super.page;
-  }
-
-  @override
-  set page(int value) {
-    _$pageAtom.reportWrite(value, super.page, () {
-      super.page = value;
-    });
-  }
-
-  final _$isLoadingAtom = Atom(name: '_FavoritesController.isLoading');
-
-  @override
-  bool get isLoading {
-    _$isLoadingAtom.reportRead();
-    return super.isLoading;
-  }
-
-  @override
-  set isLoading(bool value) {
-    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
-      super.isLoading = value;
-    });
-  }
-
-  final _$isSearchingAtom = Atom(name: '_FavoritesController.isSearching');
-
-  @override
-  bool get isSearching {
-    _$isSearchingAtom.reportRead();
-    return super.isSearching;
-  }
-
-  @override
-  set isSearching(bool value) {
-    _$isSearchingAtom.reportWrite(value, super.isSearching, () {
-      super.isSearching = value;
-    });
-  }
-
-  final _$searchFocusAtom = Atom(name: '_FavoritesController.searchFocus');
-
-  @override
-  FocusNode get searchFocus {
-    _$searchFocusAtom.reportRead();
-    return super.searchFocus;
-  }
-
-  @override
-  set searchFocus(FocusNode value) {
-    _$searchFocusAtom.reportWrite(value, super.searchFocus, () {
-      super.searchFocus = value;
-    });
-  }
-
-  final _$textControllerAtom =
-      Atom(name: '_FavoritesController.textController');
-
-  @override
-  TextEditingController get textController {
-    _$textControllerAtom.reportRead();
-    return super.textController;
-  }
-
-  @override
-  set textController(TextEditingController value) {
-    _$textControllerAtom.reportWrite(value, super.textController, () {
-      super.textController = value;
-    });
-  }
-
   final _$openMoviePageAsyncAction =
       AsyncAction('_FavoritesController.openMoviePage');
 
@@ -174,12 +83,7 @@ mixin _$FavoritesController on _FavoritesController, Store {
   @override
   String toString() {
     return '''
-moviesList: ${moviesList},
-page: ${page},
-isLoading: ${isLoading},
-isSearching: ${isSearching},
-searchFocus: ${searchFocus},
-textController: ${textController}
+moviesList: ${moviesList}
     ''';
   }
 }

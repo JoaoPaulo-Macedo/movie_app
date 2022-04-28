@@ -7,6 +7,7 @@ import 'package:movie_app/app/domain/usecases/favorite_movies_list_usecase.dart'
 import 'package:movie_app/app/domain/usecases/get_movies_list_usecase.dart';
 import 'package:movie_app/app/presentation/components/app_snackbar.dart';
 import 'package:movie_app/app/presentation/dtos/movies_list_dto.dart';
+import 'package:movie_app/app/presentation/pages/common/list_controller.dart';
 import 'package:movie_app/app/presentation/pages/movie/movie_page.dart';
 import 'package:movie_app/core/utils/failure.dart';
 
@@ -14,7 +15,7 @@ part 'movies_list_controller.g.dart';
 
 class MoviesListController = _MoviesListController with _$MoviesListController;
 
-abstract class _MoviesListController with Store {
+abstract class _MoviesListController extends ListController with Store {
   _MoviesListController(
     BuildContext context,
     this._moviesUseCase,
@@ -28,37 +29,36 @@ abstract class _MoviesListController with Store {
   final FavoriteMoviesListUseCase _favoritesUseCase;
 
   MoviesListEntity? moviesList;
-
-  @observable
-  List<MovieEntity> movies = [];
-  @observable
-  Map<int, List<MovieEntity>>? _cachedMovies;
-
   FavoriteMoviesListEntity? _favoriteMovies;
+
+  // @observable
+  // List<MovieEntity> movies = [];
+  // @observable
+  // Map<int, List<MovieEntity>>? cachedMovies;
 
   // @computed
   // bool get valid => isLoading && isSearching;
 
   @observable
   int listId;
-  @observable
-  int page = 1;
+  // @observable
+  // int page = 1;
 
-  @observable
-  bool isLoading = true;
-  @observable
-  bool isSearching = false;
-  @observable
-  FocusNode searchFocus = FocusNode();
-  @observable
-  TextEditingController textController = TextEditingController();
+  // @observable
+  // bool isLoading = true;
+  // @observable
+  // bool isSearching = false;
+  // @observable
+  // FocusNode searchFocus = FocusNode();
+  // @observable
+  // TextEditingController textController = TextEditingController();
 
   _init(BuildContext context) async {
     try {
       moviesList = await _moviesUseCase(list: listId, page: page);
 
       movies = moviesList?.movies ?? [];
-      _cachedMovies = {page: moviesList!.movies};
+      cachedMovies = {page: moviesList!.movies};
 
       _favoriteMovies = await _favoritesUseCase.getMovies();
 
@@ -80,14 +80,14 @@ abstract class _MoviesListController with Store {
     try {
       isLoading = true;
 
-      if (!_cachedMovies!.keys.contains(page)) {
+      if (!cachedMovies.keys.contains(page)) {
         var list = await _moviesUseCase(list: listId, page: page);
 
         movies = list!.movies;
-        _cachedMovies!.addAll({page: movies});
+        cachedMovies.addAll({page: movies});
       } //
       else {
-        var list = moviesList!.copyWith(movies: _cachedMovies![page]!);
+        var list = moviesList!.copyWith(movies: cachedMovies[page]!);
 
         movies = list.movies;
       }
@@ -108,20 +108,21 @@ abstract class _MoviesListController with Store {
     }
   }
 
+  @override
   @action
   onSearch(String? value) {
-    if (_cachedMovies == null) return;
+    if (cachedMovies.isEmpty) return;
 
     if (value == null) {
       textController.clear();
       isSearching = false;
 
-      movies = _cachedMovies![page]!;
+      movies = cachedMovies[page]!;
 
       return;
     }
 
-    List<MovieEntity> searchList = _cachedMovies![page]!
+    List<MovieEntity> searchList = cachedMovies[page]!
         .where((e) => e.title.toLowerCase().contains(value.toLowerCase()))
         .toList();
 

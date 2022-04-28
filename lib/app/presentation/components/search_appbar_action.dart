@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/app/presentation/pages/common/list_controller.dart';
 import 'package:movie_app/app/presentation/pages/movies_list/movies_list_controller.dart';
 
 class SearchAppBarAction extends StatelessWidget {
-  const SearchAppBarAction({Key? key, required this.controller}) : super(key: key);
+  const SearchAppBarAction({
+    Key? key,
+    required this.controller,
+    // required this.textController,
+    // required this.searchFocus,
+    // required this.onSearch,
+  }) : super(key: key);
 
-  final MoviesListController controller;
+  final ListController controller;
+  // final TextEditingController textController;
+  // final FocusNode searchFocus;
+  // final Function(String?) onSearch;
 
   @override
   Widget build(BuildContext context) {
