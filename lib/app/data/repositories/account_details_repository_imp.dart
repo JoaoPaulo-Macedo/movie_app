@@ -1,12 +1,15 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:movie_app/app/data/datasource/account_details_datasource.dart';
 import 'package:movie_app/app/data/dtos/account_details_dto.dart';
 import 'package:movie_app/app/domain/entities/account_details_entity.dart';
 import 'package:movie_app/app/domain/repositories/account_details_repository.dart';
 import 'package:movie_app/app/external/datasource/local/account_details_local_datasource_imp.dart';
+import 'package:movie_app/core/utils/failure.dart';
 
 class AccountDetailsRepositoryImp extends AccountDetailsRepository {
   AccountDetailsRepositoryImp(this._remoteDataSource, this._localDataSource);
@@ -32,15 +35,15 @@ class AccountDetailsRepositoryImp extends AccountDetailsRepository {
       accountDetailsCache = AccountDetailsDTO.fromJson(json);
       return accountDetailsCache;
 
-      accountDetailsCache = await _localDataSource.getDetails();
+      /* accountDetailsCache = await _localDataSource.getDetails();
       if (accountDetailsCache != null) return accountDetailsCache;
 
       accountDetailsCache = await _remoteDataSource();
       if (accountDetailsCache != null) _saveAccountDetails(accountDetailsCache!);
 
-      return accountDetailsCache;
-    } catch (e) {
-      rethrow;
+      return accountDetailsCache; */
+    } catch (_) {
+      throw Failure.unexpected();
     }
   }
 

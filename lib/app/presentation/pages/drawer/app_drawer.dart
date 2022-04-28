@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:movie_app/app/presentation/components/app_drawer_tile.dart';
+import 'package:movie_app/app/presentation/pages/drawer/components/app_drawer_tile.dart';
 import 'package:movie_app/app/presentation/components/logo.dart';
 import 'package:movie_app/app/presentation/pages/drawer/app_drawer_controller.dart';
 import 'package:movie_app/core/utils/routes_name.dart';
@@ -81,12 +81,12 @@ class _AppDrawerState extends State<AppDrawer> {
             ],
           ),
           Align(
+            alignment: Alignment.bottomLeft,
             child: ListTile(
               title: ElevatedButton(
                   onPressed: () => controller.logOut(context),
                   child: const Text('Log Out')),
             ),
-            alignment: Alignment.bottomLeft,
           )
         ],
       ),

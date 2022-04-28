@@ -2,7 +2,6 @@ import 'package:get_it/get_it.dart';
 import 'package:movie_app/app/data/datasource/account_details_datasource.dart';
 import 'package:movie_app/app/data/datasource/auth_local_datasource.dart';
 import 'package:movie_app/app/data/datasource/auth_remote_datasource.dart';
-import 'package:movie_app/app/data/datasource/favorite_movies_local_datasource.dart';
 import 'package:movie_app/app/data/datasource/favorite_movies_remote_datasource.dart';
 import 'package:movie_app/app/data/datasource/lists_cache_datasource.dart';
 import 'package:movie_app/app/data/repositories/account_details_repository_imp.dart';
@@ -14,16 +13,14 @@ import 'package:movie_app/app/domain/repositories/favorite_movies_repository.dar
 import 'package:movie_app/app/domain/usecases/get_account_details_usecase.dart';
 import 'package:movie_app/app/domain/usecases/favorite_movies_list_usecase.dart';
 import 'package:movie_app/app/domain/usecases/login_usecase.dart';
+import 'package:movie_app/app/domain/usecases/logout_usecase.dart';
 import 'package:movie_app/app/external/datasource/local/account_details_local_datasource_imp.dart';
-import 'package:movie_app/app/external/datasource/local/favorite_movies_local_darasource_imp.dart';
 import 'package:movie_app/app/external/datasource/local/session_id_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/local/lists_cache_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/account_details_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/auth_remote_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/favorite_movies_remote_datasource_imp.dart';
 import 'package:movie_app/app/presentation/pages/drawer/app_drawer_controller.dart';
-import 'package:movie_app/app/presentation/pages/favorites/favorites_controller.dart';
-import 'package:movie_app/app/presentation/pages/login/login_controller.dart';
 import 'package:movie_app/core/data/services/dio_service_imp.dart';
 import 'package:movie_app/core/data/services/preferences_service_imp.dart';
 import 'package:movie_app/core/domain/services/http_service.dart';
@@ -37,7 +34,6 @@ import 'package:movie_app/app/domain/usecases/get_all_lists_usecase.dart';
 import 'package:movie_app/app/domain/usecases/get_movies_list_usecase.dart';
 import 'package:movie_app/app/external/datasource/local/movies_list_local_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/movies_list_datasource_imp.dart';
-import 'package:movie_app/app/presentation/pages/home/home_controller.dart';
 import 'package:movie_app/core/domain/services/local_data_service.dart';
 
 class Inject {
@@ -79,9 +75,6 @@ class Inject {
     _getIt.registerLazySingleton<AccountDetailsLocalDataSource>(
       () => AccountDetailsLocalDataSource(_getIt()),
     );
-    // _getIt.registerLazySingleton<FavoriteMoviesLocalDataSource>(
-    //   () => FavoriteMoviesLocalDataSourceImp(_getIt()),
-    // );
 
     // Repositories
     _getIt.registerLazySingleton<MoviesListRepository>(
@@ -109,6 +102,9 @@ class Inject {
     );
     _getIt.registerLazySingleton<LoginUseCase>(
       () => LoginUserUseCaseImp(_getIt(), _getIt()),
+    );
+    _getIt.registerLazySingleton<LogoutUsecase>(
+      () => LogoutUsecaseImp(_getIt()),
     );
     _getIt.registerLazySingleton<GetAccountDetailsUseCase>(
       () => GetAccountDetailsUseCaseImp(_getIt()),

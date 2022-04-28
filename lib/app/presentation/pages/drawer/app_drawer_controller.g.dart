@@ -51,6 +51,17 @@ mixin _$AppDrawerController on _AppDrawerController, Store {
       ActionController(name: '_AppDrawerController');
 
   @override
+  dynamic checkCurrentPage(BuildContext context) {
+    final _$actionInfo = _$_AppDrawerControllerActionController.startAction(
+        name: '_AppDrawerController.checkCurrentPage');
+    try {
+      return super.checkCurrentPage(context);
+    } finally {
+      _$_AppDrawerControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic onTap(BuildContext context, {required String routeName}) {
     final _$actionInfo = _$_AppDrawerControllerActionController.startAction(
         name: '_AppDrawerController.onTap');

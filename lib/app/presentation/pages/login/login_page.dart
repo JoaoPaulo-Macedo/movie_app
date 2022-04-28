@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:movie_app/app/domain/usecases/login_usecase.dart';
-import 'package:movie_app/app/presentation/components/login_form.dart';
+import 'package:movie_app/app/presentation/pages/login/components/login_form.dart';
 import 'package:movie_app/app/presentation/components/logo.dart';
 import 'package:movie_app/app/presentation/pages/login/login_controller.dart';
 
