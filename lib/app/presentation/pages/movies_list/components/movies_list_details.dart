@@ -55,12 +55,14 @@ class MoviesListDetails extends StatelessWidget {
               'Movies',
               style: textTheme.headline6,
             ),
-            Pagination(
-              page: controller.page,
-              totalPages: moviesList.totalPages,
-              backPage: () => controller.backPage(context),
-              advancePage: () => controller.advancePage(context),
-            )
+            controller.isPaginated
+                ? Pagination(
+                    page: controller.page,
+                    totalPages: controller.moviesList?.totalPages ?? 1,
+                    backPage: () => controller.backPage(context),
+                    advancePage: () => controller.advancePage(context),
+                  )
+                : const SizedBox(),
           ],
         ),
       ],

@@ -63,13 +63,7 @@ class _MoviesListPageState extends State<MoviesListPage> {
                       controller.searchFocus.requestFocus();
                     },
                   ),
-                if (controller.isSearching)
-                  SearchAppBarAction(
-                    controller: controller,
-                    // textController: controller.textController,
-                    // searchFocus: controller.searchFocus,
-                    // onSearch: controller.onSearch,
-                  ),
+                if (controller.isSearching) SearchAppBarAction(controller: controller),
               ],
             ),
             body: Padding(

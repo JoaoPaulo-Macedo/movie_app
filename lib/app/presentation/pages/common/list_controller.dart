@@ -20,6 +20,8 @@ abstract class _ListController with Store {
   @observable
   bool isSearching = false;
   @observable
+  bool isPaginated = false;
+  @observable
   FocusNode searchFocus = FocusNode();
   @observable
   TextEditingController textController = TextEditingController();

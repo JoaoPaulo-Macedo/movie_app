@@ -84,6 +84,21 @@ mixin _$ListController on _ListController, Store {
     });
   }
 
+  final _$isPaginatedAtom = Atom(name: '_ListController.isPaginated');
+
+  @override
+  bool get isPaginated {
+    _$isPaginatedAtom.reportRead();
+    return super.isPaginated;
+  }
+
+  @override
+  set isPaginated(bool value) {
+    _$isPaginatedAtom.reportWrite(value, super.isPaginated, () {
+      super.isPaginated = value;
+    });
+  }
+
   final _$searchFocusAtom = Atom(name: '_ListController.searchFocus');
 
   @override
@@ -122,6 +137,7 @@ cachedMovies: ${cachedMovies},
 page: ${page},
 isLoading: ${isLoading},
 isSearching: ${isSearching},
+isPaginated: ${isPaginated},
 searchFocus: ${searchFocus},
 textController: ${textController}
     ''';

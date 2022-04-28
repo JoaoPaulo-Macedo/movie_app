@@ -14,45 +14,56 @@ part 'favorites_controller.g.dart';
 class FavoritesController = _FavoritesController with _$FavoritesController;
 
 abstract class _FavoritesController extends ListController with Store {
-  _FavoritesController(BuildContext context, this._favoriteUseCase) {
-    _fetch(context);
+  _FavoritesController(BuildContext context, this._useCase) {
+    _init(context);
   }
 
-  final FavoriteMoviesListUseCase _favoriteUseCase;
+  final FavoriteMoviesListUseCase _useCase;
 
   @observable
   FavoriteMoviesListEntity? moviesList;
-  // @observable
-  // // ignore: prefer_final_fields
-  // Map<int, List<MovieEntity>> cachedMovies = {};
-  // @observable
-  // int page = 1;
 
-  // @observable
-  // bool isLoading = true;
-  // @observable
-  // bool isSearching = false;
-  // @observable
-  // FocusNode searchFocus = FocusNode();
-  // @observable
-  // TextEditingController textController = TextEditingController();
+  _init(BuildContext context) async {
+    try {
+      moviesList = await _useCase.getMovies(page);
 
-  _fetch(BuildContext context) async {
-    if (cachedMovies.isEmpty || !cachedMovies.keys.contains(page)) {
-      await _loadList(context);
-    } else {
-      moviesList = moviesList!.copyWith(movies: cachedMovies[page]!);
+      movies = moviesList?.movies ?? [];
+      cachedMovies = {page: moviesList!.movies};
+
+      int totalPage = moviesList?.totalPages ?? 1;
+      isPaginated = totalPage > 1;
+
+      isLoading = false;
+    } on Failure catch (e) {
+      //TODO: Should the controller call a ui widget?
+      AppSnackBar.show(
+        context,
+        message: e.message,
+        description: e.description,
+        type: AppSnackBarType.error,
+      );
+
+      isLoading = false;
     }
-
-    if (textController.text.isNotEmpty) onSearch(textController.text);
   }
 
-  _loadList(BuildContext context) async {
+  _fetch(BuildContext context) async {
     try {
       isLoading = true;
 
-      moviesList = await _favoriteUseCase.getMovies(page);
-      cachedMovies[page] = moviesList!.movies;
+      if (!cachedMovies.keys.contains(page)) {
+        var list = await _useCase.getMovies(page);
+
+        movies = list!.movies;
+        cachedMovies.addAll({page: movies});
+      } //
+      else {
+        var list = moviesList!.copyWith(movies: cachedMovies[page]!);
+
+        movies = list.movies;
+      }
+
+      if (textController.text.isNotEmpty) onSearch(textController.text);
 
       isLoading = false;
     } on Failure catch (e) {
@@ -124,6 +135,6 @@ abstract class _FavoritesController extends ListController with Store {
       ),
     );
 
-    if (reload == null || reload[0]) await _loadList(context);
+    if (reload == null || reload[0]) await _fetch(context);
   }
 }

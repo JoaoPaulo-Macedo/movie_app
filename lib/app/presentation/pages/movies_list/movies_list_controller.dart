@@ -62,6 +62,9 @@ abstract class _MoviesListController extends ListController with Store {
 
       _favoriteMovies = await _favoritesUseCase.getMovies();
 
+      int totalPage = moviesList?.totalPages ?? 1;
+      isPaginated = totalPage > 1;
+
       isLoading = false;
     } on Failure catch (e) {
       //TODO: Should the controller call a ui widget?

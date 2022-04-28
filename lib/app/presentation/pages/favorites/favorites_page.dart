@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:movie_app/app/domain/usecases/favorite_movies_list_usecase.dart';
 import 'package:movie_app/app/presentation/components/app_list.dart';
+import 'package:movie_app/app/presentation/components/pagination.dart';
 import 'package:movie_app/app/presentation/components/search_appbar_action.dart';
 import 'package:movie_app/app/presentation/pages/drawer/app_drawer.dart';
 import 'package:movie_app/app/presentation/pages/favorites/favorites_controller.dart';
@@ -67,13 +68,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     controller.searchFocus.requestFocus();
                   },
                 ),
-              if (controller.isSearching)
-                SearchAppBarAction(
-                  controller: controller,
-                  // textController: controller.textController,
-                  // searchFocus: controller.searchFocus,
-                  // onSearch: controller.onSearch,
-                ),
+              if (controller.isSearching) SearchAppBarAction(controller: controller),
             ],
           ),
           drawer: const AppDrawer(),
@@ -81,6 +76,14 @@ class _FavoritesPageState extends State<FavoritesPage> {
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
             child: Column(
               children: [
+                controller.isPaginated
+                    ? Pagination(
+                        page: controller.page,
+                        totalPages: controller.moviesList?.totalPages ?? 1,
+                        backPage: () => controller.backPage(context),
+                        advancePage: () => controller.advancePage(context),
+                      )
+                    : const SizedBox(),
                 Expanded(
                   child: AppList(
                     itemCount: controller.movies.length,
