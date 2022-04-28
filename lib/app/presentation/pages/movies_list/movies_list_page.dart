@@ -3,8 +3,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:movie_app/app/domain/usecases/favorite_movies_list_usecase.dart';
 import 'package:movie_app/app/domain/usecases/get_movies_list_usecase.dart';
+import 'package:movie_app/app/presentation/components/app_list.dart';
 import 'package:movie_app/app/presentation/pages/movies_list/components/movies_list_details.dart';
-import 'package:movie_app/app/presentation/components/app_card.dart';
+import 'package:movie_app/app/presentation/components/app_cards.dart';
 import 'package:movie_app/app/presentation/components/search_appbar_action.dart';
 import 'package:movie_app/app/presentation/pages/movies_list/movies_list_controller.dart';
 
@@ -62,8 +63,7 @@ class _MoviesListPageState extends State<MoviesListPage> {
                       controller.searchFocus.requestFocus();
                     },
                   ),
-                if (controller.isSearching)
-                  SearchAppBarAction(controller: controller),
+                if (controller.isSearching) SearchAppBarAction(controller: controller),
               ],
             ),
             body: Padding(
@@ -84,16 +84,11 @@ class _MoviesListPageState extends State<MoviesListPage> {
                   Visibility(
                     visible: !controller.isLoading,
                     child: Expanded(
-                      child: ListView.separated(
+                      child: AppList(
                         itemCount: controller.movies.length,
-                        padding: EdgeInsets.zero,
-                        separatorBuilder: (_, __) => const SizedBox(height: 10),
-                        itemBuilder: (_, index) {
-                          return AppCard.movie(
-                            controller.movies[index],
-                            controller.openMoviePage,
-                          );
-                        },
+                        list: controller.movies,
+                        onTap: controller.openMoviePage,
+                        type: AppListType.movies,
                       ),
                     ),
                   ),

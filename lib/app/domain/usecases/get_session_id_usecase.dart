@@ -8,5 +8,4 @@ class GetSessionIdUseCaseImp extends GetSessionIdUseCase {
     // TODO: implement call
     throw UnimplementedError();
   }
-
 }
