@@ -10,16 +10,13 @@ import 'package:movie_app/core/inject/inject.dart';
 import 'package:movie_app/core/utils/failure.dart';
 
 class AuthenticationRepositoryImp implements AuthenticationRepository {
-  AuthenticationRepositoryImp(
-    this._remoteAuthDataSource,
-    this._localSessionDataSource,
-  );
+  AuthenticationRepositoryImp(this._remoteAuthDataSource, this._localSessionDataSource);
 
   final AuthenticationRemoteDataSource _remoteAuthDataSource;
   final SessionIdDataSource _localSessionDataSource;
 
   @override
-  loginUser(LoginParamsEntity loginParams) async {
+  Future loginUser(LoginParamsEntity loginParams) async {
     try {
       RequestTokenDTO token = await _remoteAuthDataSource.getRequestToken();
 
@@ -32,25 +29,26 @@ class AuthenticationRepositoryImp implements AuthenticationRepository {
         token.toJson(),
       );
 
-      if (sessionId != null) saveSessionID(sessionId);
-    } on SocketException {
-      throw Failure.connection();
+      if (sessionId != null) _saveSessionID(sessionId);
+    } on SocketException catch (e) {
+      throw Failure.connection(e);
     } on DioError catch (e) {
       if (e.type == DioErrorType.response) {
         throw Failure(
           'Invalid Credentials!',
+          exception: e,
           description: e.response?.statusMessage,
         );
       }
 
       throw Failure.fromDioError(e);
     } catch (e) {
-      throw Failure.unexpected();
+      throw Failure.unexpected(e);
     }
   }
 
-  Future<bool> saveSessionID(String sessionId) async {
-    return await _localSessionDataSource.saveSessionId(sessionId);
+  void _saveSessionID(String sessionId) async {
+    await _localSessionDataSource.saveSessionId(sessionId);
   }
 
   @override
@@ -61,9 +59,22 @@ class AuthenticationRepositoryImp implements AuthenticationRepository {
   }
 
   @override
-  logoutUser() async {
-    await _localSessionDataSource.deleteSessionId();
-    // TODO: delete session on tmdb remote datasource
-    Inject.reset();
+  Future logoutUser() async {
+    try {
+      var sessionId = await _localSessionDataSource.getSessionId();
+      var requestBody = {'session_id': sessionId};
+
+      await _remoteAuthDataSource.deleteSession(requestBody);
+
+      await _localSessionDataSource.deleteSessionId();
+
+      Inject.reset();
+    } on SocketException catch (e) {
+      throw Failure.connection(e);
+    } on DioError catch (e) {
+      throw Failure.fromDioError(e);
+    } catch (e) {
+      throw Failure.unexpected(e);
+    }
   }
 }

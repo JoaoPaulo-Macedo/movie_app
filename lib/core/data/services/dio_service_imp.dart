@@ -1,10 +1,7 @@
-// ignore_for_file: curly_braces_in_flow_control_structures
-
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:movie_app/core/domain/services/http_service.dart';
 import 'package:movie_app/core/utils/app_configs.dart';
+import 'package:movie_app/core/utils/debug.dart';
 
 class DioHttpServiceImp implements HttpService {
   DioHttpServiceImp() {
@@ -24,62 +21,50 @@ class DioHttpServiceImp implements HttpService {
   final bool debug = AppConfigs.debug!;
 
   @override
-  Future get(String path, {required String? description}) async {
+  get(String path, {required String description}) async {
     try {
       final Response response = await _dio.get(path);
 
-      if (debug) _log(response.data, path, description, true);
+      Debug.log(response.data, path: path, description: description, response: true);
 
       return response;
     } catch (e) {
-      if (debug) log(e.toString());
+      Debug.log(e.toString());
+
+      rethrow;
     }
   }
 
   @override
-  post(
-    String path, {
-    Map<String, dynamic>? queryParams,
-    required String? description,
-  }) async {
+  post(String path, {Map<String, dynamic>? queryParams, required String description}) async {
     try {
-      if (debug) _log(queryParams, path, description);
+      Debug.log(queryParams, path: path, description: description);
 
       Response response = await _dio.post(path, data: queryParams);
 
-      if (debug) _log(response.data, '', description, true);
+      Debug.log(response.data, description: description, response: true);
 
       return response;
     } catch (e) {
-      if (debug) log(e.toString());
+      Debug.log(e.toString());
+
+      rethrow;
     }
   }
 
-  void _log(
-    dynamic data, [
-    String? path,
-    String? description,
-    bool response = false,
-  ]) {
-    final String logData = data.toString();
-    final int length = data.toString().length;
+  @override
+  delete(String path, Map<String, dynamic>? queryParams, {required String description}) async {
+    try {
+      Debug.log(queryParams, path: path, description: description);
 
-    log(
-      logData.substring(
-        0,
-        length < AppConfigs.debugMaxChars ? length : AppConfigs.debugMaxChars,
-      ),
-      name: 'Remote${response ? ' - Response' : ''}: $description: $path',
-    );
+      Response response = await _dio.delete(path, queryParameters: queryParams);
+
+      Debug.log(response.data, description: description, response: true);
+
+    } catch (e) {
+      Debug.log(e.toString());
+
+      rethrow;
+    }
   }
 }
-
-/* 
-curl -X POST 'https://api.themoviedb.org/3/authentication/token/validate_with_login?api_key=21fe132d9740e702eadbfa7c5f8476ff'
-  -H 'Content-Type: application/json'
-  -d {
-    'userName': '...', 
-    'password': '...', 
-    'request_token': '7bd237790c0d0207f9c6bd68e86690035dc73029'
-  }
-*/

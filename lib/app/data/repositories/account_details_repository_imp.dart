@@ -1,14 +1,12 @@
 import 'dart:convert';
-import 'dart:developer';
-import 'dart:io';
-
-import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:movie_app/app/data/datasource/account_details_datasource.dart';
 import 'package:movie_app/app/data/dtos/account_details_dto.dart';
 import 'package:movie_app/app/domain/entities/account_details_entity.dart';
 import 'package:movie_app/app/domain/repositories/account_details_repository.dart';
 import 'package:movie_app/app/external/datasource/local/account_details_local_datasource_imp.dart';
+import 'package:movie_app/core/utils/debug.dart';
 import 'package:movie_app/core/utils/failure.dart';
 
 class AccountDetailsRepositoryImp extends AccountDetailsRepository {
@@ -28,9 +26,10 @@ class AccountDetailsRepositoryImp extends AccountDetailsRepository {
       var json = jsonDecode(
         await rootBundle.loadString('assets/account_details.json'),
       );
-      log(
+      Debug.log(
         'json: ${json.toString()}',
-        name: 'Mocked account details from assets to avoid API overload',
+        description: 'Account details from assets to avoid API overload',
+        debugSource: DebugSource.mock,
       );
       accountDetailsCache = AccountDetailsDTO.fromJson(json);
       return accountDetailsCache;
@@ -42,8 +41,8 @@ class AccountDetailsRepositoryImp extends AccountDetailsRepository {
       if (accountDetailsCache != null) _saveAccountDetails(accountDetailsCache!);
 
       return accountDetailsCache; */
-    } catch (_) {
-      throw Failure.unexpected();
+    } catch (e) {
+      throw Failure.unexpected(e);
     }
   }
 

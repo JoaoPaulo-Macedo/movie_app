@@ -15,12 +15,12 @@ class MoviesListRepositoryImp implements MoviesListRepository {
   Future<MoviesListEntity?> call(int list, int page) async {
     try {
       return await _dataSource(list, page);
-    } on SocketException {
-      throw Failure.connection();
+    } on SocketException catch (e) {
+      throw Failure.connection(e);
     } on DioError catch (e) {
       throw Failure.fromDioError(e);
     } catch (e) {
-      throw Failure.unexpected();
+      throw Failure.unexpected(e);
     }
   }
 }

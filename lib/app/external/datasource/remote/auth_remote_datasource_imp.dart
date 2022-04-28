@@ -41,4 +41,9 @@ class AuthenticationRemoteDataSourceImp extends AuthenticationRemoteDataSource {
 
     return response.data['success'] ? response.data['session_id'] : null;
   }
+
+  @override
+  Future deleteSession(Map<String, dynamic> requestBody) async {
+    await _httpService.delete(API.deleteSession, requestBody, description: 'Delete session id');
+  }
 }

@@ -18,12 +18,12 @@ class FavoriteMoviesRepositoryImp extends FavoriteMoviesRepository {
       var list = await _remoteDataSource.getFavorites(page);
 
       return list;
-    } on SocketException {
-      throw Failure.connection();
+    } on SocketException catch (e) {
+      throw Failure.connection(e);
     } on DioError catch (e) {
       throw Failure.fromDioError(e);
     } catch (e) {
-      throw Failure.unexpected();
+      throw Failure.unexpected(e);
     }
   }
 
@@ -31,12 +31,12 @@ class FavoriteMoviesRepositoryImp extends FavoriteMoviesRepository {
   Future<bool> toggleFavorite(MovieEntity movie, bool favorite, int page) async {
     try {
       return await _remoteDataSource.toggleFavorite(movie, favorite);
-    } on SocketException {
-      throw Failure.connection();
+    } on SocketException catch (e) {
+      throw Failure.connection(e);
     } on DioError catch (e) {
       throw Failure.fromDioError(e);
     } catch (e) {
-      throw Failure.unexpected();
+      throw Failure.unexpected(e);
     }
   }
 }

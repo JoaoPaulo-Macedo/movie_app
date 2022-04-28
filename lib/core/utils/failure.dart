@@ -1,20 +1,24 @@
 import 'package:dio/dio.dart';
+import 'package:movie_app/core/utils/debug.dart';
 
 class Failure {
-  Failure(this.message, {this.description});
+  Failure(this.message, {required this.exception, this.description}) {
+    Debug.exception(exception);
+  }
 
   final String message;
   final String? description;
+  final Object exception;
 
   static const _connectionMessage = 'No Internet Connection!';
   static const _responseMessage = 'Error!';
   static const _unexpectedMessage = 'Unexpected Error!';
 
-  factory Failure.connection() => Failure(Failure._connectionMessage);
+  factory Failure.connection(Object e) => Failure(Failure._connectionMessage, exception: e);
 
-  factory Failure.response() => Failure(Failure._responseMessage);
+  factory Failure.response(Object e) => Failure(Failure._responseMessage, exception: e);
 
-  factory Failure.unexpected() => Failure(Failure._unexpectedMessage);
+  factory Failure.unexpected(Object e) => Failure(Failure._unexpectedMessage, exception: e);
 
   factory Failure.fromDioError(DioError error) {
     String message;
@@ -30,7 +34,7 @@ class Failure {
         message = Failure._unexpectedMessage;
         break;
     }
-
-    return Failure(message, description: error.response?.statusMessage);
+    
+    return Failure(message, exception: error, description: error.response?.statusMessage);
   }
 }

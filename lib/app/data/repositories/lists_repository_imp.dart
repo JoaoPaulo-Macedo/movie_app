@@ -34,12 +34,12 @@ class ListsRepositoryImp extends ListsRepository {
 
       saveToCache(listOfLists);
       return listOfLists;
-    } on SocketException {
-      throw Failure.connection();
+    } on SocketException catch (e) {
+      throw Failure.connection(e);
     } on DioError catch (e) {
       throw Failure.fromDioError(e);
     } catch (e) {
-      throw Failure.unexpected();
+      throw Failure.unexpected(e);
     }
   }
 
