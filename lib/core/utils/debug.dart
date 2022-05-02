@@ -5,8 +5,8 @@ import 'package:movie_app/core/utils/app_configs.dart';
 enum DebugSource { remote, local, mock }
 
 class Debug {
-  static exception(dynamic e) {
-    dart.log(e.toString(), name: 'Debug Exception');
+  static exception(dynamic e, String name) {
+    dart.log(e.toString(), name: name);
   }
 
   static description(String description) {

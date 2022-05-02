@@ -56,10 +56,10 @@ class Inject {
       () => AuthenticationRemoteDataSourceImp(_getIt()),
     );
     _getIt.registerLazySingleton<AccountDetailsDataSource>(
-      () => AccountDetailsDataSourceImp(_getIt(), _getIt()),
+      () => AccountDetailsDataSourceImp(_getIt()),
     );
     _getIt.registerLazySingleton<FavoriteMoviesRemoteDataSource>(
-      () => FavoriteMoviesRemoteDataSourceImp(_getIt(), _getIt(), _getIt()),
+      () => FavoriteMoviesRemoteDataSourceImp(_getIt()),
     );
 
     // Local DataSources
@@ -90,7 +90,7 @@ class Inject {
       () => AccountDetailsRepositoryImp(_getIt(), _getIt()),
     );
     _getIt.registerLazySingleton<FavoriteMoviesRepository>(
-      () => FavoriteMoviesRepositoryImp(_getIt()/* , _getIt() */),
+      () => FavoriteMoviesRepositoryImp(_getIt(), _getIt(), _getIt()),
     );
 
     // UseCases

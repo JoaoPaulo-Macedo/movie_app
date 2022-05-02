@@ -15,6 +15,8 @@ class AuthenticationRepositoryImp implements AuthenticationRepository {
   final AuthenticationRemoteDataSource _remoteAuthDataSource;
   final SessionIdDataSource _localSessionDataSource;
 
+  String? sessionId;
+
   @override
   Future loginUser(LoginParamsEntity loginParams) async {
     try {
@@ -25,11 +27,9 @@ class AuthenticationRepositoryImp implements AuthenticationRepository {
 
       token = await _remoteAuthDataSource.validateWithLogin(params);
 
-      final sessionId = await _remoteAuthDataSource.createSession(
-        token.toJson(),
-      );
+      sessionId ??= await _remoteAuthDataSource.createSession(token.toJson());
 
-      if (sessionId != null) _saveSessionID(sessionId);
+      if (sessionId != null) _saveSessionID();
     } on SocketException catch (e) {
       throw Failure.connection(e);
     } on DioError catch (e) {
@@ -47,13 +47,13 @@ class AuthenticationRepositoryImp implements AuthenticationRepository {
     }
   }
 
-  void _saveSessionID(String sessionId) async {
-    await _localSessionDataSource.saveSessionId(sessionId);
+  void _saveSessionID() async {
+    await _localSessionDataSource.saveSessionId(sessionId!);
   }
 
   @override
   Future<bool> isLogedIn() async {
-    var sessionId = await _localSessionDataSource.getSessionId();
+    sessionId ??= await _localSessionDataSource.getSessionId();
 
     return sessionId != null;
   }
@@ -61,7 +61,7 @@ class AuthenticationRepositoryImp implements AuthenticationRepository {
   @override
   Future logoutUser() async {
     try {
-      var sessionId = await _localSessionDataSource.getSessionId();
+      sessionId ??= await _localSessionDataSource.getSessionId();
       var requestBody = {'session_id': sessionId};
 
       await _remoteAuthDataSource.deleteSession(requestBody);

@@ -30,73 +30,81 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(builder: (context) {
-      if (controller.isLoading) {
-        return Center(
-          child: CircularProgressIndicator(
-            color: Theme.of(context).primaryColor,
-          ),
-        );
-      }
+    return Observer(
+      builder: (context) {
+        if (controller.isLoading) {
+          return Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+          );
+        }
 
-      if (controller.isListEmpty()) {
-        return const Center(
-          child: Text(
-            'You have no favorites :(',
-            style: TextStyle(fontSize: 24),
-          ),
-        );
-      }
+        if (controller.isListEmpty()) {
+          return Scaffold(
+            appBar: AppBar(),
+            drawer: const AppDrawer(),
+            body: const Center(
+              child: Text(
+                'You have no favorites :(',
+                style: TextStyle(fontSize: 24),
+              ),
+            ),
+          );
+        }
 
-      return GestureDetector(
-        onTap: () {
-          controller.searchFocus.unfocus();
+        return GestureDetector(
+          onTap: () {
+            controller.searchFocus.unfocus();
 
-          if (controller.textController.text.isEmpty) {
-            controller.isSearching = false;
-          }
-        },
-        child: Scaffold(
-          appBar: AppBar(
-            leading: controller.isSearching ? const SizedBox() : null,
-            actions: [
-              if (!controller.isSearching)
-                IconButton(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {
-                    controller.isSearching = true;
-                    controller.searchFocus.requestFocus();
-                  },
-                ),
-              if (controller.isSearching) SearchAppBarAction(controller: controller),
-            ],
-          ),
-          drawer: const AppDrawer(),
-          body: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-            child: Column(
-              children: [
-                controller.isPaginated
-                    ? Pagination(
-                        page: controller.page,
-                        totalPages: controller.moviesList?.totalPages ?? 1,
-                        backPage: () => controller.backPage(context),
-                        advancePage: () => controller.advancePage(context),
-                      )
-                    : const SizedBox(),
-                Expanded(
-                  child: AppList(
-                    itemCount: controller.movies.length,
-                    list: controller.movies,
-                    onTap: controller.openMoviePage,
-                    type: AppListType.movies,
+            if (controller.textController.text.isEmpty) {
+              controller.isSearching = false;
+            }
+          },
+          child: Scaffold(
+            appBar: AppBar(
+              leading: controller.isSearching ? const SizedBox() : null,
+              actions: [
+                if (!controller.isSearching)
+                  IconButton(
+                    icon: const Icon(Icons.search),
+                    onPressed: () {
+                      controller.isSearching = true;
+                      controller.searchFocus.requestFocus();
+                    },
                   ),
-                ),
+                if (controller.isSearching) SearchAppBarAction(controller: controller),
               ],
             ),
+            drawer: const AppDrawer(),
+            body: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+              child: Column(
+                children: [
+                  controller.isPaginated
+                      ? Pagination(
+                          page: controller.page,
+                          totalPages: controller.moviesList?.totalPages ?? 1,
+                          backPage: () => controller.backPage(context),
+                          advancePage: () => controller.advancePage(context),
+                        )
+                      : const SizedBox(),
+                  Expanded(
+                    child: AppList(
+                      itemCount: controller.movies.length,
+                      list: controller.movies,
+                      onTap: controller.openMoviePage,
+                      type: AppListType.movies,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

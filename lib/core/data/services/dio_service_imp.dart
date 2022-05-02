@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:movie_app/core/domain/services/http_service.dart';
 import 'package:movie_app/core/utils/app_configs.dart';
-import 'package:movie_app/core/utils/custom_log_interceptor.dart';
+import 'package:movie_app/core/data/interceptors/custom_log_interceptor.dart';
 import 'package:movie_app/core/utils/debug.dart';
 
 class DioHttpServiceImp implements HttpService {

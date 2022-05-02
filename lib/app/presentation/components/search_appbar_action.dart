@@ -6,15 +6,9 @@ class SearchAppBarAction extends StatelessWidget {
   const SearchAppBarAction({
     Key? key,
     required this.controller,
-    // required this.textController,
-    // required this.searchFocus,
-    // required this.onSearch,
   }) : super(key: key);
 
   final ListController controller;
-  // final TextEditingController textController;
-  // final FocusNode searchFocus;
-  // final Function(String?) onSearch;
 
   @override
   Widget build(BuildContext context) {

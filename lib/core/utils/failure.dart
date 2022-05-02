@@ -3,7 +3,7 @@ import 'package:movie_app/core/utils/debug.dart';
 
 class Failure {
   Failure(this.message, {required this.exception, this.description}) {
-    Debug.exception(exception);
+    Debug.exception(exception, message);
   }
 
   final String message;

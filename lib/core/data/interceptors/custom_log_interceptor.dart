@@ -37,7 +37,7 @@ class CustomLogInterceptor extends LogInterceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
-    logPrint(CustomLogObject('Start', '--- REQUEST ---'));
+    logPrint(CustomLogObject('*', 'REQUEST'));
     logPrint(CustomLogObject('URI', options.uri));
 
     if (request) {
@@ -65,13 +65,13 @@ class CustomLogInterceptor extends LogInterceptor {
       logPrint(CustomLogObject('Data', map));
     }
 
-    logPrint(CustomLogObject('End', '--- REQUEST ---'));
     handler.next(options);
   }
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) async {
-    logPrint(CustomLogObject('Start', '--- RESPONSE ---'));
+    logPrint('--- ---');
+    logPrint(CustomLogObject('*', 'RESPONSE'));
     logPrint(CustomLogObject('URI', response.requestOptions.uri));
 
     if (responseHeader) {
@@ -92,7 +92,6 @@ class CustomLogInterceptor extends LogInterceptor {
       logPrint(CustomLogObject('Response Body', response.toString()));
     }
 
-    logPrint(CustomLogObject('End', '--- RESPONSE ---'));
     handler.next(response);
   }
 
