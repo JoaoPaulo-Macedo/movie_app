@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:movie_app/core/utils/app_configs.dart';
 
 class CustomLogObject {
@@ -96,4 +95,7 @@ class CustomLogInterceptor extends LogInterceptor {
     logPrint(CustomLogObject('End', '--- RESPONSE ---'));
     handler.next(response);
   }
+
+  @override
+  onError(DioError err, ErrorInterceptorHandler handler) => handler.next(err);
 }

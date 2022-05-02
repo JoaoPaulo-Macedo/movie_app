@@ -24,30 +24,19 @@ class DioHttpServiceImp implements HttpService {
 
   @override
   get(String path, {required String description}) async {
-    try {
-      Debug.description(description);
+    Debug.description(description);
 
-      final Response response = await _dio.get(path);
+    final Response response = await _dio.get(path);
 
-      // Debug.log(response.data, path: path, description: description, response: true);
-
-      return response;
-    } catch (e) {
-      Debug.log(e.toString());
-
-      rethrow;
-    }
+    return response;
   }
 
   @override
   post(String path, {Map<String, dynamic>? queryParams, required String description}) async {
     try {
       Debug.description(description);
-      // Debug.log(queryParams, path: path, description: description);
 
       Response response = await _dio.post(path, data: queryParams);
-
-      // Debug.log(response.data, description: description, response: true);
 
       return response;
     } catch (e) {
@@ -59,17 +48,10 @@ class DioHttpServiceImp implements HttpService {
 
   @override
   delete(String path, Map<String, dynamic>? queryParams, {required String description}) async {
-    try {
-      Debug.description(description);
-      // Debug.log(queryParams, path: path, description: description);
+    Debug.description(description);
 
-      Response response = await _dio.delete(path, queryParameters: queryParams);
+    Response response = await _dio.delete(path, queryParameters: queryParams);
 
-      // Debug.log(response.data, description: description, response: true);
-    } catch (e) {
-      Debug.log(e.toString());
-
-      rethrow;
-    }
+    return response;
   }
 }
