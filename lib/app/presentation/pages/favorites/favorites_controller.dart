@@ -79,6 +79,7 @@ abstract class _FavoritesController extends ListController with Store {
     }
   }
 
+  @override
   @action
   bool isListEmpty() => moviesList?.movies == null || moviesList!.movies.isEmpty;
 

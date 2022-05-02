@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/app/domain/usecases/favorite_movies_list_usecase.dart';
 import 'package:movie_app/app/domain/usecases/get_movies_list_usecase.dart';
 import 'package:movie_app/app/presentation/components/app_list.dart';
+import 'package:movie_app/app/presentation/pages/favorites/favorites_page.dart';
 import 'package:movie_app/app/presentation/pages/movies_list/components/movies_list_details.dart';
 import 'package:movie_app/app/presentation/components/app_cards.dart';
 import 'package:movie_app/app/presentation/components/search_appbar_action.dart';
@@ -37,9 +39,46 @@ class _MoviesListPageState extends State<MoviesListPage> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) {
-        if (controller.movies.isEmpty) {
-          return const Center(
-            child: CircularProgressIndicator(color: Colors.white),
+        if (controller.isLoading) {
+          return Scaffold(
+            appBar: AppBar(),
+            body: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+              child: Stack(
+                children: [
+                  Center(
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                  if (controller.isPaginated)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 5),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Pagination2(
+                          page: controller.page,
+                          totalPages: controller.moviesList?.totalPages ?? 1,
+                          backPage: () => controller.backPage(context),
+                          advancePage: () => controller.advancePage(context),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          );
+        }
+
+        if (controller.isListEmpty()) {
+          return Scaffold(
+            appBar: AppBar(),
+            body: Center(
+              child: Text(
+                'No movies found :(',
+                style: GoogleFonts.lora(fontSize: 25),
+              ),
+            ),
           );
         }
 
@@ -68,30 +107,27 @@ class _MoviesListPageState extends State<MoviesListPage> {
             ),
             body: Padding(
               padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Stack(
                 children: [
-                  MoviesListDetails(controller: controller),
-                  const SizedBox(height: 15),
-                  Visibility(
-                    visible: controller.isLoading,
-                    child: const Expanded(
-                      child: Center(
-                        child: CircularProgressIndicator(color: Colors.white),
+                  AppList(
+                    itemCount: controller.movies.length,
+                    list: controller.movies,
+                    onTap: controller.openMoviePage,
+                    type: AppListType.movies,
+                  ),
+                  if (controller.isPaginated)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 5),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Pagination2(
+                          page: controller.page,
+                          totalPages: controller.moviesList?.totalPages ?? 1,
+                          backPage: () => controller.backPage(context),
+                          advancePage: () => controller.advancePage(context),
+                        ),
                       ),
                     ),
-                  ),
-                  Visibility(
-                    visible: !controller.isLoading,
-                    child: Expanded(
-                      child: AppList(
-                        itemCount: controller.movies.length,
-                        list: controller.movies,
-                        onTap: controller.openMoviePage,
-                        type: AppListType.movies,
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),

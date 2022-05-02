@@ -27,4 +27,6 @@ abstract class _ListController with Store {
   TextEditingController textController = TextEditingController();
 
   onSearch(String? value);
+  
+  bool isListEmpty();
 }

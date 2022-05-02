@@ -31,27 +31,8 @@ abstract class _MoviesListController extends ListController with Store {
   MoviesListEntity? moviesList;
   FavoriteMoviesListEntity? _favoriteMovies;
 
-  // @observable
-  // List<MovieEntity> movies = [];
-  // @observable
-  // Map<int, List<MovieEntity>>? cachedMovies;
-
-  // @computed
-  // bool get valid => isLoading && isSearching;
-
   @observable
   int listId;
-  // @observable
-  // int page = 1;
-
-  // @observable
-  // bool isLoading = true;
-  // @observable
-  // bool isSearching = false;
-  // @observable
-  // FocusNode searchFocus = FocusNode();
-  // @observable
-  // TextEditingController textController = TextEditingController();
 
   _init(BuildContext context) async {
     try {
@@ -110,6 +91,10 @@ abstract class _MoviesListController extends ListController with Store {
       isLoading = false;
     }
   }
+
+  @override
+  @action
+  bool isListEmpty() => moviesList?.movies == null || moviesList!.movies.isEmpty;
 
   @override
   @action
