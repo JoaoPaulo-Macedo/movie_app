@@ -9,6 +9,12 @@ class Debug {
     dart.log(e.toString(), name: 'Debug Exception');
   }
 
+  static description(String description) {
+    if (!AppConfigs.debug!) return;
+
+    dart.log(description, name: 'Description');
+  }
+
   static log(data, {String? path, String? description, bool response = false, DebugSource? debugSource}) {
     if (!AppConfigs.debug!) return;
 

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:movie_app/core/domain/services/http_service.dart';
 import 'package:movie_app/core/utils/app_configs.dart';
+import 'package:movie_app/core/utils/custom_log_interceptor.dart';
 import 'package:movie_app/core/utils/debug.dart';
 
 class DioHttpServiceImp implements HttpService {
@@ -15,17 +16,20 @@ class DioHttpServiceImp implements HttpService {
         },
       ),
     );
+
+    if (AppConfigs.debug!) _dio.interceptors.add(CustomLogInterceptor());
   }
 
   late Dio _dio;
-  final bool debug = AppConfigs.debug!;
 
   @override
   get(String path, {required String description}) async {
     try {
+      Debug.description(description);
+
       final Response response = await _dio.get(path);
 
-      Debug.log(response.data, path: path, description: description, response: true);
+      // Debug.log(response.data, path: path, description: description, response: true);
 
       return response;
     } catch (e) {
@@ -38,11 +42,12 @@ class DioHttpServiceImp implements HttpService {
   @override
   post(String path, {Map<String, dynamic>? queryParams, required String description}) async {
     try {
-      Debug.log(queryParams, path: path, description: description);
+      Debug.description(description);
+      // Debug.log(queryParams, path: path, description: description);
 
       Response response = await _dio.post(path, data: queryParams);
 
-      Debug.log(response.data, description: description, response: true);
+      // Debug.log(response.data, description: description, response: true);
 
       return response;
     } catch (e) {
@@ -55,12 +60,12 @@ class DioHttpServiceImp implements HttpService {
   @override
   delete(String path, Map<String, dynamic>? queryParams, {required String description}) async {
     try {
-      Debug.log(queryParams, path: path, description: description);
+      Debug.description(description);
+      // Debug.log(queryParams, path: path, description: description);
 
       Response response = await _dio.delete(path, queryParameters: queryParams);
 
-      Debug.log(response.data, description: description, response: true);
-
+      // Debug.log(response.data, description: description, response: true);
     } catch (e) {
       Debug.log(e.toString());
 
