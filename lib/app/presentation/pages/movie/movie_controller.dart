@@ -82,7 +82,6 @@ abstract class _MovieController with Store {
 
   @action
   onClose(BuildContext context) {
-    print('close 1');
     _context = context;
     _close = true;
     loading.value = true;
@@ -90,9 +89,7 @@ abstract class _MovieController with Store {
 
   //TODO: gambiarras
   _onClose(BuildContext context) async {
-    print('close 2');
     bool changed = _isFavoriteCache != isFavorite;
-    print('changed: $changed');
     loading.dispose();
     Navigator.pop(context, [changed]);
   }

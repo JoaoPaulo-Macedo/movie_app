@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:movie_app/app/presentation/pages/common/list_controller.dart';
 
 class SearchAppBar extends StatelessWidget {
@@ -8,19 +9,23 @@ class SearchAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      leading: controller.isSearching ? const SizedBox() : null,
-      actions: [
-        if (!controller.isSearching)
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              controller.isSearching = true;
-              controller.searchFocus.requestFocus();
-            },
-          ),
-        if (controller.isSearching) _SearchAppBarAction(controller: controller),
-      ],
+    return Observer(
+      builder: (context) {
+        return AppBar(
+          leading: controller.isSearching ? const SizedBox() : null,
+          actions: [
+            if (!controller.isSearching)
+              IconButton(
+                icon: const Icon(Icons.search),
+                onPressed: () {
+                  controller.isSearching = true;
+                  controller.searchFocus.requestFocus();
+                },
+              ),
+            if (controller.isSearching) _SearchAppBarAction(controller: controller),
+          ],
+        );
+      },
     );
   }
 }
