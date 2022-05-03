@@ -4,8 +4,8 @@ import 'package:movie_app/app/domain/repositories/favorites_repository.dart';
 
 abstract class FavoriteMoviesListUseCase {
   Future<ListEntity>? getMovies([int page = 1]);
-  Future<bool> saveFavorite(MovieEntity movie, int page);
-  Future<bool> removeFavorite(MovieEntity movie, int page);
+  Future saveFavorite(MovieEntity movie, int page);
+  Future removeFavorite(MovieEntity movie, int page);
 }
 
 class FavoriteMoviesListUseCaseImp extends FavoriteMoviesListUseCase {
@@ -19,12 +19,12 @@ class FavoriteMoviesListUseCaseImp extends FavoriteMoviesListUseCase {
   }
 
   @override
-  Future<bool> saveFavorite(MovieEntity movie, int page) async {
+  saveFavorite(MovieEntity movie, int page) async {
     return await _repository.toggleFavorite(movie, true, page);
   }
 
   @override
-  Future<bool> removeFavorite(MovieEntity movie, int page) async {
+  removeFavorite(MovieEntity movie, int page) async {
     return await _repository.toggleFavorite(movie, false, page);
   }
 }

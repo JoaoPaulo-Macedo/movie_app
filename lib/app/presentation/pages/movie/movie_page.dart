@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:movie_app/app/domain/usecases/get_favorites_usecase.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
@@ -10,17 +9,10 @@ import 'package:movie_app/app/presentation/pages/movie/components/movie_details.
 import 'package:movie_app/app/presentation/pages/movie/movie_controller.dart';
 import 'package:movie_app/app/presentation/pages/movie/components/movie_poster.dart';
 
-extension NumExtension on num? {
-  String convertToPercentageString() {
-    return ((this ?? 0) * 10).toStringAsFixed(0) + ' %';
-  }
-}
-
 class MoviePage extends StatefulWidget {
-  const MoviePage(this.movie, {Key? key, this.favorite = false}) : super(key: key);
+  const MoviePage(this.movie, {Key? key}) : super(key: key);
 
   final MovieEntity movie;
-  final bool favorite;
 
   @override
   State<MoviePage> createState() => _MoviePageState();
@@ -34,9 +26,9 @@ class _MoviePageState extends State<MoviePage> {
     super.initState();
 
     controller = MovieController(
+      context,
       GetIt.instance.get<FavoriteMoviesListUseCase>(),
       widget.movie,
-      favorite: widget.favorite,
     );
   }
 

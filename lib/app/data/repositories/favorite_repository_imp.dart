@@ -21,18 +21,21 @@ class FavoritesRepositoryImp extends FavoritesRepository {
   final AccountDetailsRemoteDataSource _accountDetailsDataSource;
   final SessionIdDataSource _sessionIdDataSource;
 
+  ListEntity? favorites;
   String? sessionId;
   int? accountId;
 
   @override
   Future<ListEntity> getFavorites(int page) async {
     try {
+      if (favorites != null) return favorites!;
+
       sessionId ??= await _getSessionId();
       accountId ??= await _getAccountId();
 
-      var list = await _remoteDataSource.getFavorites(page, accountId!, sessionId!);
+      favorites = await _remoteDataSource.getFavorites(page, accountId!, sessionId!);
 
-      return list;
+      return favorites!;
     } on SocketException catch (e) {
       throw Failure.connection(e);
     } on DioError catch (e) {
@@ -43,12 +46,14 @@ class FavoritesRepositoryImp extends FavoritesRepository {
   }
 
   @override
-  Future<bool> toggleFavorite(MovieEntity movie, bool favorite, int page) async {
+  toggleFavorite(MovieEntity movie, bool favorite, int page) async {
     try {
       accountId ??= await _getAccountId();
       sessionId ??= await _getSessionId();
 
-      return await _remoteDataSource.toggleFavorite(movie, favorite, accountId!, sessionId!);
+      await _remoteDataSource.toggleFavorite(movie, favorite, accountId!, sessionId!);
+
+      favorites = await _remoteDataSource.getFavorites(page, accountId!, sessionId!);
     } on SocketException catch (e) {
       throw Failure.connection(e);
     } on DioError catch (e) {

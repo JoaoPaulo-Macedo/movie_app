@@ -28,7 +28,6 @@ class _MoviesListPageState extends State<MoviesListPage> {
     controller = MoviesListController(
       context,
       GetIt.I.get<GetMoviesListUseCase>(),
-      GetIt.I.get<FavoriteMoviesListUseCase>(),
       listId: widget.listId,
     );
   }

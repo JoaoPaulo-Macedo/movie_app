@@ -53,11 +53,11 @@ abstract class _ListController with Store {
 
     var list = listEntity!.copyWith(movies: searchList);
 
-    movies = list.movies;
+    movies = list.movies ?? [];
   }
 
   @action
-  bool isListEmpty() => listEntity?.movies == null || listEntity!.movies.isEmpty;
+  bool isListEmpty() => listEntity?.movies == null || listEntity!.movies!.isEmpty;
 
   @action
   backPage(BuildContext context) {

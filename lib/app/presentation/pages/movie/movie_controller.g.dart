@@ -9,18 +9,18 @@ part of 'movie_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$MovieController on _MovieController, Store {
-  final _$favoriteAtom = Atom(name: '_MovieController.favorite');
+  final _$isFavoriteAtom = Atom(name: '_MovieController.isFavorite');
 
   @override
-  bool get favorite {
-    _$favoriteAtom.reportRead();
-    return super.favorite;
+  bool get isFavorite {
+    _$isFavoriteAtom.reportRead();
+    return super.isFavorite;
   }
 
   @override
-  set favorite(bool value) {
-    _$favoriteAtom.reportWrite(value, super.favorite, () {
-      super.favorite = value;
+  set isFavorite(bool value) {
+    _$isFavoriteAtom.reportWrite(value, super.isFavorite, () {
+      super.isFavorite = value;
     });
   }
 
@@ -82,7 +82,7 @@ mixin _$MovieController on _MovieController, Store {
   @override
   String toString() {
     return '''
-favorite: ${favorite},
+isFavorite: ${isFavorite},
 loading: ${loading},
 page: ${page}
     ''';

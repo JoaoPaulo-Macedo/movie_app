@@ -1,4 +1,3 @@
-import 'package:movie_app/app/domain/entities/favorite_movies_list_entity.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 

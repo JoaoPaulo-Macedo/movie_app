@@ -2,14 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/domain/usecases/get_favorites_usecase.dart';
+import 'package:movie_app/app/presentation/components/app_snackbar.dart';
+import 'package:movie_app/core/utils/failure.dart';
 
 part 'movie_controller.g.dart';
 
 class MovieController = _MovieController with _$MovieController;
 
-// TODO: make favorites and home controller one
 abstract class _MovieController with Store {
-  _MovieController(this._favoriteUseCase, this.movie, {required this.favorite}) {
+  _MovieController(BuildContext this._context, this._favoriteUseCase, this.movie) {
     _init();
   }
 
@@ -17,28 +18,46 @@ abstract class _MovieController with Store {
   final MovieEntity movie;
 
   @observable
-  bool favorite;
+  bool isFavorite = false;
   @observable
   ValueNotifier<bool> loading = ValueNotifier(false);
   @observable
   int page = 1;
 
   BuildContext? _context;
-  bool? _favoriteCache;
+  bool? _isFavoriteCache;
   bool _toggle = false;
   bool _close = false;
 
-  _init() {
-    _favoriteCache = favorite;
+  _init() async {
+    try {
+      loading.value = true;
 
-    loading.addListener(() {
-      if (_toggle) {
-        _toggle = false;
-        _togglefavorite();
-      }
+      var favorites = await _favoriteUseCase.getMovies();
 
-      if (_close) _onClose(_context!);
-    });
+      isFavorite = favorites!.movies!.any((e) => e.id == movie.id);
+
+      _isFavoriteCache = isFavorite;
+
+      loading.addListener(() {
+        if (_toggle) {
+          _toggle = false;
+          _togglefavorite();
+        }
+
+        if (_close) _onClose(_context!);
+      });
+
+      loading.value = false;
+    } on Failure catch (e) {
+      //TODO: Should the controller call a ui widget?
+      AppSnackBar.show(
+        _context!,
+        message: e.message,
+        description: e.description,
+        type: AppSnackBarType.error,
+      );
+    }
   }
 
   @action
@@ -50,11 +69,11 @@ abstract class _MovieController with Store {
   }
 
   _togglefavorite() async {
-    if (!favorite) {
-      favorite = !favorite;
+    if (!isFavorite) {
+      isFavorite = !isFavorite;
       await _favoriteUseCase.saveFavorite(movie, page);
     } else {
-      favorite = !favorite;
+      isFavorite = !isFavorite;
       await _favoriteUseCase.removeFavorite(movie, page);
     }
 
@@ -63,6 +82,7 @@ abstract class _MovieController with Store {
 
   @action
   onClose(BuildContext context) {
+    print('close 1');
     _context = context;
     _close = true;
     loading.value = true;
@@ -70,7 +90,9 @@ abstract class _MovieController with Store {
 
   //TODO: gambiarras
   _onClose(BuildContext context) async {
-    bool changed = _favoriteCache != favorite;
+    print('close 2');
+    bool changed = _isFavoriteCache != isFavorite;
+    print('changed: $changed');
     loading.dispose();
     Navigator.pop(context, [changed]);
   }

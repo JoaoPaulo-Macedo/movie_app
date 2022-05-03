@@ -7,6 +7,9 @@ class AppConfigs {
         case AppEnvironment.dev:
           i = AppConfigs._(true, AppEnvironment.dev);
           break;
+        case AppEnvironment.debug:
+          i = AppConfigs._(true, AppEnvironment.prod);
+          break;
         case AppEnvironment.prod:
           i = AppConfigs._(false, AppEnvironment.prod);
           break;
@@ -24,4 +27,4 @@ class AppConfigs {
   AppEnvironment environment;
 }
 
-enum AppEnvironment { dev, prod }
+enum AppEnvironment { dev, debug, prod }

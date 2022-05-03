@@ -17,19 +17,11 @@ part 'movies_list_controller.g.dart';
 class MoviesListController = _MoviesListController with _$MoviesListController;
 
 abstract class _MoviesListController extends ListController with Store {
-  _MoviesListController(
-    BuildContext context,
-    this._moviesUseCase,
-    this._favoritesUseCase, {
-    required this.listId,
-  }) {
+  _MoviesListController(BuildContext context, this._moviesUseCase, {required this.listId}) {
     _init(context);
   }
 
   final GetMoviesListUseCase _moviesUseCase;
-  final FavoriteMoviesListUseCase _favoritesUseCase;
-
-  ListEntity? _favoriteMovies;
 
   @observable
   int listId;
@@ -39,9 +31,7 @@ abstract class _MoviesListController extends ListController with Store {
       listEntity = await _moviesUseCase(list: listId, page: page);
 
       movies = listEntity?.movies ?? [];
-      cachedMovies = {page: listEntity!.movies};
-
-      _favoriteMovies = await _favoritesUseCase.getMovies();
+      cachedMovies = {page: listEntity!.movies ?? []};
 
       int totalPage = listEntity?.totalPages ?? 1;
       isPaginated = totalPage > 1;
@@ -68,13 +58,13 @@ abstract class _MoviesListController extends ListController with Store {
       if (!cachedMovies.keys.contains(page)) {
         var list = await _moviesUseCase(list: listId, page: page);
 
-        movies = list!.movies;
+        movies = list!.movies ?? [];
         cachedMovies.addAll({page: movies});
       } //
       else {
         var list = listEntity!.copyWith(movies: cachedMovies[page]!);
 
-        movies = list.movies;
+        movies = list.movies ?? [];
       }
 
       if (textController.text.isNotEmpty) onSearch(textController.text);
@@ -96,12 +86,10 @@ abstract class _MoviesListController extends ListController with Store {
   @override
   @action
   openMoviePage(BuildContext context, MovieEntity movie) async {
-    bool favorite = _favoriteMovies!.movies.any((e) => e.id == movie.id);
-
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => MoviePage(movie, favorite: favorite),
+        builder: (_) => MoviePage(movie),
         fullscreenDialog: true,
       ),
     );

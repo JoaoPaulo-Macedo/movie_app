@@ -8,9 +8,11 @@ extension ListDTO on ListEntity {
       id: json['id'] ?? 0,
       name: json['name'] ?? '',
       page: json['page'],
-      totalPages: json['total_pages'],
+      totalPages: json['total_pages'] ?? 0,
       totalResults: json['total_results'],
-      movies: List.from(json['results']).map((e) => MovieDTO.fromJson(e)).toList(),
+      movies: json['results'] != null
+          ? List.from(json['results']).map((e) => MovieDTO.fromJson(e)).toList()
+          : null,
       averageRating: json['average_rating'],
       createdBy: json['created_by'] != null ? CreatedByDTO.fromJson(json['created_by']) : null,
       description: json['description'],
@@ -32,7 +34,7 @@ extension ListDTO on ListEntity {
     _data['name'] = name;
     _data['page'] = page;
     _data['public'] = public;
-    _data['results'] = movies.map((e) => e.toJson()).toList();
+    _data['results'] = movies?.map((e) => e.toJson()).toList();
     _data['revenue'] = revenue;
     _data['runtime'] = runtime;
     _data['sort_by'] = sortBy;

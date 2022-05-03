@@ -43,9 +43,9 @@ class ListRepositoryImp extends ListRepository {
   }
 
   @override
-  Future<ListEntity> getList(int listId, int page) async {
+  Future<ListEntity?> getList(int listId, int page) async {
     try {
-      return lists.firstWhere((e) => e.id == listId);
+      return await _dataSource(listId, 1);
     } on SocketException catch (e) {
       throw Failure.connection(e);
     } on DioError catch (e) {

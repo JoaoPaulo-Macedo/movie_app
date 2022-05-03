@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:movie_app/app/domain/entities/favorite_movies_list_entity.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/domain/usecases/get_favorites_usecase.dart';
 import 'package:movie_app/app/presentation/components/app_snackbar.dart';
-import 'package:movie_app/app/presentation/dtos/favorite_movies_list_dto.dart';
 import 'package:movie_app/app/presentation/dtos/movies_list_dto.dart';
 import 'package:movie_app/app/presentation/pages/common/list_controller.dart';
 import 'package:movie_app/app/presentation/pages/movie/movie_page.dart';
@@ -15,18 +13,18 @@ part 'favorites_controller.g.dart';
 class FavoritesController = _FavoritesController with _$FavoritesController;
 
 abstract class _FavoritesController extends ListController with Store {
-  _FavoritesController(BuildContext context, this._useCase) {
+  _FavoritesController(BuildContext context, this._favoriteUseCase) {
     _init(context);
   }
 
-  final FavoriteMoviesListUseCase _useCase;
+  final FavoriteMoviesListUseCase _favoriteUseCase;
 
   _init(BuildContext context) async {
     try {
-      listEntity = await _useCase.getMovies(page);
+      listEntity = await _favoriteUseCase.getMovies(page);
 
       movies = listEntity?.movies ?? [];
-      cachedMovies = {page: listEntity!.movies};
+      cachedMovies = {page: movies};
 
       int totalPage = listEntity?.totalPages ?? 1;
       isPaginated = totalPage > 1;
@@ -46,20 +44,20 @@ abstract class _FavoritesController extends ListController with Store {
   }
 
   @override
-  fetch(BuildContext context) async {
+  fetch(BuildContext context, {bool reload = false}) async {
     try {
       isLoading = true;
 
-      if (!cachedMovies.keys.contains(page)) {
-        var list = await _useCase.getMovies(page);
+      if (!cachedMovies.keys.contains(page) || reload) {
+        var list = await _favoriteUseCase.getMovies(page);
 
-        movies = list!.movies;
+        movies = list!.movies ?? [];
         cachedMovies.addAll({page: movies});
       } //
       else {
         var list = listEntity!.copyWith(movies: cachedMovies[page]!);
 
-        movies = list.movies;
+        movies = list.movies ?? [];
       }
 
       if (textController.text.isNotEmpty) onSearch(textController.text);
@@ -84,12 +82,12 @@ abstract class _FavoritesController extends ListController with Store {
     List? reload = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => MoviePage(movie, favorite: true),
+        builder: (_) => MoviePage(movie),
         fullscreenDialog: true,
       ),
     );
 
-    if (reload == null || reload[0]) await fetch(context);
+    if (reload == null || reload[0]) await fetch(context, reload: true);
   }
 
   // @override
