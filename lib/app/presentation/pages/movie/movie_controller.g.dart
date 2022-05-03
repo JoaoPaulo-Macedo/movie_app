@@ -54,6 +54,21 @@ mixin _$MovieController on _MovieController, Store {
     });
   }
 
+  final _$offsetAtom = Atom(name: '_MovieController.offset');
+
+  @override
+  double get offset {
+    _$offsetAtom.reportRead();
+    return super.offset;
+  }
+
+  @override
+  set offset(double value) {
+    _$offsetAtom.reportWrite(value, super.offset, () {
+      super.offset = value;
+    });
+  }
+
   final _$_MovieControllerActionController =
       ActionController(name: '_MovieController');
 
@@ -84,7 +99,8 @@ mixin _$MovieController on _MovieController, Store {
     return '''
 isFavorite: ${isFavorite},
 loading: ${loading},
-page: ${page}
+page: ${page},
+offset: ${offset}
     ''';
   }
 }

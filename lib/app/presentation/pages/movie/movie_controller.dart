@@ -23,6 +23,10 @@ abstract class _MovieController with Store {
   ValueNotifier<bool> loading = ValueNotifier(false);
   @observable
   int page = 1;
+  @observable
+  double offset = 0;
+
+  ScrollController scrollController = ScrollController();
 
   BuildContext? _context;
   bool? _isFavoriteCache;
@@ -46,6 +50,14 @@ abstract class _MovieController with Store {
         }
 
         if (_close) _onClose(_context!);
+      });
+
+      scrollController.addListener(() {
+        double controllerOffset = scrollController.offset;
+
+        if (controllerOffset < 0) return;
+
+        offset = controllerOffset;
       });
 
       loading.value = false;
