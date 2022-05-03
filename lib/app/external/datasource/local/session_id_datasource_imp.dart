@@ -1,5 +1,4 @@
-import 'package:get_it/get_it.dart';
-import 'package:movie_app/app/data/datasource/auth_local_datasource.dart';
+import 'package:movie_app/app/data/datasource/local/session_id_datasource.dart';
 import 'package:movie_app/core/domain/services/local_data_service.dart';
 
 class SessionIdDataSourceImp extends SessionIdDataSource {

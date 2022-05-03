@@ -10,7 +10,7 @@ class Debug {
   }
 
   static description(String description) {
-    if (!AppConfigs.debug!) return;
+    if (!AppConfigs.i!.debug) return;
 
     dart.log(description, name: 'Description');
   }
@@ -22,7 +22,7 @@ class Debug {
     bool response = false,
     DebugSource? debugSource,
   }) {
-    if (!AppConfigs.debug!) return;
+    if (!AppConfigs.i!.debug) return;
 
     final String logData = data.toString();
     final int length = logData.length;
@@ -51,7 +51,7 @@ class Debug {
     dart.log(
       logData.substring(
         0,
-        length < AppConfigs.debugMaxChars ? length : AppConfigs.debugMaxChars,
+        length < AppConfigs.i!.debugMaxChars ? length : AppConfigs.i!.debugMaxChars,
       ),
       name: name,
     );

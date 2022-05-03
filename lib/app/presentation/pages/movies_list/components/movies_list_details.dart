@@ -22,7 +22,7 @@ class MoviesListDetails extends StatelessWidget {
     return Column(
       children: [
         Text(
-          moviesList.name ?? '',
+          moviesList.name,
           style: textTheme.headline5?.copyWith(fontWeight: FontWeight.bold),
         ),
         if (moviesList.description != null && moviesList.createdBy?.name != null)

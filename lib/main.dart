@@ -9,7 +9,8 @@ import 'package:movie_app/core/utils/routes_name.dart';
 
 void main() {
   Inject.init();
-  AppConfigs.debug = true;
+  AppConfigs(AppEnvironment.dev);
+
   runApp(const MyApp());
 }
 

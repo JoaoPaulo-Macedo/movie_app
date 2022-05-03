@@ -1,6 +1,5 @@
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
-import 'package:movie_app/app/domain/repositories/lists_repository.dart';
-import 'package:movie_app/app/domain/repositories/movies_list_repository.dart';
+import 'package:movie_app/app/domain/repositories/list_repository.dart';
 
 abstract class GetMoviesListUseCase {
   Future<ListEntity?> call({int list, int page});

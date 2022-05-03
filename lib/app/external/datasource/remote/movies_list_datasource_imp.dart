@@ -1,8 +1,12 @@
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
 import 'package:movie_app/core/domain/services/http_service.dart';
 import 'package:movie_app/core/utils/api_utils.dart';
-import 'package:movie_app/app/data/datasource/movies_list_datasource.dart';
+import 'package:movie_app/app/data/datasource/remote/movies_list_datasource.dart';
 import 'package:movie_app/app/data/dtos/list_dto.dart';
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
+import 'package:movie_app/core/utils/debug.dart';
 
 class MoviesListDataSourceImp implements MoviesListDataSource {
   MoviesListDataSourceImp(this._httpService);

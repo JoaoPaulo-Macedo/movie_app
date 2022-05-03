@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferencesServiceImp extends LocalDataService {
   static SharedPreferences? _prefs;
-  final bool debug = AppConfigs.debug!;
+  final bool debug = AppConfigs.i!.debug;
 
   init() async {
     _prefs = await SharedPreferences.getInstance();

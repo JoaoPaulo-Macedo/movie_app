@@ -1,6 +1,27 @@
 class AppConfigs {
-  static bool? debug;
-  static int debugMaxChars = 2000000000000;
+  AppConfigs._(this.debug, this.environment);
+
+  factory AppConfigs(AppEnvironment environment) {
+    if (i == null) {
+      switch (environment) {
+        case AppEnvironment.dev:
+          i = AppConfigs._(true, AppEnvironment.dev);
+          break;
+        case AppEnvironment.prod:
+          i = AppConfigs._(false, AppEnvironment.prod);
+          break;
+      }
+    }
+
+    return i!;
+  }
+
+  /// Global instance of App configurations
+  static AppConfigs? i;
+
+  bool debug;
+  int debugMaxChars = 200;
+  AppEnvironment environment;
 }
 
-enum Environment { dev, prod }
+enum AppEnvironment { dev, prod }

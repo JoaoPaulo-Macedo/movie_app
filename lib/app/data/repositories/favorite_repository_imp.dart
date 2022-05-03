@@ -1,25 +1,24 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:movie_app/app/data/datasource/account_details_datasource.dart';
-import 'package:movie_app/app/data/datasource/auth_local_datasource.dart';
-import 'package:movie_app/app/data/datasource/favorite_movies_remote_datasource.dart';
+import 'package:movie_app/app/data/datasource/remote/account_details_remote_datasource.dart';
+import 'package:movie_app/app/data/datasource/local/session_id_datasource.dart';
+import 'package:movie_app/app/data/datasource/remote/favorites_datasource.dart';
 import 'package:movie_app/app/domain/entities/account_details_entity.dart';
-import 'package:movie_app/app/domain/entities/favorite_movies_list_entity.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
-import 'package:movie_app/app/domain/repositories/favorite_movies_repository.dart';
+import 'package:movie_app/app/domain/repositories/favorites_repository.dart';
 import 'package:movie_app/core/utils/failure.dart';
 
-class FavoriteMoviesRepositoryImp extends FavoriteMoviesRepository {
-  FavoriteMoviesRepositoryImp(
+class FavoritesRepositoryImp extends FavoritesRepository {
+  FavoritesRepositoryImp(
     this._remoteDataSource,
     this._accountDetailsDataSource,
     this._sessionIdDataSource,
   );
 
-  final FavoriteMoviesRemoteDataSource _remoteDataSource;
-  final AccountDetailsDataSource _accountDetailsDataSource;
+  final FavoritesDataSource _remoteDataSource;
+  final AccountDetailsRemoteDataSource _accountDetailsDataSource;
   final SessionIdDataSource _sessionIdDataSource;
 
   String? sessionId;

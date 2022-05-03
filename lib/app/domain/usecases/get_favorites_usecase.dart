@@ -1,6 +1,6 @@
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
-import 'package:movie_app/app/domain/repositories/favorite_movies_repository.dart';
+import 'package:movie_app/app/domain/repositories/favorites_repository.dart';
 
 abstract class FavoriteMoviesListUseCase {
   Future<ListEntity>? getMovies([int page = 1]);
@@ -11,7 +11,7 @@ abstract class FavoriteMoviesListUseCase {
 class FavoriteMoviesListUseCaseImp extends FavoriteMoviesListUseCase {
   FavoriteMoviesListUseCaseImp(this._repository);
 
-  final FavoriteMoviesRepository _repository;
+  final FavoritesRepository _repository;
 
   @override
   Future<ListEntity>? getMovies([int page = 1]) async {

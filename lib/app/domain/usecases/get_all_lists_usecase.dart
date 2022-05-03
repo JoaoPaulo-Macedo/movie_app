@@ -4,7 +4,7 @@ import 'package:movie_app/app/data/dtos/list_dto.dart';
 import 'package:movie_app/app/data/dtos/list_identifier_dto.dart';
 import 'package:movie_app/app/domain/entities/list_identifier_entity.dart';
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
-import 'package:movie_app/app/domain/repositories/lists_repository.dart';
+import 'package:movie_app/app/domain/repositories/list_repository.dart';
 import 'package:movie_app/core/utils/debug.dart';
 
 abstract class GetAllListsUseCase {
@@ -21,19 +21,5 @@ class GetAllListsUseCaseImp extends GetAllListsUseCase {
     const amount = 10;
 
     return await _repository.getManyLists(amount);
-
-    //TODO: Remove Mocked data
-    // List<ListEntity> list = [];
-    // List jsonList = jsonDecode(await rootBundle.loadString('assets/lists.json'));
-    // Debug.log(
-    //   jsonList.toString(),
-    //   description: 'Lists from assets to avoid API overload',
-    //   debugSource: DebugSource.mock,
-    // );
-    // for (var json in jsonList) {
-    //   list.add(ListDTO.fromJson(json));
-    // }
-
-    // return list;
   }
 }

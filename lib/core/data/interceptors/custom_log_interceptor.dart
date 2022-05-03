@@ -29,7 +29,7 @@ class CustomLogInterceptor extends LogInterceptor {
     log(
       line.substring(
         0,
-        length < AppConfigs.debugMaxChars ? length : AppConfigs.debugMaxChars,
+        length < AppConfigs.i!.debugMaxChars ? length : AppConfigs.i!.debugMaxChars,
       ),
       name: logObj.name,
     );

@@ -17,7 +17,7 @@ class DioHttpServiceImp implements HttpService {
       ),
     );
 
-    if (AppConfigs.debug!) _dio.interceptors.add(CustomLogInterceptor());
+    if (AppConfigs.i!.debug) _dio.interceptors.add(CustomLogInterceptor());
   }
 
   late Dio _dio;

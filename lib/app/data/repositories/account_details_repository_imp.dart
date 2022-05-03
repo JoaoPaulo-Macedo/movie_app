@@ -1,52 +1,72 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:movie_app/app/data/datasource/account_details_datasource.dart';
+import 'package:movie_app/app/data/datasource/local/session_id_datasource.dart';
+import 'package:movie_app/app/data/datasource/remote/account_details_remote_datasource.dart';
 import 'package:movie_app/app/data/dtos/account_details_dto.dart';
 import 'package:movie_app/app/domain/entities/account_details_entity.dart';
 import 'package:movie_app/app/domain/repositories/account_details_repository.dart';
 import 'package:movie_app/app/external/datasource/local/account_details_local_datasource_imp.dart';
+import 'package:movie_app/core/utils/app_configs.dart';
 import 'package:movie_app/core/utils/debug.dart';
 import 'package:movie_app/core/utils/failure.dart';
 
 class AccountDetailsRepositoryImp extends AccountDetailsRepository {
-  AccountDetailsRepositoryImp(this._remoteDataSource, this._localDataSource);
+  AccountDetailsRepositoryImp(
+    this._remoteDataSource,
+    this._localDataSource,
+    this._sessionIdDataSource,
+  );
 
-  final AccountDetailsDataSource _remoteDataSource;
+  final AccountDetailsRemoteDataSource _remoteDataSource;
   final AccountDetailsLocalDataSource _localDataSource;
+  final SessionIdDataSource _sessionIdDataSource;
 
-  static AccountDetailsEntity? accountDetailsCache;
+  String? sessionId;
+  AccountDetailsEntity? accountDetails;
 
   @override
   Future<AccountDetailsEntity?> call() async {
     try {
-      if (accountDetailsCache != null) return accountDetailsCache;
+      if (accountDetails != null) return accountDetails;
 
-      //TODO: Remove Mocked data
-      var json = jsonDecode(
-        await rootBundle.loadString('assets/account_details.json'),
-      );
-      Debug.log(
-        'json: ${json.toString()}',
-        description: 'Account details from assets to avoid API overload',
-        debugSource: DebugSource.mock,
-      );
-      accountDetailsCache = AccountDetailsDTO.fromJson(json);
-      return accountDetailsCache;
+      if (AppConfigs.i!.environment == AppEnvironment.dev) return await getFromAssets();
 
-      /* accountDetailsCache = await _localDataSource.getDetails();
-      if (accountDetailsCache != null) return accountDetailsCache;
+      accountDetails = await _localDataSource.getDetails();
+      if (accountDetails != null) return accountDetails;
 
-      accountDetailsCache = await _remoteDataSource();
-      if (accountDetailsCache != null) _saveAccountDetails(accountDetailsCache!);
+      sessionId ??= await getSessionId();
 
-      return accountDetailsCache; */
+      accountDetails = await _remoteDataSource(sessionId!);
+      if (accountDetails != null) saveAccountDetails(accountDetails!);
+
+      return accountDetails;
     } catch (e) {
       throw Failure.unexpected(e);
     }
   }
 
-  void _saveAccountDetails(AccountDetailsEntity accountDetails) {
+  void saveAccountDetails(AccountDetailsEntity accountDetails) {
     _localDataSource.saveDetails(accountDetails);
+  }
+
+  Future<String> getSessionId() async {
+    String? sessionId = await _sessionIdDataSource.getSessionId();
+
+    return sessionId!;
+  }
+
+  Future<AccountDetailsEntity?> getFromAssets() async {
+    var json = jsonDecode(
+      await rootBundle.loadString('assets/account_details.json'),
+    );
+
+    Debug.log(
+      'json: ${json.toString()}',
+      description: 'Account details from assets to avoid API overload',
+      debugSource: DebugSource.mock,
+    );
+
+    accountDetails = AccountDetailsDTO.fromJson(json);
+    return accountDetails;
   }
 }

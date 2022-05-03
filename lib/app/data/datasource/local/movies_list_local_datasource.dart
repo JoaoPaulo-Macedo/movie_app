@@ -1,4 +1,4 @@
-import 'package:movie_app/app/data/datasource/movies_list_datasource.dart';
+import 'package:movie_app/app/data/datasource/remote/movies_list_datasource.dart';
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 
 class MoviesListLocalDataSourceDecorator implements MoviesListDataSource {
