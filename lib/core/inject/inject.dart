@@ -11,7 +11,7 @@ import 'package:movie_app/app/domain/repositories/account_details_repository.dar
 import 'package:movie_app/app/domain/repositories/auth_repository.dart';
 import 'package:movie_app/app/domain/repositories/favorite_movies_repository.dart';
 import 'package:movie_app/app/domain/usecases/get_account_details_usecase.dart';
-import 'package:movie_app/app/domain/usecases/favorite_movies_list_usecase.dart';
+import 'package:movie_app/app/domain/usecases/get_favorites_usecase.dart';
 import 'package:movie_app/app/domain/usecases/login_usecase.dart';
 import 'package:movie_app/app/domain/usecases/logout_usecase.dart';
 import 'package:movie_app/app/external/datasource/local/account_details_local_datasource_imp.dart';
@@ -31,7 +31,7 @@ import 'package:movie_app/app/data/repositories/movies_list_repository_imp.dart'
 import 'package:movie_app/app/domain/repositories/lists_repository.dart';
 import 'package:movie_app/app/domain/repositories/movies_list_repository.dart';
 import 'package:movie_app/app/domain/usecases/get_all_lists_usecase.dart';
-import 'package:movie_app/app/domain/usecases/get_movies_list_usecase.dart';
+import 'package:movie_app/app/domain/usecases/get_list_usecase.dart';
 import 'package:movie_app/app/external/datasource/local/movies_list_local_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/movies_list_datasource_imp.dart';
 import 'package:movie_app/core/domain/services/local_data_service.dart';
@@ -66,9 +66,9 @@ class Inject {
     _getIt.registerLazySingleton<MoviesListLocalDataSourceDecorator>(
       () => MoviesListLocalDataSourceDecoratorImp(_getIt(), _getIt()),
     );
-    _getIt.registerLazySingleton<ListsCacheDataSource>(
-      () => ListsCacheDataSourceImp(_getIt()),
-    );
+    // _getIt.registerLazySingleton<ListsCacheDataSource>(
+    //   () => ListsCacheDataSourceImp(_getIt()),
+    // );
     _getIt.registerLazySingleton<SessionIdDataSource>(
       () => SessionIdDataSourceImp(_getIt()),
     );
@@ -77,11 +77,11 @@ class Inject {
     );
 
     // Repositories
-    _getIt.registerLazySingleton<MoviesListRepository>(
-      () => MoviesListRepositoryImp(_getIt()),
-    );
-    _getIt.registerLazySingleton<ListsRepository>(
-      () => ListsRepositoryImp(_getIt(), _getIt()),
+    // _getIt.registerLazySingleton<MoviesListRepository>(
+    //   () => MoviesListRepositoryImp(_getIt()),
+    // );
+    _getIt.registerLazySingleton<ListRepository>(
+      () => ListRepositoryImp(_getIt()),
     );
     _getIt.registerLazySingleton<AuthenticationRepository>(
       () => AuthenticationRepositoryImp(_getIt(), _getIt()),

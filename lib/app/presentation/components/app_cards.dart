@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/app/domain/entities/list_identifier_entity.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
+import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/app/presentation/components/app_poster.dart';
 
 class ListCard extends StatelessWidget {
   const ListCard(this.list, this.onTap, {Key? key}) : super(key: key);
 
-  final ListIdentifierEntity list;
+  final ListEntity list;
   final Function onTap;
 
   @override

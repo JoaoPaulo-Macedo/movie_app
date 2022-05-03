@@ -2,23 +2,23 @@ import 'package:movie_app/app/data/dtos/created_by_dto.dart';
 import 'package:movie_app/app/data/dtos/movie_dto.dart';
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 
-extension MoviesListDTO on MoviesListEntity {
-  static MoviesListEntity fromJson(Map json) {
-    return MoviesListEntity(
+extension ListDTO on ListEntity {
+  static ListEntity fromJson(Map json) {
+    return ListEntity(
+      id: json['id'] ?? 0,
+      name: json['name'] ?? '',
+      page: json['page'],
+      totalPages: json['total_pages'],
+      totalResults: json['total_results'],
+      movies: List.from(json['results']).map((e) => MovieDTO.fromJson(e)).toList(),
       averageRating: json['average_rating'],
-      createdBy: CreatedByDTO.fromJson(json['created_by']),
+      createdBy: json['created_by'] != null ? CreatedByDTO.fromJson(json['created_by']) : null,
       description: json['description'],
       posterPath: json['poster_path'],
-      id: json['id'],
-      name: json['name'],
-      page: json['page'],
       public: json['public'],
-      movies: List.from(json['results']).map((e) => MovieDTO.fromJson(e)).toList(),
       revenue: json['revenue'],
       runtime: json['runtime'],
       sortBy: json['sort_by'],
-      totalPages: json['total_pages'],
-      totalResults: json['total_results'],
     );
   }
 

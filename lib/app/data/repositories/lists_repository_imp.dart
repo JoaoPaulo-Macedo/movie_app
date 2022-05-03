@@ -4,36 +4,36 @@ import 'package:dio/dio.dart';
 import 'package:movie_app/app/data/datasource/lists_cache_datasource.dart';
 import 'package:movie_app/app/data/datasource/movies_list_datasource.dart';
 import 'package:movie_app/app/data/dtos/list_identifier_dto.dart';
-import 'package:movie_app/app/data/dtos/movies_list_dto.dart';
+import 'package:movie_app/app/data/dtos/list_dto.dart';
 import 'package:movie_app/app/domain/entities/list_identifier_entity.dart';
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/app/domain/repositories/lists_repository.dart';
 import 'package:movie_app/core/utils/failure.dart';
 
-class ListsRepositoryImp extends ListsRepository {
-  ListsRepositoryImp(this._dataSource, this._listsCache);
+class ListRepositoryImp extends ListRepository {
+  ListRepositoryImp(this._dataSource /* , this._listsCache */);
 
   final MoviesListDataSource _dataSource;
-  final ListsCacheDataSource _listsCache;
+  // final ListsCacheDataSource _listsCache;
+  final List<ListEntity> lists = [];
 
   @override
-  Future<List<ListIdentifierEntity>> call(int amount) async {
+  Future<List<ListEntity>> getManyLists(int amount) async {
     try {
-      List<ListIdentifierEntity> listOfLists = await _listsCache.getListsFromCache();
-      if (listOfLists.isNotEmpty) return listOfLists;
+      if (lists.isNotEmpty) return lists;
+      // List<ListIdentifierEntity> listOfLists = await _listsCache.getListsFromCache();
+      // if (listOfLists.isNotEmpty) return listOfLists;
 
-      for (int list = 1; list <= amount; list++) {
-        MoviesListEntity? listEntity = await _dataSource(list, 1);
+      for (int listId = 1; listId <= amount; listId++) {
+        ListEntity? list = await _dataSource(listId, 1);
 
-        if (listEntity != null) {
-          var listIdentifier = ListIdentifierDTO.fromJson(listEntity.toJson());
-
-          listOfLists.add(listIdentifier);
+        if (list != null) {
+          lists.add(list);
         }
       }
 
-      saveToCache(listOfLists);
-      return listOfLists;
+      // saveToCache(listOfLists);
+      return lists;
     } on SocketException catch (e) {
       throw Failure.connection(e);
     } on DioError catch (e) {
@@ -43,7 +43,20 @@ class ListsRepositoryImp extends ListsRepository {
     }
   }
 
-  saveToCache(List<ListIdentifierEntity> lists) {
-    _listsCache.saveListsToCache(lists);
+  @override
+  Future<ListEntity> getList(int listId, int page) async {
+    try {
+      return lists.firstWhere((e) => e.id == listId);
+    } on SocketException catch (e) {
+      throw Failure.connection(e);
+    } on DioError catch (e) {
+      throw Failure.fromDioError(e);
+    } catch (e) {
+      throw Failure.unexpected(e);
+    }
   }
+
+  // saveToCache(List<ListIdentifierEntity> lists) {
+  //   _listsCache.saveListsToCache(lists);
+  // }
 }

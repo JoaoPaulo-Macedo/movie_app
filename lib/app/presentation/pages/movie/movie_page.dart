@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:movie_app/app/domain/usecases/favorite_movies_list_usecase.dart';
+import 'package:movie_app/app/domain/usecases/get_favorites_usecase.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/presentation/pages/movie/components/movie_actions.dart';
 import 'package:movie_app/app/presentation/pages/movie/components/movie_details.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
-import 'package:movie_app/app/domain/usecases/favorite_movies_list_usecase.dart';
+import 'package:movie_app/app/domain/usecases/get_favorites_usecase.dart';
 
 part 'movie_controller.g.dart';
 

@@ -3,9 +3,11 @@ import 'package:movie_app/app/data/datasource/account_details_datasource.dart';
 import 'package:movie_app/app/data/datasource/auth_local_datasource.dart';
 import 'package:movie_app/app/data/datasource/favorite_movies_remote_datasource.dart';
 import 'package:movie_app/app/data/dtos/favorite_movies_list_dto.dart';
+import 'package:movie_app/app/data/dtos/list_dto.dart';
 import 'package:movie_app/app/domain/entities/account_details_entity.dart';
 import 'package:movie_app/app/domain/entities/favorite_movies_list_entity.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
+import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/core/domain/services/http_service.dart';
 import 'package:movie_app/core/utils/api_utils.dart';
 
@@ -14,16 +16,9 @@ class FavoriteMoviesRemoteDataSourceImp extends FavoriteMoviesRemoteDataSource {
 
   //TODO: Can a datasource use other datasource
   final HttpService _service;
-  // final AccountDetailsDataSource _accountDetails;
-  // final SessionIdDataSource _sessionId;
-
-  // String? sessionId;
-  // int? accountId;
 
   @override
-  Future<FavoriteMoviesListEntity> getFavorites(int page, int accountId, String sessionId) async {
-    // accountId ??= await _getAccountId();
-    // sessionId ??= await _getSessionId();
+  Future<ListEntity> getFavorites(int page, int accountId, String sessionId) async {
 
     var path = API.requestFavoritesList(
       page: page.toString(),
@@ -36,7 +31,7 @@ class FavoriteMoviesRemoteDataSourceImp extends FavoriteMoviesRemoteDataSource {
       description: 'Get list of favorite movies',
     );
 
-    return FavoriteMoviesListDTO.fromJson(response.data);
+    return ListDTO.fromJson(response.data);
   }
 
   @override

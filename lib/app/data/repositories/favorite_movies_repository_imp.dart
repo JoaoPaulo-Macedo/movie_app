@@ -7,6 +7,7 @@ import 'package:movie_app/app/data/datasource/favorite_movies_remote_datasource.
 import 'package:movie_app/app/domain/entities/account_details_entity.dart';
 import 'package:movie_app/app/domain/entities/favorite_movies_list_entity.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
+import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/app/domain/repositories/favorite_movies_repository.dart';
 import 'package:movie_app/core/utils/failure.dart';
 
@@ -25,7 +26,7 @@ class FavoriteMoviesRepositoryImp extends FavoriteMoviesRepository {
   int? accountId;
 
   @override
-  Future<FavoriteMoviesListEntity> getFavorites(int page) async {
+  Future<ListEntity> getFavorites(int page) async {
     try {
       sessionId ??= await _getSessionId();
       accountId ??= await _getAccountId();
@@ -38,7 +39,7 @@ class FavoriteMoviesRepositoryImp extends FavoriteMoviesRepository {
     } on DioError catch (e) {
       throw Failure.fromDioError(e);
     } catch (e) {
-      throw Failure.unexpected(e);
+      rethrow;
     }
   }
 

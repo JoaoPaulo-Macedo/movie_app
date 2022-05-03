@@ -14,7 +14,7 @@ class MoviesListDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    MoviesListEntity? moviesList = controller.moviesList;
+    ListEntity? moviesList = controller.listEntity;
     const horizontalPadding = 5.0;
 
     if (moviesList == null) return const SizedBox();
@@ -22,7 +22,7 @@ class MoviesListDetails extends StatelessWidget {
     return Column(
       children: [
         Text(
-          moviesList.name,
+          moviesList.name ?? '',
           style: textTheme.headline5?.copyWith(fontWeight: FontWeight.bold),
         ),
         if (moviesList.description != null && moviesList.createdBy?.name != null)
@@ -58,7 +58,7 @@ class MoviesListDetails extends StatelessWidget {
             controller.isPaginated
                 ? Pagination(
                     page: controller.page,
-                    totalPages: controller.moviesList?.totalPages ?? 1,
+                    totalPages: controller.listEntity?.totalPages ?? 1,
                     backPage: () => controller.backPage(context),
                     advancePage: () => controller.advancePage(context),
                   )

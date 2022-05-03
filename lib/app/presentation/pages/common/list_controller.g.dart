@@ -9,6 +9,21 @@ part of 'list_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$ListController on _ListController, Store {
+  final _$listEntityAtom = Atom(name: '_ListController.listEntity');
+
+  @override
+  ListEntity? get listEntity {
+    _$listEntityAtom.reportRead();
+    return super.listEntity;
+  }
+
+  @override
+  set listEntity(ListEntity? value) {
+    _$listEntityAtom.reportWrite(value, super.listEntity, () {
+      super.listEntity = value;
+    });
+  }
+
   final _$moviesAtom = Atom(name: '_ListController.movies');
 
   @override
@@ -129,9 +144,57 @@ mixin _$ListController on _ListController, Store {
     });
   }
 
+  final _$_ListControllerActionController =
+      ActionController(name: '_ListController');
+
+  @override
+  dynamic onSearch(String? value) {
+    final _$actionInfo = _$_ListControllerActionController.startAction(
+        name: '_ListController.onSearch');
+    try {
+      return super.onSearch(value);
+    } finally {
+      _$_ListControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  bool isListEmpty() {
+    final _$actionInfo = _$_ListControllerActionController.startAction(
+        name: '_ListController.isListEmpty');
+    try {
+      return super.isListEmpty();
+    } finally {
+      _$_ListControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic backPage(BuildContext context) {
+    final _$actionInfo = _$_ListControllerActionController.startAction(
+        name: '_ListController.backPage');
+    try {
+      return super.backPage(context);
+    } finally {
+      _$_ListControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic advancePage(BuildContext context) {
+    final _$actionInfo = _$_ListControllerActionController.startAction(
+        name: '_ListController.advancePage');
+    try {
+      return super.advancePage(context);
+    } finally {
+      _$_ListControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
+listEntity: ${listEntity},
 movies: ${movies},
 cachedMovies: ${cachedMovies},
 page: ${page},

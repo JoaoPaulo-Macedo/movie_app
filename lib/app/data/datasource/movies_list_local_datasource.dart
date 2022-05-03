@@ -6,5 +6,5 @@ class MoviesListLocalDataSourceDecorator implements MoviesListDataSource {
   final MoviesListDataSource _dataSource;
 
   @override
-  Future<MoviesListEntity?> call(int list, int page) => _dataSource(list, page);
+  Future<ListEntity?> call(int list, int page) => _dataSource(list, page);
 }

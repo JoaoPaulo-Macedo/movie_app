@@ -15,7 +15,13 @@ class Debug {
     dart.log(description, name: 'Description');
   }
 
-  static log(data, {String? path, String? description, bool response = false, DebugSource? debugSource}) {
+  static log(
+    data, {
+    String? path,
+    String? description,
+    bool response = false,
+    DebugSource? debugSource,
+  }) {
     if (!AppConfigs.debug!) return;
 
     final String logData = data.toString();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:movie_app/app/domain/entities/list_identifier_entity.dart';
+import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/app/domain/usecases/get_all_lists_usecase.dart';
 import 'package:movie_app/app/presentation/components/app_snackbar.dart';
 import 'package:movie_app/app/presentation/pages/movies_list/movies_list_page.dart';
@@ -18,7 +19,7 @@ abstract class _HomeController with Store {
   final GetAllListsUseCase usecase;
 
   @observable
-  List<ListIdentifierEntity> lists = [];
+  List<ListEntity> lists = [];
   @observable
   bool isLoading = true;
 

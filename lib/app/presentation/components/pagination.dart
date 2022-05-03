@@ -16,26 +16,52 @@ class Pagination extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        InkWell(
-          borderRadius: BorderRadius.circular(100),
-          child: const Icon(Icons.arrow_left, size: 30),
-          onTap: () => backPage(),
-        ),
-        const SizedBox(width: 15),
-        Text(
-          '$page/$totalPages',
-          style: const TextStyle(fontSize: 22),
-        ),
-        const SizedBox(width: 15),
-        InkWell(
-          borderRadius: BorderRadius.circular(100),
-          child: const Icon(Icons.arrow_right, size: 30),
-          onTap: () => advancePage(),
-        ),
-      ],
+    var cardColor = Theme.of(context).cardColor.withOpacity(0.85);
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(5, 0, 5, 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: Material(
+              color: cardColor,
+              child: InkWell(
+                child: const Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Icon(Icons.arrow_back_ios_new_rounded, size: 30),
+                ),
+                onTap: () => backPage(),
+              ),
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+            decoration: BoxDecoration(
+              color: cardColor,
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: Text(
+              '$page/$totalPages',
+              style: const TextStyle(fontSize: 22),
+            ),
+          ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: Material(
+              color: cardColor,
+              child: InkWell(
+                child: const Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Icon(Icons.arrow_forward_ios_rounded, size: 30),
+                ),
+                onTap: () => advancePage(),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

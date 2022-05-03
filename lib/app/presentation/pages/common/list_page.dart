@@ -7,39 +7,23 @@ import 'package:movie_app/app/domain/usecases/get_list_usecase.dart';
 import 'package:movie_app/app/presentation/components/app_list.dart';
 import 'package:movie_app/app/presentation/components/pagination.dart';
 import 'package:movie_app/app/presentation/components/search_app_bar.dart';
+import 'package:movie_app/app/presentation/pages/common/list_controller.dart';
+import 'package:movie_app/app/presentation/pages/drawer/app_drawer.dart';
 import 'package:movie_app/app/presentation/pages/movies_list/movies_list_controller.dart';
 
-class MoviesListPage extends StatefulWidget {
-  const MoviesListPage({Key? key, required this.listId}) : super(key: key);
+class ListPage extends StatelessWidget {
+  const ListPage(this.controller, {Key? key}) : super(key: key);
 
-  final int listId;
-
-  @override
-  State<MoviesListPage> createState() => _MoviesListPageState();
-}
-
-class _MoviesListPageState extends State<MoviesListPage> {
-  late MoviesListController controller;
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = MoviesListController(
-      context,
-      GetIt.I.get<GetMoviesListUseCase>(),
-      GetIt.I.get<FavoriteMoviesListUseCase>(),
-      listId: widget.listId,
-    );
-  }
+  final ListController controller;
 
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) {
+      builder: (context) {
         if (controller.isLoading) {
           return Scaffold(
             appBar: AppBar(),
+            drawer: const AppDrawer(),
             body: Padding(
               padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
               child: Stack(
@@ -68,9 +52,10 @@ class _MoviesListPageState extends State<MoviesListPage> {
         if (controller.isListEmpty()) {
           return Scaffold(
             appBar: AppBar(),
+            drawer: const AppDrawer(),
             body: Center(
               child: Text(
-                'No movies found :(',
+                'You have no favorites :(',
                 style: GoogleFonts.lora(fontSize: 25),
               ),
             ),
@@ -78,11 +63,19 @@ class _MoviesListPageState extends State<MoviesListPage> {
         }
 
         return GestureDetector(
+          onTap: () {
+            controller.searchFocus.unfocus();
+
+            if (controller.textController.text.isEmpty) {
+              controller.isSearching = false;
+            }
+          },
           child: Scaffold(
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(AppBar().preferredSize.height),
               child: SearchAppBar(controller),
             ),
+            drawer: const AppDrawer(),
             body: Padding(
               padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
               child: Stack(
@@ -109,13 +102,6 @@ class _MoviesListPageState extends State<MoviesListPage> {
               ),
             ),
           ),
-          onTap: () {
-            controller.searchFocus.unfocus();
-
-            if (controller.textController.text.isEmpty) {
-              controller.isSearching = false;
-            }
-          },
         );
       },
     );

@@ -1,9 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/app/presentation/pages/common/list_controller.dart';
-import 'package:movie_app/app/presentation/pages/movies_list/movies_list_controller.dart';
 
-class SearchAppBarAction extends StatelessWidget {
-  const SearchAppBarAction({
+class SearchAppBar extends StatelessWidget {
+  const SearchAppBar(this.controller, {Key? key}) : super(key: key);
+
+  final ListController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      leading: controller.isSearching ? const SizedBox() : null,
+      actions: [
+        if (!controller.isSearching)
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              controller.isSearching = true;
+              controller.searchFocus.requestFocus();
+            },
+          ),
+        if (controller.isSearching) _SearchAppBarAction(controller: controller),
+      ],
+    );
+  }
+}
+
+class _SearchAppBarAction extends StatelessWidget {
+  const _SearchAppBarAction({
     Key? key,
     required this.controller,
   }) : super(key: key);
