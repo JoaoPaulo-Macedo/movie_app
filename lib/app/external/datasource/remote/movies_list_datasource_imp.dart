@@ -15,6 +15,7 @@ class MoviesListDataSourceImp implements MoviesListDataSource {
       API.requestMoviesList(list, page),
       description: 'Get a list of movies according to pagination',
     );
+    
     return ListDTO.fromJson(result.data);
   }
 }

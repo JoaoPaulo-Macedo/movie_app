@@ -43,20 +43,4 @@ class AppList extends StatelessWidget {
       },
     );
   }
-
-  /* @override
-  Widget build(BuildContext context) {
-    return ListView.separated(
-      itemCount: itemCount,
-      padding: EdgeInsets.zero,
-      separatorBuilder: (_, __) => const SizedBox(height: 10),
-      itemBuilder: (_, index) {
-        if (type == AppListType.movies) return AppCard.movie(list[index], onTap);
-
-        if (type == AppListType.lists) return AppCard.list(list[index], onTap);
-
-        return const SizedBox();
-      },
-    );
-  } */
 }

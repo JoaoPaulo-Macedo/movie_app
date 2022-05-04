@@ -20,7 +20,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
     controller = FavoritesController(
       context,
-      GetIt.instance.get<FavoriteMoviesListUseCase>(),
+      GetIt.instance.get<GetFavoritesUseCase>(),
     );
   }
 

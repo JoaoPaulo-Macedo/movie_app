@@ -1,11 +1,11 @@
 import 'package:movie_app/app/domain/repositories/auth_repository.dart';
 
-abstract class LogoutUsecase {
+abstract class LogoutUseCase {
   call();
 }
 
-class LogoutUsecaseImp extends LogoutUsecase {
-  LogoutUsecaseImp(this._repository);
+class LogoutUseCaseImp extends LogoutUseCase {
+  LogoutUseCaseImp(this._repository);
 
   final AuthenticationRepository _repository;
   

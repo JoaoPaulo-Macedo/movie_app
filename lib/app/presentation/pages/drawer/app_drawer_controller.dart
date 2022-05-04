@@ -16,7 +16,7 @@ abstract class _AppDrawerController with Store {
     _fetch();
   }
 
-  final LogoutUsecase _logOutUseCase;
+  final LogoutUseCase _logOutUseCase;
   final GetAccountDetailsUseCase _accountDetailsUseCase;
 
   @observable

@@ -20,18 +20,6 @@ class ListRepositoryImp extends ListRepository {
       if (lists.isNotEmpty) return lists;
 
       return await _assetsDataSource.getLists();
-
-      /* if (AppConfigs.i!.environment == AppEnvironment.dev) return await getFromAssets();
-
-      for (int listId = 1; listId <= amount; listId++) {
-        ListEntity? list = await _dataSource(listId, 1);
-
-        if (list != null) {
-          lists.add(list);
-        }
-      }
-
-      return lists; */
     } on SocketException catch (e) {
       throw Failure.connection(e);
     } on DioError catch (e) {
@@ -53,20 +41,4 @@ class ListRepositoryImp extends ListRepository {
       throw Failure.unexpected(e);
     }
   }
-
-  /* Future<List<ListEntity>> getFromAssets() async {
-    List jsonList = jsonDecode(await rootBundle.loadString('assets/lists.json'));
-
-    Debug.log(
-      jsonList.toString(),
-      description: 'Lists from assets to avoid API overload',
-      debugSource: DebugSource.mock,
-    );
-
-    for (var json in jsonList) {
-      lists.add(ListDTO.fromJson(json));
-    }
-
-    return lists;
-  } */
 }

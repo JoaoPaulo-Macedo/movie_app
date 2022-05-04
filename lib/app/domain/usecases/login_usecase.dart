@@ -7,8 +7,8 @@ abstract class LoginUseCase {
   Future<bool> isLogedIn();
 }
 
-class LoginUserUseCaseImp extends LoginUseCase {
-  LoginUserUseCaseImp(this._repository, this._accountDetailsRepository);
+class LoginUseCaseImp extends LoginUseCase {
+  LoginUseCaseImp(this._repository, this._accountDetailsRepository);
 
   final AuthenticationRepository _repository;
   final AccountDetailsRepository _accountDetailsRepository;

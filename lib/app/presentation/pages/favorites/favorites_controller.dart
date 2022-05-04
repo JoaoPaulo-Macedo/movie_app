@@ -16,7 +16,7 @@ abstract class _FavoritesController extends ListController with Store {
     _init(context);
   }
 
-  final FavoriteMoviesListUseCase _favoriteUseCase;
+  final GetFavoritesUseCase _favoriteUseCase;
 
   _init(BuildContext context) async {
     try {

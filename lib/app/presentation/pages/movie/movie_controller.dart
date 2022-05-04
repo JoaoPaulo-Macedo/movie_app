@@ -14,7 +14,7 @@ abstract class _MovieController with Store {
     _init();
   }
 
-  final FavoriteMoviesListUseCase _favoriteUseCase;
+  final GetFavoritesUseCase _favoriteUseCase;
   final MovieEntity movie;
 
   @observable

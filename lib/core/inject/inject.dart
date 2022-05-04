@@ -19,7 +19,7 @@ import 'package:movie_app/app/external/datasource/local/assets_datasource_imp.da
 import 'package:movie_app/app/external/datasource/local/session_id_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/account_details_remote_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/auth_remote_datasource_imp.dart';
-import 'package:movie_app/app/external/datasource/remote/favorite_movies_remote_datasource_imp.dart';
+import 'package:movie_app/app/external/datasource/remote/favorites_remote_datasource_imp.dart';
 import 'package:movie_app/app/presentation/pages/drawer/app_drawer_controller.dart';
 import 'package:movie_app/core/data/services/dio_service_imp.dart';
 import 'package:movie_app/core/data/services/preferences_service_imp.dart';
@@ -57,7 +57,7 @@ class Inject {
       () => AccountDetailsRemoteDataSourceImp(_getIt()),
     );
     _getIt.registerLazySingleton<FavoritesDataSource>(
-      () => FavoriteMoviesRemoteDataSourceImp(_getIt()),
+      () => FavoritesRemoteDataSourceImp(_getIt()),
     );
 
     // Local DataSources
@@ -89,23 +89,23 @@ class Inject {
     );
 
     // UseCases
-    _getIt.registerLazySingleton<GetMoviesListUseCase>(
-      () => GetMoviesListUseCaseImp(_getIt()),
+    _getIt.registerLazySingleton<LoginUseCase>(
+      () => LoginUseCaseImp(_getIt(), _getIt()),
+    );
+    _getIt.registerLazySingleton<LogoutUseCase>(
+      () => LogoutUseCaseImp(_getIt()),
     );
     _getIt.registerLazySingleton<GetAllListsUseCase>(
       () => GetAllListsUseCaseImp(_getIt()),
     );
-    _getIt.registerLazySingleton<LoginUseCase>(
-      () => LoginUserUseCaseImp(_getIt(), _getIt()),
-    );
-    _getIt.registerLazySingleton<LogoutUsecase>(
-      () => LogoutUsecaseImp(_getIt()),
+    _getIt.registerLazySingleton<GetListUseCase>(
+      () => GetListUseCaseImp(_getIt()),
     );
     _getIt.registerLazySingleton<GetAccountDetailsUseCase>(
       () => GetAccountDetailsUseCaseImp(_getIt()),
     );
-    _getIt.registerLazySingleton<FavoriteMoviesListUseCase>(
-      () => FavoriteMoviesListUseCaseImp(_getIt()),
+    _getIt.registerLazySingleton<GetFavoritesUseCase>(
+      () => GetFavoritesUseCaseImp(_getIt()),
     );
 
     // Controllers

@@ -2,14 +2,14 @@ import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/app/domain/repositories/favorites_repository.dart';
 
-abstract class FavoriteMoviesListUseCase {
+abstract class GetFavoritesUseCase {
   Future<ListEntity>? getMovies([int page = 1]);
   Future saveFavorite(MovieEntity movie, int page);
   Future removeFavorite(MovieEntity movie, int page);
 }
 
-class FavoriteMoviesListUseCaseImp extends FavoriteMoviesListUseCase {
-  FavoriteMoviesListUseCaseImp(this._repository);
+class GetFavoritesUseCaseImp extends GetFavoritesUseCase {
+  GetFavoritesUseCaseImp(this._repository);
 
   final FavoritesRepository _repository;
 

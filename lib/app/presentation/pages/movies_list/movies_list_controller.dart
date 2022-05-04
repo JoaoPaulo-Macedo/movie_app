@@ -16,7 +16,7 @@ abstract class _MoviesListController extends ListController with Store {
     _init(context);
   }
 
-  final GetMoviesListUseCase _moviesUseCase;
+  final GetListUseCase _moviesUseCase;
 
   @observable
   int listId;

@@ -1,12 +1,12 @@
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/app/domain/repositories/list_repository.dart';
 
-abstract class GetMoviesListUseCase {
+abstract class GetListUseCase {
   Future<ListEntity?> call({int list, int page});
 }
 
-class GetMoviesListUseCaseImp implements GetMoviesListUseCase {
-  GetMoviesListUseCaseImp(this._repository);
+class GetListUseCaseImp implements GetListUseCase {
+  GetListUseCaseImp(this._repository);
 
   final ListRepository _repository;
 

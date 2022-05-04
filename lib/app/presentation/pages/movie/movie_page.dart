@@ -28,7 +28,7 @@ class _MoviePageState extends State<MoviePage> {
 
     controller = MovieController(
       context,
-      GetIt.instance.get<FavoriteMoviesListUseCase>(),
+      GetIt.instance.get<GetFavoritesUseCase>(),
       widget.movie,
     );
   }
