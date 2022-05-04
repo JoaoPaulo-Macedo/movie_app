@@ -1,11 +1,5 @@
-import 'dart:convert';
-import 'package:flutter/services.dart';
-import 'package:movie_app/app/data/dtos/list_dto.dart';
-import 'package:movie_app/app/data/dtos/list_identifier_dto.dart';
-import 'package:movie_app/app/domain/entities/list_identifier_entity.dart';
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/app/domain/repositories/list_repository.dart';
-import 'package:movie_app/core/utils/debug.dart';
 
 abstract class GetAllListsUseCase {
   Future<List<ListEntity>> call();

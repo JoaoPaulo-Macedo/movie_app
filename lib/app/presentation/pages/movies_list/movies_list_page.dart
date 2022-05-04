@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movie_app/app/domain/usecases/get_favorites_usecase.dart';
 import 'package:movie_app/app/domain/usecases/get_list_usecase.dart';
 import 'package:movie_app/app/presentation/components/app_list.dart';
 import 'package:movie_app/app/presentation/components/pagination.dart';

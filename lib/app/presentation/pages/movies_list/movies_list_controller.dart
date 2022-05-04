@@ -31,10 +31,6 @@ abstract class _MoviesListController extends ListController with Store {
       int totalPage = listEntity?.totalPages ?? 1;
       isPaginated = totalPage > 1;
 
-      print('---------');
-      print(movies);
-      print('---------');
-
       isLoading = false;
     } on Failure catch (e) {
       //TODO: Should the controller call a ui widget?

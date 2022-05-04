@@ -3,7 +3,6 @@ import 'package:mobx/mobx.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/domain/usecases/get_favorites_usecase.dart';
 import 'package:movie_app/app/presentation/components/app_snackbar.dart';
-import 'package:movie_app/app/presentation/dtos/movies_list_dto.dart';
 import 'package:movie_app/app/presentation/pages/common/list_controller.dart';
 import 'package:movie_app/app/presentation/pages/movie/movie_page.dart';
 import 'package:movie_app/core/utils/failure.dart';

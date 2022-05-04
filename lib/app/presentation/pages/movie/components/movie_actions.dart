@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:movie_app/app/presentation/pages/movie/movie_controller.dart';
 
 class MovieActions extends StatelessWidget {

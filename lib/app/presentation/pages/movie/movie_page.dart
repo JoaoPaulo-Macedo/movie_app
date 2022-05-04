@@ -48,7 +48,7 @@ class _MoviePageState extends State<MoviePage> {
                 child: Container(
                   color: background,
                   width: MediaQuery.of(context).size.width,
-                  height: controller.offset + 50,
+                  height: controller.offset,
                 ),
               ),
               SingleChildScrollView(
@@ -63,7 +63,7 @@ class _MoviePageState extends State<MoviePage> {
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
-                          colors: [Colors.transparent, background, background, background],
+                          colors: [Colors.transparent, background, background],
                         ),
                       ),
                       child: Padding(
