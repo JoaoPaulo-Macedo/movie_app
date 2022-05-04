@@ -55,9 +55,7 @@ abstract class _FavoritesController extends ListController with Store {
         cachedMovies.addAll({page: movies});
       } //
       else {
-        var list = listEntity!.copyWith(movies: cachedMovies[page]!);
-
-        movies = list.movies ?? [];
+        movies = cachedMovies[page]!;
       }
 
       if (textController.text.isNotEmpty) onSearch(textController.text);
@@ -89,27 +87,4 @@ abstract class _FavoritesController extends ListController with Store {
 
     if (reload == null || reload[0]) await fetch(context, reload: true);
   }
-
-  // @override
-  // @action
-  // onSearch(String? value) {
-  //   if (cachedMovies.isEmpty) return;
-
-  //   if (value == null) {
-  //     textController.clear();
-  //     isSearching = false;
-
-  //     movies = cachedMovies[page]!;
-
-  //     return;
-  //   }
-
-  //   List<MovieEntity> searchList = cachedMovies[page]!
-  //       .where((e) => e.title.toLowerCase().contains(value.toLowerCase()))
-  //       .toList();
-
-  //   var list = listEntity!.copyWith(movies: searchList);
-
-  //   movies = list.movies;
-  // }
 }

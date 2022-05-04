@@ -45,7 +45,7 @@ class ListRepositoryImp extends ListRepository {
   @override
   Future<ListEntity?> getList(int listId, int page) async {
     try {
-      return await _dataSource(listId, 1);
+      return await _dataSource(listId, page);
     } on SocketException catch (e) {
       throw Failure.connection(e);
     } on DioError catch (e) {

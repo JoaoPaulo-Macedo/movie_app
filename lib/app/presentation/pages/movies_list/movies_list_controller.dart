@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:movie_app/app/domain/entities/favorite_movies_list_entity.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
-import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
-import 'package:movie_app/app/domain/usecases/get_favorites_usecase.dart';
 import 'package:movie_app/app/domain/usecases/get_list_usecase.dart';
 import 'package:movie_app/app/presentation/components/app_snackbar.dart';
-import 'package:movie_app/app/presentation/dtos/favorite_movies_list_dto.dart';
-import 'package:movie_app/app/presentation/dtos/movies_list_dto.dart';
 import 'package:movie_app/app/presentation/pages/common/list_controller.dart';
 import 'package:movie_app/app/presentation/pages/movie/movie_page.dart';
 import 'package:movie_app/core/utils/failure.dart';
@@ -31,10 +26,14 @@ abstract class _MoviesListController extends ListController with Store {
       listEntity = await _moviesUseCase(list: listId, page: page);
 
       movies = listEntity?.movies ?? [];
-      cachedMovies = {page: listEntity!.movies ?? []};
+      cachedMovies = {page: movies};
 
       int totalPage = listEntity?.totalPages ?? 1;
       isPaginated = totalPage > 1;
+
+      print('---------');
+      print(movies);
+      print('---------');
 
       isLoading = false;
     } on Failure catch (e) {
@@ -62,9 +61,7 @@ abstract class _MoviesListController extends ListController with Store {
         cachedMovies.addAll({page: movies});
       } //
       else {
-        var list = listEntity!.copyWith(movies: cachedMovies[page]!);
-
-        movies = list.movies ?? [];
+        movies = cachedMovies[page]!;
       }
 
       if (textController.text.isNotEmpty) onSearch(textController.text);
@@ -94,27 +91,4 @@ abstract class _MoviesListController extends ListController with Store {
       ),
     );
   }
-
-  // @override
-  // @action
-  // onSearch(String? value) {
-  //   if (cachedMovies.isEmpty) return;
-
-  //   if (value == null) {
-  //     textController.clear();
-  //     isSearching = false;
-
-  //     movies = cachedMovies[page]!;
-
-  //     return;
-  //   }
-
-  //   List<MovieEntity> searchList = cachedMovies[page]!
-  //       .where((e) => e.title.toLowerCase().contains(value.toLowerCase()))
-  //       .toList();
-
-  //   var list = listEntity!.copyWith(movies: searchList);
-
-  //   movies = list.movies;
-  // }
 }

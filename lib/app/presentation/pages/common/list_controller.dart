@@ -51,9 +51,7 @@ abstract class _ListController with Store {
         .where((e) => e.title.toLowerCase().contains(value.toLowerCase()))
         .toList();
 
-    var list = listEntity!.copyWith(movies: searchList);
-
-    movies = list.movies ?? [];
+    movies = searchList;
   }
 
   @action
