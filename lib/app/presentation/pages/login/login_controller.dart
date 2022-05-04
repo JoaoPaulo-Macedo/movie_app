@@ -28,10 +28,8 @@ abstract class _LoginController with Store {
   bool isSignInEnabled = false;
 
   void _fetch(BuildContext context) async {
-    //TODO: solve context problem
-    //TODO: check if sessionId is still valid, does it have validation date?
     if (await _usecase.isLogedIn()) {
-      Navigator.popAndPushNamed(context, RoutesName.splash);
+      Navigator.popAndPushNamed(context, RoutesName.initial);
     } else {
       _listenToControllers();
       build = true;
@@ -56,7 +54,6 @@ abstract class _LoginController with Store {
 
     try {
       await _usecase(usernameController.text, passwordController.text);
-      //TODO: splash can only enter if session id is ok
       Navigator.popAndPushNamed(context, RoutesName.splash);
     } on Failure catch (e) {
       passwordController.clear();

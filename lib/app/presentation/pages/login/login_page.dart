@@ -36,7 +36,6 @@ class _LoginPageState extends State<LoginPage> {
         body: SafeArea(
           child: Observer(
             builder: (context) {
-              //TODO: solve it
               if (!controller.build) return const SizedBox();
 
               return Stack(
@@ -54,7 +53,6 @@ class _LoginPageState extends State<LoginPage> {
                               height: MediaQuery.of(context).size.height / 9,
                             ),
                           ),
-                    // : null,
                   ),
                 ],
               );

@@ -52,7 +52,6 @@ class MyApp extends StatelessWidget {
         RoutesName.login: (context) => const LoginPage(),
         RoutesName.splash: (context) => const SplashPage(),
         RoutesName.initial: (context) => const HomePage(),
-        // RoutesName.list: (context) => const ListPage(),
         RoutesName.favorites: (context) => const FavoritesPage(),
       },
     );

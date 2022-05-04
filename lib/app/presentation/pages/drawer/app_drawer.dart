@@ -84,7 +84,9 @@ class _AppDrawerState extends State<AppDrawer> {
             alignment: Alignment.bottomLeft,
             child: ListTile(
               title: ElevatedButton(
-                  onPressed: () => controller.logOut(context), child: const Text('Log Out')),
+                onPressed: () => controller.logOut(context),
+                child: const Text('Log Out'),
+              ),
             ),
           )
         ],
