@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:movie_app/app/data/datasource/local/assets_datasource.dart';
 import 'package:movie_app/app/data/datasource/remote/account_details_remote_datasource.dart';
 import 'package:movie_app/app/data/datasource/local/session_id_datasource.dart';
 import 'package:movie_app/app/data/datasource/remote/auth_remote_datasource.dart';
@@ -14,6 +15,7 @@ import 'package:movie_app/app/domain/usecases/get_favorites_usecase.dart';
 import 'package:movie_app/app/domain/usecases/login_usecase.dart';
 import 'package:movie_app/app/domain/usecases/logout_usecase.dart';
 import 'package:movie_app/app/external/datasource/local/account_details_local_datasource_imp.dart';
+import 'package:movie_app/app/external/datasource/local/assets_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/local/session_id_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/account_details_remote_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/auth_remote_datasource_imp.dart';
@@ -68,10 +70,13 @@ class Inject {
     _getIt.registerLazySingleton<AccountDetailsLocalDataSource>(
       () => AccountDetailsLocalDataSource(_getIt()),
     );
+    _getIt.registerLazySingleton<AssetsDataSource>(
+      () => AssetsDataSourceImp(),
+    );
 
     // Repositories
     _getIt.registerLazySingleton<ListRepository>(
-      () => ListRepositoryImp(_getIt()),
+      () => ListRepositoryImp(_getIt(), _getIt()),
     );
     _getIt.registerLazySingleton<AuthenticationRepository>(
       () => AuthenticationRepositoryImp(_getIt(), _getIt()),

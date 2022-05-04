@@ -14,7 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // final GlobalKey<ScaffoldState> _key = GlobalKey();
   late HomeController controller;
 
   @override
@@ -36,15 +35,6 @@ class _HomePageState extends State<HomePage> {
 
         return Scaffold(
           appBar: AppBar(),
-          // key: _key,
-          // appBar: AppBar(
-          //   leading: IconButton(
-          //     icon: const Icon(Icons.menu),
-          //     onPressed: () {
-          //       _key.currentState?.openDrawer();
-          //     },
-          //   ),
-          // ),
           drawer: const AppDrawer(),
           body: Padding(
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),

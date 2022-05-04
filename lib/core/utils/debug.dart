@@ -20,30 +20,13 @@ class Debug {
     String? path,
     String? description,
     bool response = false,
-    DebugSource? debugSource,
   }) {
     if (!AppConfigs.i!.debug) return;
 
     final String logData = data.toString();
     final int length = logData.length;
-    String source;
 
-    switch (debugSource) {
-      case DebugSource.remote:
-        source = 'Remote';
-        break;
-      case DebugSource.local:
-        source = 'Local';
-        break;
-      case DebugSource.mock:
-        source = 'Mock';
-        break;
-      default:
-        source = 'Remote';
-        break;
-    }
-
-    String name = source;
+    String name = 'Local';
     response ? name += ' - Response' : null;
     if (description != null) name += ': $description';
     if (path != null) name += ': $path';

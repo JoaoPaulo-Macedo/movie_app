@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class MovieDetails extends StatelessWidget {
   const MovieDetails(this.movie, {Key? key}) : super(key: key);
@@ -17,7 +16,7 @@ class MovieDetails extends StatelessWidget {
       children: [
         Text(
           movie.title,
-          style: textTheme.titleMedium,
+          style: textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 5),
         Row(

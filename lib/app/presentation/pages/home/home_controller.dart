@@ -43,7 +43,6 @@ abstract class _HomeController with Store {
   @action
   openListPage(BuildContext context, int listId) {
     //TODO: ask how to solve it
-    //Navigator.pushNamed(context, RoutesName.list, arguments: listId);
     Navigator.push(context, MaterialPageRoute(builder: (_) {
       return MoviesListPage(listId: listId);
     }));

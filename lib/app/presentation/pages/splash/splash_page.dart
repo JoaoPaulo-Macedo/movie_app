@@ -7,7 +7,6 @@ class SplashPage extends StatelessWidget {
 
   void callHomePage(BuildContext context) {
     var controller = SplashPageController();
-    // var controller = GetIt.instance.get<SplashPageController>();
     controller(context);
   }
 

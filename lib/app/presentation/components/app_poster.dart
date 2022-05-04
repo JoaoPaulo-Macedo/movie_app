@@ -25,26 +25,22 @@ class AppPoster extends StatelessWidget {
   Widget build(BuildContext context) {
     const double posterWidth = 93.5;
 
-    return Hero(
-      tag: Object(),
-      // tag: movieId ?? Object(),
-      child: CachedNetworkImage(
-        imageUrl: API.requestImg(posterPath ?? ''),
-        width: posterWidth,
-        placeholder: (_, __) {
-          return const Center(
-            child: CircularProgressIndicator(color: Colors.white),
-          );
-        },
-        errorWidget: (_, __, ___) {
-          return const SizedBox(
-            width: posterWidth,
-            child: Center(
-              child: Icon(Icons.error_outline, size: 40),
-            ),
-          );
-        },
-      ),
+    return CachedNetworkImage(
+      imageUrl: API.requestImg(posterPath ?? ''),
+      width: posterWidth,
+      placeholder: (_, __) {
+        return const Center(
+          child: CircularProgressIndicator(color: Colors.white),
+        );
+      },
+      errorWidget: (_, __, ___) {
+        return const SizedBox(
+          width: posterWidth,
+          child: Center(
+            child: Icon(Icons.error_outline, size: 40),
+          ),
+        );
+      },
     );
   }
 }

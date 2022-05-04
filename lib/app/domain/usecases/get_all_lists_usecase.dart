@@ -12,8 +12,6 @@ class GetAllListsUseCaseImp extends GetAllListsUseCase {
 
   @override
   Future<List<ListEntity>> call() async {
-    const amount = 10;
-
-    return await _repository.getManyLists(amount);
+    return await _repository.getAllLists();
   }
 }

@@ -17,7 +17,7 @@ class PreferencesServiceImp extends LocalDataService {
 
     String? data = _prefs!.getString(key);
 
-    Debug.log(data, description: description, debugSource: DebugSource.local);
+    Debug.log(data, description: description);
 
     return data;
   }
@@ -28,7 +28,7 @@ class PreferencesServiceImp extends LocalDataService {
 
     List<String>? data = _prefs!.getStringList(key);
 
-    Debug.log(data, description: description, debugSource: DebugSource.local);
+    Debug.log(data, description: description);
 
     return data;
   }
@@ -37,7 +37,7 @@ class PreferencesServiceImp extends LocalDataService {
   Future<bool> setString(String key, String value, {required String description}) async {
     if (_prefs == null) await init();
 
-    Debug.log(value, description: description, debugSource: DebugSource.local);
+    Debug.log(value, description: description);
 
     return await _prefs!.setString(key, value);
   }
@@ -46,7 +46,7 @@ class PreferencesServiceImp extends LocalDataService {
   Future<bool> setStringList(String key, List<String> value, {required String description}) async {
     if (_prefs == null) await init();
 
-    Debug.log(value, description: description, debugSource: DebugSource.local);
+    Debug.log(value, description: description);
 
     return await _prefs!.setStringList(key, value);
   }
@@ -55,7 +55,7 @@ class PreferencesServiceImp extends LocalDataService {
   Future<bool> remove(String key, {required String description}) async {
     if (_prefs == null) await init();
 
-    Debug.log('Preferences\' remove()', description: description, debugSource: DebugSource.local);
+    Debug.log('Preferences\' remove()', description: description);
 
     return await _prefs!.remove(key);
   }
@@ -64,7 +64,7 @@ class PreferencesServiceImp extends LocalDataService {
   Future<bool> clear({required String description}) async {
     if (_prefs == null) await init();
 
-    Debug.log('Preferences\' clear()', description: description, debugSource: DebugSource.local);
+    Debug.log('Preferences\' clear()', description: description);
 
     return await _prefs!.clear();
   }

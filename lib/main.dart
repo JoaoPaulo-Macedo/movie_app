@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         textTheme: TextTheme(
           titleLarge: GoogleFonts.lora(fontSize: 25),
-          titleMedium: GoogleFonts.lora(fontSize: 23, fontWeight: FontWeight.w600),
+          titleMedium: GoogleFonts.lora(fontSize: 23),
           titleSmall: GoogleFonts.lora(fontSize: 15),
         ),
         primaryColor: primaryColor,

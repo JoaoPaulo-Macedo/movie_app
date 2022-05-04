@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/app/presentation/components/app_list.dart';
 import 'package:movie_app/app/presentation/components/pagination.dart';
 import 'package:movie_app/app/presentation/components/search_app_bar.dart';

@@ -1,28 +1,27 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/services.dart';
+import 'package:movie_app/app/data/datasource/local/assets_datasource.dart';
 import 'package:movie_app/app/data/datasource/remote/movies_list_datasource.dart';
-import 'package:movie_app/app/data/dtos/list_dto.dart';
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/app/domain/repositories/list_repository.dart';
-import 'package:movie_app/core/utils/app_configs.dart';
-import 'package:movie_app/core/utils/debug.dart';
 import 'package:movie_app/core/utils/failure.dart';
 
 class ListRepositoryImp extends ListRepository {
-  ListRepositoryImp(this._dataSource);
+  ListRepositoryImp(this._dataSource, this._assetsDataSource);
 
   final MoviesListDataSource _dataSource;
+  final AssetsDataSource _assetsDataSource;
   final List<ListEntity> lists = [];
 
   @override
-  Future<List<ListEntity>> getManyLists(int amount) async {
+  Future<List<ListEntity>> getAllLists() async {
     try {
       if (lists.isNotEmpty) return lists;
 
-      if (AppConfigs.i!.environment == AppEnvironment.dev) return await getFromAssets();
+      return await _assetsDataSource.getLists();
+
+      /* if (AppConfigs.i!.environment == AppEnvironment.dev) return await getFromAssets();
 
       for (int listId = 1; listId <= amount; listId++) {
         ListEntity? list = await _dataSource(listId, 1);
@@ -32,7 +31,7 @@ class ListRepositoryImp extends ListRepository {
         }
       }
 
-      return lists;
+      return lists; */
     } on SocketException catch (e) {
       throw Failure.connection(e);
     } on DioError catch (e) {
@@ -55,7 +54,7 @@ class ListRepositoryImp extends ListRepository {
     }
   }
 
-  Future<List<ListEntity>> getFromAssets() async {
+  /* Future<List<ListEntity>> getFromAssets() async {
     List jsonList = jsonDecode(await rootBundle.loadString('assets/lists.json'));
 
     Debug.log(
@@ -69,5 +68,5 @@ class ListRepositoryImp extends ListRepository {
     }
 
     return lists;
-  }
+  } */
 }

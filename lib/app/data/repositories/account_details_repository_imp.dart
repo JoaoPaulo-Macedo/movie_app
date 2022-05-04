@@ -63,7 +63,6 @@ class AccountDetailsRepositoryImp extends AccountDetailsRepository {
     Debug.log(
       'json: ${json.toString()}',
       description: 'Account details from assets to avoid API overload',
-      debugSource: DebugSource.mock,
     );
 
     accountDetails = AccountDetailsDTO.fromJson(json);
