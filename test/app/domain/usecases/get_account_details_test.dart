@@ -5,16 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:movie_app/app/data/repositories/account_details_repository_imp.dart';
-import 'package:movie_app/app/data/repositories/list_repository_imp.dart';
 import 'package:movie_app/app/domain/entities/account_details_entity.dart';
-import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/app/domain/usecases/get_account_details_usecase.dart';
-import 'package:movie_app/app/domain/usecases/get_list_usecase.dart';
 import 'package:movie_app/app/external/datasource/local/account_details_local_datasource_imp.dart';
-import 'package:movie_app/app/external/datasource/local/assets_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/local/session_id_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/account_details_remote_datasource_imp.dart';
-import 'package:movie_app/app/external/datasource/remote/movies_list_datasource_imp.dart';
 import 'package:movie_app/core/utils/api_utils.dart';
 import 'package:movie_app/core/utils/app_configs.dart';
 

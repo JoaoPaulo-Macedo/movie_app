@@ -17,7 +17,6 @@ class Debug {
     data, {
     String? path,
     String? description,
-    bool response = false,
   }) {
     if (!AppConfigs.i!.debug) return;
 
@@ -25,7 +24,6 @@ class Debug {
     final int length = logData.length;
 
     String name = 'Local';
-    response ? name += ' - Response' : null;
     if (description != null) name += ': $description';
     if (path != null) name += ': $path';
 
