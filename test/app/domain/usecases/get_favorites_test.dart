@@ -29,17 +29,22 @@ void main() {
       ),
     );
 
+    // Local
     when(
       prefsMock.getString(any, description: anyNamed('description')),
     ).thenAnswer((_) async => 'session_id_from_prefs_mock');
 
+    // Remote
     when(
       dioMock.get(
         API.requestAccountDetails('session_id_from_prefs_mock'),
         description: anyNamed('description'),
       ),
     ).thenAnswer((_) async {
-      return Response(data: jsonDecode(await accountDetails()), requestOptions: RequestOptions(path: ''));
+      return Response(
+        data: jsonDecode(await accountDetails()),
+        requestOptions: RequestOptions(path: ''),
+      );
     });
 
     when(

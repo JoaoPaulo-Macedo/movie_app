@@ -48,9 +48,3 @@ String jsonData = '''
     "average_rating": 6.04565
   }
 ''';
-
-// Future<String> jsonData() async {
-//   var json = await rootBundle.loadString('assets/list.json');
-
-//   return json;
-// }

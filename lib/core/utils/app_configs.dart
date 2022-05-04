@@ -1,9 +1,9 @@
 class AppConfigs {
   AppConfigs._(this.debug, this.environment);
 
-  factory AppConfigs(AppEnvironment environment) {
+  factory AppConfigs(AppEnvironment appEnvironment) {
     if (i == null) {
-      switch (environment) {
+      switch (appEnvironment) {
         case AppEnvironment.dev:
           i = AppConfigs._(true, AppEnvironment.dev);
           break;
