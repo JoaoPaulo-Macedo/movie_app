@@ -52,7 +52,7 @@ class ListPage extends StatelessWidget {
             body: Center(
               child: Text(
                 'You have no favorites :(',
-                style: GoogleFonts.lora(fontSize: 25),
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
           );

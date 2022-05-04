@@ -20,11 +20,8 @@ class AppDrawerTile extends StatelessWidget {
     final enabledColor = theme.primaryColor;
     const disabledColor = Colors.white;
 
-    final enabledStyle = theme.textTheme.subtitle1!.copyWith(
-      color: enabledColor,
-      fontWeight: FontWeight.w700,
-    );
-    final disabledStyle = theme.textTheme.subtitle1!.copyWith(color: disabledColor);
+    final enabledStyle = theme.textTheme.titleSmall!.copyWith(color: enabledColor);
+    final disabledStyle = theme.textTheme.titleSmall!.copyWith(color: disabledColor);
 
     return ListTile(
       title: Row(

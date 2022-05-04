@@ -34,7 +34,7 @@ class ListCard extends StatelessWidget {
                         Text(
                           list.name,
                           maxLines: 3,
-                          style: GoogleFonts.lora(fontSize: 18),
+                          style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 18),
                           overflow: TextOverflow.ellipsis,
                         ),
                         const Spacer(),

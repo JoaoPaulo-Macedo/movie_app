@@ -69,7 +69,7 @@ class _MoviesListPageState extends State<MoviesListPage> {
             body: Center(
               child: Text(
                 'No movies found :(',
-                style: GoogleFonts.lora(fontSize: 25),
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
           );

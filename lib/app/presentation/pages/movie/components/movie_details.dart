@@ -17,11 +17,10 @@ class MovieDetails extends StatelessWidget {
       children: [
         Text(
           movie.title,
-          style: GoogleFonts.lora(fontSize: 23, fontWeight: FontWeight.w600),
+          style: textTheme.titleMedium,
         ),
         const SizedBox(height: 5),
         Row(
-          // mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text('${movie.voteCount.toString()} votes', style: const TextStyle(fontSize: 9)),
