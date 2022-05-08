@@ -25,7 +25,6 @@ class SessionIdDataSourceImp extends SessionIdDataSource {
     );
   }
 
-  //TODO: change name to logout?
   @override
   Future<bool> deleteSessionId() async {
     bool success = await _service.clear(description: 'Clear all preferences');

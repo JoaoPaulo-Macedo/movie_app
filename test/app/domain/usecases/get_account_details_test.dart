@@ -26,7 +26,7 @@ void main() {
     var usecase = GetAccountDetailsUseCaseImp(
       AccountDetailsRepositoryImp(
         AccountDetailsRemoteDataSourceImp(dioMock),
-        AccountDetailsLocalDataSource(prefsMock),
+        AccountDetailsLocalDataSourceImp(prefsMock),
         SessionIdDataSourceImp(prefsMock),
       ),
     );

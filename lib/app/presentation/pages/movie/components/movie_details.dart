@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
+import 'package:movie_app/app/presentation/pages/theme.dart';
 
 class MovieDetails extends StatelessWidget {
   const MovieDetails(this.movie, {Key? key}) : super(key: key);
@@ -8,7 +9,7 @@ class MovieDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final theme = AppTextStyles.of(context);
     final primaryColor = Theme.of(context).primaryColor;
 
     return Column(
@@ -16,7 +17,7 @@ class MovieDetails extends StatelessWidget {
       children: [
         Text(
           movie.title,
-          style: textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w600),
+          style: theme.movieName,
         ),
         const SizedBox(height: 5),
         Row(
@@ -38,7 +39,7 @@ class MovieDetails extends StatelessWidget {
         const SizedBox(height: 35),
         Text(
           movie.overview ?? '',
-          style: textTheme.caption!.copyWith(fontSize: 14, letterSpacing: 0.5),
+          style: theme.caption!.copyWith(fontSize: 14, letterSpacing: 0.5),
           overflow: TextOverflow.visible,
         ),
       ],

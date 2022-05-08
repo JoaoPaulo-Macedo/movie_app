@@ -9,7 +9,7 @@ import 'package:movie_app/core/utils/failure.dart';
 part 'home_controller.g.dart';
 
 class HomeController = _HomeController with _$HomeController;
-//TODO: Add enum for states: initial, loading, error, success
+
 abstract class _HomeController with Store {
   _HomeController(BuildContext context, this.usecase) {
     _fetch(context);
@@ -21,6 +21,7 @@ abstract class _HomeController with Store {
   List<ListEntity> lists = [];
   @observable
   bool isLoading = true;
+  // TODO: Is this way ok to controll page loading state?
 
   void _fetch(BuildContext context) async {
     try {

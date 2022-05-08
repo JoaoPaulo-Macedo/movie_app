@@ -6,8 +6,8 @@ import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/core/domain/services/http_service.dart';
 import 'package:movie_app/core/utils/api_utils.dart';
 
-class FavoritesRemoteDataSourceImp extends FavoritesDataSource {
-  FavoritesRemoteDataSourceImp(this._service);
+class FavoritesDataSourceImp extends FavoritesDataSource {
+  FavoritesDataSourceImp(this._service);
 
   final HttpService _service;
 

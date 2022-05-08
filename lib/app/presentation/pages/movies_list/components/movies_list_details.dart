@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/app/presentation/components/pagination.dart';
 import 'package:movie_app/app/presentation/pages/movies_list/movies_list_controller.dart';
+import 'package:movie_app/app/presentation/pages/theme.dart';
 
 class MoviesListDetails extends StatelessWidget {
   const MoviesListDetails({
@@ -13,7 +14,7 @@ class MoviesListDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final theme = AppTextStyles.of(context);
     ListEntity? moviesList = controller.listEntity;
     const horizontalPadding = 5.0;
 
@@ -23,7 +24,7 @@ class MoviesListDetails extends StatelessWidget {
       children: [
         Text(
           moviesList.name,
-          style: textTheme.headline5?.copyWith(fontWeight: FontWeight.bold),
+          style: theme.headline5?.copyWith(fontWeight: FontWeight.bold),
         ),
         if (moviesList.description != null && moviesList.createdBy?.name != null)
           Padding(
@@ -35,13 +36,13 @@ class MoviesListDetails extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Text(moviesList.description!, style: textTheme.subtitle1),
+                Text(moviesList.description!, style: theme.subtitle1),
                 const SizedBox(height: 5),
                 Align(
                   alignment: Alignment.centerRight,
                   child: Text(
                     'List created by ${moviesList.createdBy!.name}',
-                    style: textTheme.caption,
+                    style: theme.caption,
                   ),
                 ),
               ],
@@ -53,7 +54,7 @@ class MoviesListDetails extends StatelessWidget {
           children: [
             Text(
               'Movies',
-              style: textTheme.headline6,
+              style: theme.headline6,
             ),
             controller.isPaginated
                 ? Pagination(
@@ -69,3 +70,4 @@ class MoviesListDetails extends StatelessWidget {
     );
   }
 }
+ */

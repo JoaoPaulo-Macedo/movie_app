@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/app/presentation/pages/theme.dart';
 
 class AppDrawerTile extends StatelessWidget {
   const AppDrawerTile({
@@ -16,12 +17,12 @@ class AppDrawerTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final enabledColor = theme.primaryColor;
+    final theme = AppTextStyles.of(context);
+    final enabledColor = Theme.of(context).primaryColor;
     const disabledColor = Colors.white;
 
-    final enabledStyle = theme.textTheme.titleSmall!.copyWith(color: enabledColor);
-    final disabledStyle = theme.textTheme.titleSmall!.copyWith(color: disabledColor);
+    final enabledStyle = theme.drawerTile!.copyWith(color: enabledColor);
+    final disabledStyle = theme.drawerTile!.copyWith(color: disabledColor);
 
     return ListTile(
       title: Row(

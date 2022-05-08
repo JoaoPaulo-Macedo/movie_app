@@ -5,6 +5,7 @@ import 'package:movie_app/app/presentation/components/pagination.dart';
 import 'package:movie_app/app/presentation/components/search_app_bar.dart';
 import 'package:movie_app/app/presentation/pages/common/list_controller.dart';
 import 'package:movie_app/app/presentation/pages/drawer/app_drawer.dart';
+import 'package:movie_app/app/presentation/pages/theme.dart';
 
 class ListPage extends StatelessWidget {
   const ListPage(this.controller, {Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class ListPage extends StatelessWidget {
             appBar: AppBar(),
             drawer: const AppDrawer(),
             body: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+              padding: kAppPagePadding,
               child: Stack(
                 children: [
                   Center(
@@ -51,7 +52,7 @@ class ListPage extends StatelessWidget {
             body: Center(
               child: Text(
                 'You have no favorites :(',
-                style: Theme.of(context).textTheme.titleLarge,
+                style: AppTextStyles.of(context).large,
               ),
             ),
           );

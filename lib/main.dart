@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/app/presentation/pages/favorites/favorites_page.dart';
 import 'package:movie_app/app/presentation/pages/home/home_page.dart';
 import 'package:movie_app/app/presentation/pages/login/login_page.dart';
@@ -27,11 +26,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData.dark().copyWith(
-        textTheme: TextTheme(
-          titleLarge: GoogleFonts.lora(fontSize: 25),
-          titleMedium: GoogleFonts.lora(fontSize: 23),
-          titleSmall: GoogleFonts.lora(fontSize: 15),
-        ),
         primaryColor: primaryColor,
         cardColor: cardColor,
         scaffoldBackgroundColor: Colors.black,

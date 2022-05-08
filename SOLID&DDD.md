@@ -44,24 +44,24 @@
   * State
   * Variables
 * UseCase
-  * Bem específico o nome e ação
-  * O mais lixo
-  * Mais pra teste
+  * Bem específico (mesmo) o nome e ação, praticamente só tem call
+  * Principal a ser testado
   * Regra de negócio do uso dessa ação
-  * Quase não faz nada
+  * Validação de formulário
 * Repository
   * Normalmente, Erros https
-  * Viagemda
   * Try Catch é aqui
   * Mensagem de erro (servidor e/ou própria)
   * Exceptions delegam a lógica do erro para a classe responsável por conhecer as regras que podem ocasionar o erro.
 * DataSource
   * Fazer chamada na api
-  * fromJson aqui
+  * Chamada local
+  * External
+  * DTOs' fromJson aqui
 * Layers != Modules (Core, App (layers)).
 * Domain, Data and Presentation.
 * Domain don't know other layers, imports are only from domain.
-* Also, domain don't know how to mount data, like json and to json, that's why entities hasn't json treatments.
+* Also, domain don't know how to mount data, like json and to json, that's why entities haven't json methods.
 * Data can access domain layer and itself, but not external layers.
 ---
 **DDD**
@@ -77,3 +77,21 @@
   * error.error = error (ex: Http status error 401)
   * error.response.data = json response
   * error.response.statusMessage = reason associated with error
+---
+**Curiosities**
+* const is set at compilation time (before the app is run).
+* final is set at runtime (for example, final date = DateTime.now, at the moment of compilation it doesn't know 
+the time, only when app is run).
+* **Operadores Cascatas**: list..add()..add()..remove(); 
+  * ".." returns the own object and not the return of the operation.
+    * ex: the return from list.add() is void, but list..add() is the list itself.
+* Passing objects is passing references, passing primitive variables is passing values:
+  * person1.name = 'first';
+    * person2 = person1;
+    * person1.name = 'second';
+    * print(person2.name); = second
+  * int x = 10;
+    * y = x;
+    * x = 20;
+    * print(y); = 10
+  * Also works for functions, when an object is passed to a function, it can modify the object itself.

@@ -9,6 +9,7 @@ import 'package:movie_app/app/presentation/pages/movie/components/movie_actions.
 import 'package:movie_app/app/presentation/pages/movie/components/movie_details.dart';
 import 'package:movie_app/app/presentation/pages/movie/movie_controller.dart';
 import 'package:movie_app/app/presentation/pages/movie/components/movie_poster.dart';
+import 'package:movie_app/app/presentation/pages/theme.dart';
 
 class MoviePage extends StatefulWidget {
   const MoviePage(this.movie, {Key? key}) : super(key: key);
@@ -51,27 +52,29 @@ class _MoviePageState extends State<MoviePage> {
                   height: controller.offset,
                 ),
               ),
-              SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                controller: controller.scrollController,
-                primary: false,
-                child: Column(
-                  children: [
-                    SizedBox(height: window.physicalSize.height / 3.3),
-                    Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [Colors.transparent, background, background],
+              Padding(
+                padding: const EdgeInsets.only(bottom: kVerticalPadding),
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  controller: controller.scrollController,
+                  child: Column(
+                    children: [
+                      SizedBox(height: window.physicalSize.height / 3.3),
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [Colors.transparent, background, background],
+                          ),
+                        ),
+                        child: Padding(
+                          padding: kAppPagePadding,
+                          child: MovieDetails(widget.movie),
                         ),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                        child: MovieDetails(widget.movie),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               SafeArea(

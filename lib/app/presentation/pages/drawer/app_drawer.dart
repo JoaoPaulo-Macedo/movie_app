@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:movie_app/app/presentation/pages/drawer/components/app_drawer_tile.dart';
 import 'package:movie_app/app/presentation/components/logo.dart';
 import 'package:movie_app/app/presentation/pages/drawer/app_drawer_controller.dart';
+import 'package:movie_app/app/presentation/pages/theme.dart';
 import 'package:movie_app/core/utils/routes_name.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -50,14 +51,14 @@ class _AppDrawerState extends State<AppDrawer> {
                               controller.accountDetails == null
                                   ? 'Welcome!'
                                   : 'Welcome, ${controller.accountDetails?.name}!',
-                              style: theme.textTheme.titleLarge,
+                              style: AppTextStyles.of(context).large,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
                             const SizedBox(height: 5),
                             Text(
                               controller.accountDetails?.username ?? '',
-                              style: theme.textTheme.caption,
+                              style: AppTextStyles.of(context).caption,
                             ),
                           ],
                         );

@@ -6,6 +6,7 @@ import 'package:movie_app/app/presentation/components/app_list.dart';
 import 'package:movie_app/app/presentation/components/pagination.dart';
 import 'package:movie_app/app/presentation/components/search_app_bar.dart';
 import 'package:movie_app/app/presentation/pages/movies_list/movies_list_controller.dart';
+import 'package:movie_app/app/presentation/pages/theme.dart';
 
 class MoviesListPage extends StatefulWidget {
   const MoviesListPage({Key? key, required this.listId}) : super(key: key);
@@ -38,7 +39,7 @@ class _MoviesListPageState extends State<MoviesListPage> {
           return Scaffold(
             appBar: AppBar(),
             body: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+              padding: kAppPagePadding,
               child: Stack(
                 children: [
                   Center(
@@ -68,7 +69,7 @@ class _MoviesListPageState extends State<MoviesListPage> {
             body: Center(
               child: Text(
                 'No movies found :(',
-                style: Theme.of(context).textTheme.titleLarge,
+                style: AppTextStyles.of(context).large,
               ),
             ),
           );

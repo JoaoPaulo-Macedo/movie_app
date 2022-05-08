@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/app/presentation/components/app_poster.dart';
+import 'package:movie_app/app/presentation/pages/theme.dart';
 
 class ListCard extends StatelessWidget {
   const ListCard(this.list, this.onTap, {Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class ListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(15),
+      borderRadius: BorderRadius.circular(kCardBorderRadius),
       child: Container(
         height: 140,
         decoration: BoxDecoration(color: Theme.of(context).cardColor),
@@ -33,7 +34,7 @@ class ListCard extends StatelessWidget {
                         Text(
                           list.name,
                           maxLines: 3,
-                          style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 18),
+                          style: AppTextStyles.of(context).listName,
                           overflow: TextOverflow.ellipsis,
                         ),
                         const Spacer(),
@@ -75,7 +76,7 @@ class MovieCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(15),
+      borderRadius: BorderRadius.circular(kCardBorderRadius),
       child: Stack(
         children: [
           Positioned.fill(
@@ -85,7 +86,6 @@ class MovieCard extends StatelessWidget {
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                //TODO: ask how to solve it
                 onTap: () => onTap(context, movie),
               ),
             ),

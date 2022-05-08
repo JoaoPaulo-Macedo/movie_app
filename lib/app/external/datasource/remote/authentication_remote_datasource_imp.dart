@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:movie_app/app/data/datasource/remote/auth_remote_datasource.dart';
+import 'package:movie_app/app/data/datasource/remote/authentication_remote_datasource.dart';
 import 'package:movie_app/app/data/dtos/request_token_dto.dart';
 import 'package:movie_app/core/domain/services/http_service.dart';
 import 'package:movie_app/core/utils/api_utils.dart';

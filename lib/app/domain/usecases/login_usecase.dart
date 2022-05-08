@@ -1,6 +1,6 @@
 import 'package:movie_app/app/domain/entities/login_params_entity.dart';
 import 'package:movie_app/app/domain/repositories/account_details_repository.dart';
-import 'package:movie_app/app/domain/repositories/auth_repository.dart';
+import 'package:movie_app/app/domain/repositories/authentication_repository.dart';
 
 abstract class LoginUseCase {
   call(String username, String password);

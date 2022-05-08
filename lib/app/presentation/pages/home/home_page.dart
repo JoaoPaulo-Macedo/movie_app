@@ -5,6 +5,7 @@ import 'package:movie_app/app/domain/usecases/get_all_lists_usecase.dart';
 import 'package:movie_app/app/presentation/components/app_list.dart';
 import 'package:movie_app/app/presentation/pages/drawer/app_drawer.dart';
 import 'package:movie_app/app/presentation/pages/home/home_controller.dart';
+import 'package:movie_app/app/presentation/pages/theme.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -37,7 +38,7 @@ class _HomePageState extends State<HomePage> {
           appBar: AppBar(),
           drawer: const AppDrawer(),
           body: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            padding: kAppPagePadding,
             child: Column(
               children: [
                 Expanded(

@@ -27,6 +27,7 @@ abstract class _LoginController with Store {
   @observable
   bool isSignInEnabled = false;
 
+  // TODO: chamar fetch lá no init state, pra não passar context
   void _fetch(BuildContext context) async {
     if (await _usecase.isLogedIn()) {
       Navigator.popAndPushNamed(context, RoutesName.initial);
@@ -51,6 +52,8 @@ abstract class _LoginController with Store {
   @action
   logIn(BuildContext context) async {
     isLoading = true;
+    // TODO: return something and the page will navigate or show snackbar
+    // TODO: nem deveria passar context e importar material
 
     try {
       await _usecase(usernameController.text, passwordController.text);

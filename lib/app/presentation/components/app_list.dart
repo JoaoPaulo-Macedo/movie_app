@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/app/presentation/components/app_cards.dart';
+import 'package:movie_app/app/presentation/pages/theme.dart';
 
 enum AppListType { lists, movies }
 
@@ -23,7 +24,7 @@ class AppList extends StatelessWidget {
       return ListView.separated(
         itemCount: itemCount,
         padding: EdgeInsets.zero,
-        separatorBuilder: (_, __) => const SizedBox(height: 10),
+        separatorBuilder: (_, __) => const SizedBox(height: kListSpacing),
         itemBuilder: (_, index) {
           return ListCard(list[index], onTap);
         },
@@ -33,8 +34,8 @@ class AppList extends StatelessWidget {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        crossAxisSpacing: 15,
-        mainAxisSpacing: 15,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: kListSpacing,
         childAspectRatio: 0.6656,
       ),
       itemCount: itemCount,

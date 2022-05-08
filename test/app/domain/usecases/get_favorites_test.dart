@@ -9,7 +9,7 @@ import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/app/domain/usecases/get_favorites_usecase.dart';
 import 'package:movie_app/app/external/datasource/local/session_id_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/remote/account_details_remote_datasource_imp.dart';
-import 'package:movie_app/app/external/datasource/remote/favorites_remote_datasource_imp.dart';
+import 'package:movie_app/app/external/datasource/remote/favorites_datasource_imp.dart';
 import 'package:movie_app/core/utils/api_utils.dart';
 
 import '../../../mockito.mocks.dart';
@@ -23,7 +23,7 @@ void main() {
 
     var usecase = GetFavoritesUseCaseImp(
       FavoritesRepositoryImp(
-        FavoritesRemoteDataSourceImp(dioMock),
+        FavoritesDataSourceImp(dioMock),
         AccountDetailsRemoteDataSourceImp(dioMock),
         SessionIdDataSourceImp(prefsMock),
       ),

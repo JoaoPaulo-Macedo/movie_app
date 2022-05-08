@@ -1,4 +1,4 @@
-import 'package:movie_app/app/domain/repositories/auth_repository.dart';
+import 'package:movie_app/app/domain/repositories/authentication_repository.dart';
 
 abstract class LogoutUseCase {
   call();
