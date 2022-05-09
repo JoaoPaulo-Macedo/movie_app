@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:movie_app/app/domain/usecases/get_list_usecase.dart';
-import 'package:movie_app/app/presentation/components/app_list.dart';
-import 'package:movie_app/app/presentation/components/pagination.dart';
-import 'package:movie_app/app/presentation/components/search_app_bar.dart';
+import 'package:movie_app/app/presentation/components/app_snackbar.dart';
+import 'package:movie_app/app/presentation/pages/common/list_page.dart';
 import 'package:movie_app/app/presentation/pages/movies_list/movies_list_controller.dart';
-import 'package:movie_app/app/presentation/pages/theme.dart';
+import 'package:movie_app/core/utils/failure.dart';
 
 class MoviesListPage extends StatefulWidget {
   const MoviesListPage({Key? key, required this.listId}) : super(key: key);
@@ -25,97 +23,23 @@ class _MoviesListPageState extends State<MoviesListPage> {
     super.initState();
 
     controller = MoviesListController(
-      context,
       GetIt.I.get<GetListUseCase>(),
       listId: widget.listId,
+      snackBar: snackBar,
+    );
+  }
+
+  snackBar(Failure e) {
+    AppSnackBar.show(
+      context,
+      message: e.message,
+      description: e.description,
+      type: AppSnackBarType.error,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) {
-        if (controller.isLoading) {
-          return Scaffold(
-            appBar: AppBar(),
-            body: Padding(
-              padding: kAppPagePadding,
-              child: Stack(
-                children: [
-                  Center(
-                    child: CircularProgressIndicator(color: Theme.of(context).primaryColor),
-                  ),
-                  Visibility(
-                    visible: controller.isPaginated,
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Pagination(
-                        page: controller.page,
-                        totalPages: controller.listEntity?.totalPages ?? 1,
-                        backPage: () => controller.backPage(context),
-                        advancePage: () => controller.advancePage(context),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        }
-
-        if (controller.isListEmpty()) {
-          return Scaffold(
-            appBar: AppBar(),
-            body: Center(
-              child: Text(
-                'No movies found :(',
-                style: AppTextStyles.of(context).large,
-              ),
-            ),
-          );
-        }
-
-        return GestureDetector(
-          child: Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(AppBar().preferredSize.height),
-              child: SearchAppBar(controller),
-            ),
-            body: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-              child: Stack(
-                children: [
-                  AppList(
-                    itemCount: controller.movies.length,
-                    list: controller.movies,
-                    onTap: controller.openMoviePage,
-                    type: AppListType.movies,
-                  ),
-                  Visibility(
-                    visible: controller.isPaginated,
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Pagination(
-                        page: controller.page,
-                        totalPages: controller.listEntity?.totalPages ?? 1,
-                        backPage: () => controller.backPage(context),
-                        advancePage: () => controller.advancePage(context),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          onTap: () {
-            controller.searchFocus.unfocus();
-
-            if (controller.textController.text.isEmpty) {
-              controller.isSearching = false;
-            }
-          },
-        );
-      },
-    );
+    return ListPage(controller, type: ListPageType.common, errorMessage: 'No movies found!');
   }
 }

@@ -53,7 +53,7 @@ void main() {
       return Response(data: jsonDecode(jsonData), requestOptions: RequestOptions(path: ''));
     });
 
-    ListEntity? list = await usecase.getMovies();
+    ListEntity? list = await usecase();
 
     expect(list?.movies?.length, 20);
   });

@@ -6,7 +6,6 @@ import 'package:movie_app/app/data/datasource/remote/account_details_remote_data
 import 'package:movie_app/app/data/dtos/account_details_dto.dart';
 import 'package:movie_app/app/domain/entities/account_details_entity.dart';
 import 'package:movie_app/app/domain/repositories/account_details_repository.dart';
-import 'package:movie_app/app/external/datasource/local/account_details_local_datasource_imp.dart';
 import 'package:movie_app/core/utils/app_configs.dart';
 import 'package:movie_app/core/utils/debug.dart';
 import 'package:movie_app/core/utils/failure.dart';

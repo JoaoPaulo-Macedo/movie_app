@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:movie_app/app/domain/usecases/get_all_lists_usecase.dart';
-import 'package:movie_app/app/presentation/components/app_list.dart';
+import 'package:movie_app/app/presentation/components/app_lists.dart';
 import 'package:movie_app/app/presentation/pages/drawer/app_drawer.dart';
 import 'package:movie_app/app/presentation/pages/home/home_controller.dart';
 import 'package:movie_app/app/presentation/pages/theme.dart';
@@ -41,14 +41,7 @@ class _HomePageState extends State<HomePage> {
             padding: kAppPagePadding,
             child: Column(
               children: [
-                Expanded(
-                  child: AppList(
-                    itemCount: controller.lists.length,
-                    list: controller.lists,
-                    onTap: controller.openListPage,
-                    type: AppListType.lists,
-                  ),
-                ),
+                Expanded(child: HomeList(controller)),
               ],
             ),
           ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/domain/usecases/get_list_usecase.dart';
-import 'package:movie_app/app/presentation/components/app_snackbar.dart';
 import 'package:movie_app/app/presentation/pages/common/list_controller.dart';
 import 'package:movie_app/app/presentation/pages/movie/movie_page.dart';
 import 'package:movie_app/core/utils/failure.dart';
@@ -12,67 +11,61 @@ part 'movies_list_controller.g.dart';
 class MoviesListController = _MoviesListController with _$MoviesListController;
 
 abstract class _MoviesListController extends ListController with Store {
-  _MoviesListController(BuildContext context, this._moviesUseCase, {required this.listId}) {
-    _init(context);
+  _MoviesListController(this._moviesUseCase, {required this.listId, required this.snackBar}) {
+    init();
   }
 
   final GetListUseCase _moviesUseCase;
+  final Function(Failure e) snackBar;
 
   @observable
   int listId;
 
-  _init(BuildContext context) async {
+  @override
+  init() async {
+    isLoading = true;
+
+    scrollController.addListener(() async {
+      if (scrollController.position.atEdge && scrollController.offset != 0) {
+        if (changePage()) {
+          isLoading = true;
+
+          var list = await fetchMovies();
+
+          addMovies(list);
+          cachedMovies = movies;
+
+          isLoading = false;
+
+          scrollController.jumpTo(scrollController.offset + 20);
+        }
+      }
+    });
+
     try {
-      listEntity = await _moviesUseCase(list: listId, page: page);
+      listEntity = await _moviesUseCase(list: listId, page: 1);
 
-      movies = listEntity?.movies ?? [];
-      cachedMovies = {page: movies};
+      addMovies(listEntity?.movies);
+      cachedMovies = movies;
 
-      int totalPage = listEntity?.totalPages ?? 1;
-      isPaginated = totalPage > 1;
-
-      isLoading = false;
-    } on Failure catch (e) {
-      //TODO: Should the controller call a ui widget?
-      AppSnackBar.show(
-        context,
-        message: e.message,
-        description: e.description,
-        type: AppSnackBarType.error,
-      );
+      totalPages = listEntity?.totalPages ?? 1;
 
       isLoading = false;
+    } on Failure catch (f) {
+      _onFailure(f);
     }
   }
 
   @override
-  fetch(BuildContext context) async {
+  fetchMovies() async {
     try {
-      isLoading = true;
+      var list = await _moviesUseCase(list: listId, page: page);
 
-      if (!cachedMovies.keys.contains(page)) {
-        var list = await _moviesUseCase(list: listId, page: page);
+      return list?.movies;
+    } on Failure catch (f) {
+      _onFailure(f);
 
-        movies = list!.movies ?? [];
-        cachedMovies.addAll({page: movies});
-      } //
-      else {
-        movies = cachedMovies[page]!;
-      }
-
-      if (textController.text.isNotEmpty) onSearch(textController.text);
-
-      isLoading = false;
-    } on Failure catch (e) {
-      //TODO: Should the controller call a ui widget?
-      AppSnackBar.show(
-        context,
-        message: e.message,
-        description: e.description,
-        type: AppSnackBarType.error,
-      );
-
-      isLoading = false;
+      return null;
     }
   }
 
@@ -86,5 +79,11 @@ abstract class _MoviesListController extends ListController with Store {
         fullscreenDialog: true,
       ),
     );
+  }
+
+  _onFailure(Failure f) {
+    snackBar(f);
+
+    isLoading = false;
   }
 }

@@ -15,6 +15,8 @@ import 'package:movie_app/app/domain/usecases/get_account_details_usecase.dart';
 import 'package:movie_app/app/domain/usecases/get_favorites_usecase.dart';
 import 'package:movie_app/app/domain/usecases/login_usecase.dart';
 import 'package:movie_app/app/domain/usecases/logout_usecase.dart';
+import 'package:movie_app/app/domain/usecases/remove_favorite_usecase.dart';
+import 'package:movie_app/app/domain/usecases/save_favorite_usecase.dart';
 import 'package:movie_app/app/external/datasource/local/account_details_local_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/local/assets_datasource_imp.dart';
 import 'package:movie_app/app/external/datasource/local/session_id_datasource_imp.dart';
@@ -107,6 +109,12 @@ class Inject {
     );
     _getIt.registerLazySingleton<GetFavoritesUseCase>(
       () => GetFavoritesUseCaseImp(_getIt()),
+    );
+    _getIt.registerLazySingleton<SaveFavoriteUseCase>(
+      () => SaveFavoriteUseCaseImp(_getIt()),
+    );
+    _getIt.registerLazySingleton<RemoveFavoriteUseCase>(
+      () => RemoveFavoriteUseCaseImp(_getIt()),
     );
 
     // Controllers

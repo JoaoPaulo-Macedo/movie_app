@@ -8,71 +8,96 @@ part 'list_controller.g.dart';
 abstract class ListController = _ListController with _$ListController;
 
 abstract class _ListController with Store {
-  @observable
   ListEntity? listEntity;
+  List<MovieEntity> cachedMovies = [];
+  int page = 1;
+  int totalPages = 1;
+  bool _isFetching = false;
+  String? _search;
+
+  FocusNode searchFocus = FocusNode();
+  TextEditingController textController = TextEditingController();
+  ScrollController scrollController = ScrollController();
+
   @observable
   List<MovieEntity> movies = [];
-  @observable
-  // ignore: prefer_final_fields
-  Map<int, List<MovieEntity>> cachedMovies = {};
-  @observable
-  int page = 1;
-
   @observable
   bool isLoading = true;
   @observable
   bool isSearching = false;
-  @observable
-  bool isPaginated = false;
-  @observable
-  FocusNode searchFocus = FocusNode();
-  @observable
-  TextEditingController textController = TextEditingController();
 
-  Future fetch(BuildContext context);
+  Future init();
+
+  Future<List<MovieEntity>?> fetchMovies();
 
   Future openMoviePage(BuildContext context, MovieEntity movie);
-
-  @action
-  onSearch(String? value) {
-    if (cachedMovies.isEmpty) return;
-
-    if (value == null) {
-      textController.clear();
-      isSearching = false;
-
-      movies = cachedMovies[page]!;
-
-      return;
-    }
-
-    List<MovieEntity> searchList = cachedMovies[page]!
-        .where((e) => e.title.toLowerCase().contains(value.toLowerCase()))
-        .toList();
-
-    movies = searchList;
-  }
 
   @action
   bool isListEmpty() => listEntity?.movies == null || listEntity!.movies!.isEmpty;
 
   @action
-  backPage(BuildContext context) {
-    if (page == 1) return;
-    if (isLoading) return;
+  onSearch(String? value) async {
+    if (movies.isEmpty) return;
 
-    page -= 1;
+    if (value == null) {
+      textController.clear();
+      isSearching = false;
 
-    fetch(context);
+      movies = cachedMovies;
+
+      return;
+    }
+
+    _search = value;
+
+    if (page < totalPages && !_isFetching) {
+      await _fetchAll();
+    } else if (!_isFetching) {
+      _showSearch(_search);
+    }
   }
 
-  @action
-  advancePage(BuildContext context) {
-    if (page == listEntity!.totalPages) return;
-    if (isLoading) return;
+  void addMovies(List<MovieEntity>? list) {
+    list?.forEach((movie) {
+      movies.add(movie);
+    });
+  }
+
+  bool changePage() {
+    if (page == totalPages) return false;
 
     page += 1;
+    return true;
+  }
 
-    fetch(context);
+  Future _fetchAll() async {
+    isLoading = true;
+    _isFetching = true;
+
+    for (int i = page + 1; i <= totalPages; i++) {
+      changePage();
+
+      var list = await fetchMovies();
+      list?.forEach((movie) {
+        cachedMovies.add(movie);
+      });
+    }
+
+    _showSearch(_search);
+
+    isLoading = false;
+    _isFetching = false;
+  }
+
+  void _showSearch(String? value) {
+    if (value == null) return;
+
+    List<MovieEntity> searchList = cachedMovies
+        .where(
+          (e) => e.title.toLowerCase().contains(value.toLowerCase()),
+        )
+        .toList();
+
+    movies = searchList;
   }
 }

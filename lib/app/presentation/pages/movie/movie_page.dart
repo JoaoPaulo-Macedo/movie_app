@@ -5,6 +5,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:movie_app/app/domain/usecases/get_favorites_usecase.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
+import 'package:movie_app/app/domain/usecases/remove_favorite_usecase.dart';
+import 'package:movie_app/app/domain/usecases/save_favorite_usecase.dart';
 import 'package:movie_app/app/presentation/pages/movie/components/movie_actions.dart';
 import 'package:movie_app/app/presentation/pages/movie/components/movie_details.dart';
 import 'package:movie_app/app/presentation/pages/movie/movie_controller.dart';
@@ -30,6 +32,8 @@ class _MoviePageState extends State<MoviePage> {
     controller = MovieController(
       context,
       GetIt.instance.get<GetFavoritesUseCase>(),
+      GetIt.instance.get<SaveFavoriteUseCase>(),
+      GetIt.instance.get<RemoveFavoriteUseCase>(),
       widget.movie,
     );
   }

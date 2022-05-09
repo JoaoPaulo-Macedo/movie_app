@@ -26,8 +26,6 @@ class _AppDrawerState extends State<AppDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     controller.checkCurrentPage(context);
 
     return Drawer(

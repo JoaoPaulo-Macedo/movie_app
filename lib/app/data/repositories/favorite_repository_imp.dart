@@ -26,14 +26,14 @@ class FavoritesRepositoryImp extends FavoritesRepository {
   int? accountId;
 
   @override
-  Future<ListEntity> getFavorites(int page) async {
+  Future<ListEntity> getFavorites() async {
     try {
       if (favorites != null) return favorites!;
 
       sessionId ??= await _getSessionId();
       accountId ??= await _getAccountId();
 
-      favorites = await _remoteDataSource.getFavorites(page, accountId!, sessionId!);
+      await _refreshFavorites();
 
       return favorites!;
     } on SocketException catch (e) {
@@ -53,7 +53,7 @@ class FavoritesRepositoryImp extends FavoritesRepository {
 
       await _remoteDataSource.toggleFavorite(movie, favorite, accountId!, sessionId!);
 
-      favorites = await _remoteDataSource.getFavorites(page, accountId!, sessionId!);
+      await _refreshFavorites();
     } on SocketException catch (e) {
       throw Failure.connection(e);
     } on DioError catch (e) {
@@ -73,5 +73,23 @@ class FavoritesRepositoryImp extends FavoritesRepository {
     AccountDetailsEntity? details = await _accountDetailsDataSource(sessionId!);
 
     return details!.id;
+  }
+
+  Future _refreshFavorites() async {
+    var listEntity = await _remoteDataSource.getFavorites(1, accountId!, sessionId!);
+
+    favorites = listEntity;
+
+    var totalPages = listEntity.totalPages;
+
+    if (totalPages > 1) {
+      for (var page = 2; page <= totalPages; page++) {
+        listEntity = await _remoteDataSource.getFavorites(page, accountId!, sessionId!);
+
+        listEntity.movies?.forEach((movie) {
+          favorites?.movies?.add(movie);
+        });
+      }
+    }
   }
 }

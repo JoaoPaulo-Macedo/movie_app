@@ -14,7 +14,7 @@ class SearchAppBar extends StatelessWidget {
         return AppBar(
           leading: controller.isSearching ? const SizedBox() : null,
           actions: [
-            if (!controller.isSearching)
+            if (!controller.isSearching && !controller.isLoading)
               IconButton(
                 icon: const Icon(Icons.search),
                 onPressed: () {

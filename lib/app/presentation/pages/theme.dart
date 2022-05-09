@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 const double kCardBorderRadius = 5;
 const double kListSpacing = 15;
 const double kVerticalPadding = 15;
-const EdgeInsets kAppPagePadding = EdgeInsets.symmetric(vertical: kVerticalPadding, horizontal: 20);
+const double kHorizontalPadding = 20;
+const EdgeInsets kAppPagePadding = EdgeInsets.symmetric(
+  vertical: kVerticalPadding,
+  horizontal: kHorizontalPadding,
+);
 
 class AppTextStyles {
   AppTextStyles._(this._context);
@@ -15,7 +19,6 @@ class AppTextStyles {
 
   TextTheme get _textTheme => Theme.of(_context!).textTheme;
 
-  // Default styles
   TextStyle? get listName =>
       _textTheme.titleSmall!.copyWith(fontSize: 17, fontWeight: FontWeight.normal);
   TextStyle? get movieName =>

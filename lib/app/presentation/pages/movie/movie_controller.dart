@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/domain/usecases/get_favorites_usecase.dart';
+import 'package:movie_app/app/domain/usecases/remove_favorite_usecase.dart';
+import 'package:movie_app/app/domain/usecases/save_favorite_usecase.dart';
 import 'package:movie_app/app/presentation/components/app_snackbar.dart';
 import 'package:movie_app/core/utils/failure.dart';
 
@@ -10,11 +12,19 @@ part 'movie_controller.g.dart';
 class MovieController = _MovieController with _$MovieController;
 
 abstract class _MovieController with Store {
-  _MovieController(BuildContext this._context, this._favoriteUseCase, this.movie) {
+  _MovieController(
+    BuildContext this._context,
+    this._getFavoritesUseCase,
+    this._saveFavoriteUseCase,
+    this._removeFavoriteUseCase,
+    this.movie,
+  ) {
     _init();
   }
 
-  final GetFavoritesUseCase _favoriteUseCase;
+  final GetFavoritesUseCase _getFavoritesUseCase;
+  final SaveFavoriteUseCase _saveFavoriteUseCase;
+  final RemoveFavoriteUseCase _removeFavoriteUseCase;
   final MovieEntity movie;
 
   @observable
@@ -37,7 +47,7 @@ abstract class _MovieController with Store {
     try {
       loading.value = true;
 
-      var favorites = await _favoriteUseCase.getMovies();
+      var favorites = await _getFavoritesUseCase();
 
       isFavorite = favorites!.movies!.any((e) => e.id == movie.id);
 
@@ -83,10 +93,10 @@ abstract class _MovieController with Store {
   _togglefavorite() async {
     if (!isFavorite) {
       isFavorite = !isFavorite;
-      await _favoriteUseCase.saveFavorite(movie, page);
+      await _saveFavoriteUseCase(movie, page);
     } else {
       isFavorite = !isFavorite;
-      await _favoriteUseCase.removeFavorite(movie, page);
+      await _removeFavoriteUseCase(movie, page);
     }
 
     loading.value = false;
