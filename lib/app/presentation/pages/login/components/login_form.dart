@@ -44,23 +44,34 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                   ),
                 ),
-                TextField(
-                  focusNode: widget.controller.passwordFocus,
-                  obscureText: true,
-                  obscuringCharacter: '*',
-                  controller: widget.controller.passwordController,
-                  style: theme.textTheme.bodyText2,
-                  cursorColor: Colors.white,
-                  maxLength: 80,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    labelStyle: theme.textTheme.bodyText2,
-                    counterText: '',
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: theme.primaryColor, width: 1.5),
+                Observer(builder: (context) {
+                  return TextField(
+                    focusNode: widget.controller.passwordFocus,
+                    obscureText: widget.controller.showPassword,
+                    obscuringCharacter: '*',
+                    controller: widget.controller.passwordController,
+                    style: theme.textTheme.bodyText2,
+                    cursorColor: Colors.white,
+                    maxLength: 80,
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      labelStyle: theme.textTheme.bodyText2,
+                      counterText: '',
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: theme.primaryColor, width: 1.5),
+                      ),
+                      suffixIcon: InkWell(
+                        onTap: () {
+                          widget.controller.showPassword = !widget.controller.showPassword;
+                        },
+                        child: Icon(
+                          widget.controller.showPassword ? Icons.visibility_off : Icons.visibility,
+                          color: widget.controller.showPassword ? Colors.white : theme.primaryColor,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                }),
                 const SizedBox(height: 15),
                 Observer(
                   builder: (_) {
@@ -73,7 +84,7 @@ class _LoginFormState extends State<LoginForm> {
                         width: 28,
                         height: 28,
                         child: CircularProgressIndicator(
-                          strokeWidth: 2,
+                          strokeWidth: 2.5,
                           color: theme.primaryColor,
                         ),
                       );
@@ -97,7 +108,7 @@ class _LoginFormState extends State<LoginForm> {
                       onPressed: widget.controller.isSignInEnabled
                           ? () => widget.controller.logIn(context)
                           : null,
-                      child: const Text('Log In'),
+                      child: const Text('Log In', style: TextStyle(fontSize: 17)),
                     );
                   },
                 ),

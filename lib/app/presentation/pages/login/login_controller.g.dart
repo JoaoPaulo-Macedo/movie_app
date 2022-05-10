@@ -54,6 +54,21 @@ mixin _$LoginController on _LoginController, Store {
     });
   }
 
+  final _$showPasswordAtom = Atom(name: '_LoginController.showPassword');
+
+  @override
+  bool get showPassword {
+    _$showPasswordAtom.reportRead();
+    return super.showPassword;
+  }
+
+  @override
+  set showPassword(bool value) {
+    _$showPasswordAtom.reportWrite(value, super.showPassword, () {
+      super.showPassword = value;
+    });
+  }
+
   final _$logInAsyncAction = AsyncAction('_LoginController.logIn');
 
   @override
@@ -80,7 +95,8 @@ mixin _$LoginController on _LoginController, Store {
     return '''
 build: ${build},
 isLoading: ${isLoading},
-isSignInEnabled: ${isSignInEnabled}
+isSignInEnabled: ${isSignInEnabled},
+showPassword: ${showPassword}
     ''';
   }
 }

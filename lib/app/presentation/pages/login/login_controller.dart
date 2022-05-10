@@ -33,6 +33,8 @@ abstract class _LoginController with Store {
   bool isLoading = false;
   @observable
   bool isSignInEnabled = false;
+  @observable
+  bool showPassword = false;
 
   void _init(BuildContext context) async {
     if (await _isLogedInUseCase()) {
