@@ -16,7 +16,7 @@ abstract class _FavoritesController extends ListController with Store {
   }
 
   final GetFavoritesUseCase _getFavoritesUseCase;
-  final Function(Failure e) snackBar;
+  final Function(Failure f) snackBar;
 
   @override
   init() async {

@@ -7,11 +7,13 @@ import 'package:movie_app/app/domain/usecases/get_favorites_usecase.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/domain/usecases/remove_favorite_usecase.dart';
 import 'package:movie_app/app/domain/usecases/save_favorite_usecase.dart';
+import 'package:movie_app/app/presentation/components/app_snackbar.dart';
 import 'package:movie_app/app/presentation/pages/movie/components/movie_actions.dart';
 import 'package:movie_app/app/presentation/pages/movie/components/movie_details.dart';
 import 'package:movie_app/app/presentation/pages/movie/movie_controller.dart';
 import 'package:movie_app/app/presentation/pages/movie/components/movie_poster.dart';
 import 'package:movie_app/app/presentation/pages/theme.dart';
+import 'package:movie_app/core/utils/failure.dart';
 
 class MoviePage extends StatefulWidget {
   const MoviePage(this.movie, {Key? key}) : super(key: key);
@@ -34,7 +36,17 @@ class _MoviePageState extends State<MoviePage> {
       GetIt.instance.get<GetFavoritesUseCase>(),
       GetIt.instance.get<SaveFavoriteUseCase>(),
       GetIt.instance.get<RemoveFavoriteUseCase>(),
-      widget.movie,
+      movie: widget.movie,
+      snackBar: snackBar,
+    );
+  }
+
+  snackBar(Failure f) {
+    AppSnackBar.show(
+      context,
+      message: f.message,
+      description: f.description,
+      type: AppSnackBarType.error,
     );
   }
 

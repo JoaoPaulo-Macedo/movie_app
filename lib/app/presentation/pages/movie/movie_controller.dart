@@ -4,7 +4,6 @@ import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/domain/usecases/get_favorites_usecase.dart';
 import 'package:movie_app/app/domain/usecases/remove_favorite_usecase.dart';
 import 'package:movie_app/app/domain/usecases/save_favorite_usecase.dart';
-import 'package:movie_app/app/presentation/components/app_snackbar.dart';
 import 'package:movie_app/core/utils/failure.dart';
 
 part 'movie_controller.g.dart';
@@ -16,9 +15,10 @@ abstract class _MovieController with Store {
     BuildContext this._context,
     this._getFavoritesUseCase,
     this._saveFavoriteUseCase,
-    this._removeFavoriteUseCase,
-    this.movie,
-  ) {
+    this._removeFavoriteUseCase, {
+    required this.movie,
+    required this.snackBar,
+  }) {
     _init();
   }
 
@@ -26,6 +26,7 @@ abstract class _MovieController with Store {
   final SaveFavoriteUseCase _saveFavoriteUseCase;
   final RemoveFavoriteUseCase _removeFavoriteUseCase;
   final MovieEntity movie;
+  final Function(Failure f) snackBar;
 
   @observable
   bool isFavorite = false;
@@ -71,14 +72,8 @@ abstract class _MovieController with Store {
       });
 
       loading.value = false;
-    } on Failure catch (e) {
-      //TODO: Should the controller call a ui widget?
-      AppSnackBar.show(
-        _context!,
-        message: e.message,
-        description: e.description,
-        type: AppSnackBarType.error,
-      );
+    } on Failure catch (f) {
+      _onFailure(f);
     }
   }
 
@@ -109,10 +104,15 @@ abstract class _MovieController with Store {
     loading.value = true;
   }
 
-  //TODO: gambiarras
   _onClose(BuildContext context) async {
     bool changed = _isFavoriteCache != isFavorite;
     loading.dispose();
     Navigator.pop(context, [changed]);
+  }
+
+  _onFailure(Failure f) {
+    snackBar(f);
+
+    loading.value = false;
   }
 }

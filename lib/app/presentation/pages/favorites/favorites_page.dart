@@ -26,11 +26,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
     );
   }
 
-  snackBar(Failure e) {
+  snackBar(Failure f) {
     AppSnackBar.show(
       context,
-      message: e.message,
-      description: e.description,
+      message: f.message,
+      description: f.description,
       type: AppSnackBarType.error,
     );
   }

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:movie_app/app/domain/usecases/is_loged_in_usecase.dart';
 import 'package:movie_app/app/domain/usecases/login_usecase.dart';
+import 'package:movie_app/app/presentation/components/app_snackbar.dart';
 import 'package:movie_app/app/presentation/pages/login/components/login_form.dart';
 import 'package:movie_app/app/presentation/components/logo.dart';
 import 'package:movie_app/app/presentation/pages/login/login_controller.dart';
+import 'package:movie_app/core/utils/failure.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -21,7 +24,21 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
 
-    controller = LoginController(context, GetIt.instance.get<LoginUseCase>());
+    controller = LoginController(
+      context,
+      GetIt.instance.get<LoginUseCase>(),
+      GetIt.instance.get<IsLogedInUseCase>(),
+      snackBar: snackBar,
+    );
+  }
+
+  snackBar(Failure f) {
+    AppSnackBar.show(
+      context,
+      message: f.message,
+      description: f.description,
+      type: AppSnackBarType.error,
+    );
   }
 
   @override
@@ -32,7 +49,6 @@ class _LoginPageState extends State<LoginPage> {
     return GestureDetector(
       onTap: controller.unfocus,
       child: Scaffold(
-        // resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Observer(
             builder: (context) {

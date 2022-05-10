@@ -13,6 +13,7 @@ import 'package:movie_app/app/domain/repositories/authentication_repository.dart
 import 'package:movie_app/app/domain/repositories/favorites_repository.dart';
 import 'package:movie_app/app/domain/usecases/get_account_details_usecase.dart';
 import 'package:movie_app/app/domain/usecases/get_favorites_usecase.dart';
+import 'package:movie_app/app/domain/usecases/is_loged_in_usecase.dart';
 import 'package:movie_app/app/domain/usecases/login_usecase.dart';
 import 'package:movie_app/app/domain/usecases/logout_usecase.dart';
 import 'package:movie_app/app/domain/usecases/remove_favorite_usecase.dart';
@@ -94,6 +95,9 @@ class Inject {
     // UseCases
     _getIt.registerLazySingleton<LoginUseCase>(
       () => LoginUseCaseImp(_getIt(), _getIt()),
+    );
+    _getIt.registerLazySingleton<IsLogedInUseCase>(
+      () => IsLogedInUseCaseImp(_getIt()),
     );
     _getIt.registerLazySingleton<LogoutUseCase>(
       () => LogoutUseCaseImp(_getIt()),

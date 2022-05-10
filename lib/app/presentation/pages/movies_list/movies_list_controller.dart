@@ -16,7 +16,7 @@ abstract class _MoviesListController extends ListController with Store {
   }
 
   final GetListUseCase _moviesUseCase;
-  final Function(Failure e) snackBar;
+  final Function(Failure f) snackBar;
 
   @observable
   int listId;
