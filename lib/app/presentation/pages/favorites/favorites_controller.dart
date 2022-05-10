@@ -58,7 +58,10 @@ abstract class _FavoritesController extends ListController with Store {
       ),
     );
 
-    if (reload == null || reload[0]) await fetchMovies(reload: true);
+    if (reload == null || reload[0]) {
+      var list = await fetchMovies(reload: true);
+      movies = list ?? [];
+    }
   }
 
   _onFailure(Failure f) {

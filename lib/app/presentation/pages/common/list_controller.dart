@@ -37,8 +37,6 @@ abstract class _ListController with Store {
 
   @action
   onSearch(String? value) async {
-    if (movies.isEmpty) return;
-
     if (value == null) {
       textController.clear();
       isSearching = false;
@@ -52,6 +50,8 @@ abstract class _ListController with Store {
 
     if (page < totalPages && !_isFetching) {
       await _fetchAll();
+
+      _showSearch(_search);
     } else if (!_isFetching) {
       _showSearch(_search);
     }
@@ -82,8 +82,6 @@ abstract class _ListController with Store {
         cachedMovies.add(movie);
       });
     }
-
-    _showSearch(_search);
 
     isLoading = false;
     _isFetching = false;
