@@ -66,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                             padding: const EdgeInsets.only(top: 35),
                             child: Logo(
                               key: const ValueKey('logo_key'),
-                              height: MediaQuery.of(context).size.height / 9,
+                              height: MediaQuery.of(context).size.height / 5,
                             ),
                           ),
                   ),

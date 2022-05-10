@@ -38,7 +38,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Logo(height: 50),
+                    const Logo(height: 70),
                     const Spacer(),
                     Observer(
                       builder: (context) {

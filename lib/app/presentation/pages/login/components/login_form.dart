@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:movie_app/app/presentation/pages/login/login_controller.dart';
+import 'package:movie_app/app/presentation/pages/theme.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm(this.controller, {Key? key}) : super(key: key);
@@ -25,7 +26,7 @@ class _LoginFormState extends State<LoginForm> {
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
               color: theme.cardColor,
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(kCardBorderRadius),
             ),
             child: Column(
               children: [

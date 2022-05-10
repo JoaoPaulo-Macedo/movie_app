@@ -14,7 +14,6 @@ class Logo extends StatelessWidget {
     return Image.asset(
       'assets/logo.png',
       key: const ValueKey('logo_image_key'),
-      color: Colors.white,
       height: height,
     );
   }
