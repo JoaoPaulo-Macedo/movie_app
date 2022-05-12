@@ -12,59 +12,59 @@ class PreferencesServiceImp extends LocalDataService {
   }
 
   @override
-  Future<String?> getString(String key, {required String description}) async {
+  Future<String?> getString(String key) async {
     if (_prefs == null) await init();
 
     String? data = _prefs!.getString(key);
 
-    Debug.log(data, description: description);
+    Debug.log(data);
 
     return data;
   }
 
   @override
-  Future<List<String>?> getStringList(String key, {required String description}) async {
+  Future<List<String>?> getStringList(String key) async {
     if (_prefs == null) await init();
 
     List<String>? data = _prefs!.getStringList(key);
 
-    Debug.log(data, description: description);
+    Debug.log(data);
 
     return data;
   }
 
   @override
-  Future<bool> setString(String key, String value, {required String description}) async {
+  Future<bool> setString(String key, String value) async {
     if (_prefs == null) await init();
 
-    Debug.log(value, description: description);
+    Debug.log(value);
 
     return await _prefs!.setString(key, value);
   }
 
   @override
-  Future<bool> setStringList(String key, List<String> value, {required String description}) async {
+  Future<bool> setStringList(String key, List<String> value) async {
     if (_prefs == null) await init();
 
-    Debug.log(value, description: description);
+    Debug.log(value);
 
     return await _prefs!.setStringList(key, value);
   }
 
   @override
-  Future<bool> remove(String key, {required String description}) async {
+  Future<bool> remove(String key) async {
     if (_prefs == null) await init();
 
-    Debug.log('Preferences\' remove()', description: description);
+    Debug.log('Preferences\' remove()');
 
     return await _prefs!.remove(key);
   }
 
   @override
-  Future<bool> clear({required String description}) async {
+  Future<bool> clear() async {
     if (_prefs == null) await init();
 
-    Debug.log('Preferences\' clear()', description: description);
+    Debug.log('Preferences\' clear()');
 
     return await _prefs!.clear();
   }

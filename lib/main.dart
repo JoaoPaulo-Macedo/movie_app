@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:movie_app/app/presentation/pages/favorites/favorites_page.dart';
 import 'package:movie_app/app/presentation/pages/home/home_page.dart';
 import 'package:movie_app/app/presentation/pages/login/login_page.dart';
@@ -9,7 +10,7 @@ import 'package:movie_app/core/utils/routes_name.dart';
 
 void main() {
   Inject.init();
-  AppConfigs(AppEnvironment.dev);
+  AppConfigs(AppEnvironment.prod);
 
   runApp(const MyApp());
 }
@@ -23,6 +24,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData.dark().copyWith(

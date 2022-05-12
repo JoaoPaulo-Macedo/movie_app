@@ -25,19 +25,19 @@ class AccountDetailsRepositoryImp extends AccountDetailsRepository {
   AccountDetailsEntity? accountDetails;
 
   @override
-  Future<AccountDetailsEntity?> call() async {
+  Future<AccountDetailsEntity?> get() async {
     try {
       if (accountDetails != null) return accountDetails;
 
-      if (AppConfigs.i!.environment == AppEnvironment.dev) return await getFromAssets();
+      if (AppConfigs.i!.environment == AppEnvironment.dev) return await _getFromAssets();
 
       accountDetails = await _localDataSource.getDetails();
       if (accountDetails != null) return accountDetails;
 
-      sessionId ??= await getSessionId();
+      sessionId ??= await _getSessionId();
 
       accountDetails = await _remoteDataSource(sessionId!);
-      if (accountDetails != null) saveAccountDetails(accountDetails!);
+      if (accountDetails != null) save(accountDetails!);
 
       return accountDetails;
     } catch (e) {
@@ -45,25 +45,20 @@ class AccountDetailsRepositoryImp extends AccountDetailsRepository {
     }
   }
 
-  void saveAccountDetails(AccountDetailsEntity accountDetails) {
+  void save(AccountDetailsEntity accountDetails) {
     _localDataSource.saveDetails(accountDetails);
   }
 
-  Future<String> getSessionId() async {
+  Future<String> _getSessionId() async {
     String? sessionId = await _sessionIdDataSource.getSessionId();
 
     return sessionId!;
   }
 
-  Future<AccountDetailsEntity?> getFromAssets() async {
-    var json = jsonDecode(
-      await rootBundle.loadString('assets/account_details.json'),
-    );
+  Future<AccountDetailsEntity?> _getFromAssets() async {
+    var json = jsonDecode(await rootBundle.loadString('assets/account_details.json'));
 
-    Debug.log(
-      'json: ${json.toString()}',
-      description: 'Account details from assets to avoid API overload',
-    );
+    Debug.log('json: ${json.toString()}');
 
     accountDetails = AccountDetailsDTO.fromJson(json);
     return accountDetails;

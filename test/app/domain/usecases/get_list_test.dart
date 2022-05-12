@@ -26,7 +26,7 @@ void main() {
     int page = 1;
 
     when(
-      dioMock.get(any, description: anyNamed('description')),
+      dioMock.get(any),
     ).thenAnswer((_) async {
       return Response(data: jsonDecode(jsonData), requestOptions: RequestOptions(path: ''));
     });

@@ -12,22 +12,18 @@ class SessionIdDataSourceImp extends SessionIdDataSource {
   Future<bool> saveSessionId(String sessionId) async {
     return await _service.setString(
       _key,
-      sessionId,
-      description: 'Set a session Id in cache',
-    );
+      sessionId);
   }
 
   @override
   Future<String?> getSessionId() async {
     return await _service.getString(
-      _key,
-      description: 'Get a session Id from cache',
-    );
+      _key);
   }
 
   @override
   Future<bool> deleteSessionId() async {
-    bool success = await _service.clear(description: 'Clear all preferences');
+    bool success = await _service.clear();
 
     return success;
   }

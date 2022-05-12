@@ -13,37 +13,30 @@ class FavoritesDataSourceImp extends FavoritesDataSource {
 
   @override
   Future<ListEntity> getFavorites(int page, int accountId, String sessionId) async {
-
     var path = API.requestFavoritesList(
       page: page.toString(),
       accountId: accountId.toString(),
       sessionId: sessionId,
     );
 
-    final Response response = await _service.get(
-      path,
-      description: 'Get list of favorite movies',
-    );
+    final Response response = await _service.get(path);
 
     return ListDTO.fromJson(response.data);
   }
 
   @override
-  Future<bool> toggleFavorite(MovieEntity movie, bool favorite, int accountId, String sessionId) async {
+  Future<bool> toggleFavorite(
+      MovieEntity movie, bool favorite, int accountId, String sessionId) async {
     var path = API.toggleFavorite(
       accountId: accountId.toString(),
       sessionId: sessionId,
     );
 
-    final Response response = await _service.post(
-      path,
-      queryParams: {
-        'media_type': 'movie',
-        'media_id': movie.id,
-        'favorite': favorite,
-      },
-      description: 'Post a toggle favorite movie action',
-    );
+    final Response response = await _service.post(path, queryParams: {
+      'media_type': 'movie',
+      'media_id': movie.id,
+      'favorite': favorite,
+    });
 
     if (response.statusCode == 200) return true;
     return false;

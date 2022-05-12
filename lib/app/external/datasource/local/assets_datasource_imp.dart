@@ -12,10 +12,7 @@ class AssetsDataSourceImp extends AssetsDataSource {
     List<ListEntity> lists = [];
     List jsonList = jsonDecode(await rootBundle.loadString('assets/lists.json'));
 
-    Debug.log(
-      jsonList.toString(),
-      description: 'Lists from assets',
-    );
+    Debug.log(jsonList.toString());
 
     for (var json in jsonList) {
       lists.add(ListDTO.fromJson(json));

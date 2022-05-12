@@ -13,19 +13,12 @@ class AccountDetailsLocalDataSourceImp extends AccountDetailsLocalDataSource {
 
   @override
   saveDetails(AccountDetailsEntity details) async {
-    return await _service.setString(
-      _key,
-      jsonEncode(details.toJson()),
-      description: 'Set account details in cache',
-    );
+    return await _service.setString(_key, jsonEncode(details.toJson()));
   }
 
   @override
   Future<AccountDetailsEntity?> getDetails() async {
-    String? jsonString = await _service.getString(
-      _key,
-      description: 'Get account details from cache',
-    );
+    String? jsonString = await _service.getString(_key);
 
     if (jsonString == null) return null;
 

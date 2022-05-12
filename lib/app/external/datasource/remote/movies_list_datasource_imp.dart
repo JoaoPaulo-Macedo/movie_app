@@ -11,11 +11,8 @@ class MoviesListDataSourceImp implements MoviesListDataSource {
 
   @override
   Future<ListEntity?> call(int list, int page) async {
-    var result = await _httpService.get(
-      API.requestMoviesList(list, page),
-      description: 'Get a list of movies according to pagination',
-    );
-    
+    var result = await _httpService.get(API.requestMoviesList(list, page));
+
     return ListDTO.fromJson(result.data);
   }
 }

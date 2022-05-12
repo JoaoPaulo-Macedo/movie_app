@@ -13,18 +13,13 @@ class Debug {
     dart.log(description, name: 'Description');
   }
 
-  static log(
-    data, {
-    String? path,
-    String? description,
-  }) {
+  static log(data, {String? path}) {
     if (!AppConfigs.i!.debug) return;
 
     final String logData = data.toString();
     final int length = logData.length;
 
     String name = 'Local';
-    if (description != null) name += ': $description';
     if (path != null) name += ': $path';
 
     dart.log(

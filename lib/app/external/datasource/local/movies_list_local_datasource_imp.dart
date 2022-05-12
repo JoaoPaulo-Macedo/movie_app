@@ -5,8 +5,7 @@ import 'package:movie_app/app/data/dtos/list_dto.dart';
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/core/domain/services/local_data_service.dart';
 
-class MoviesListLocalDataSourceDecoratorImp
-    extends MoviesListLocalDataSourceDecorator {
+class MoviesListLocalDataSourceDecoratorImp extends MoviesListLocalDataSourceDecorator {
   MoviesListLocalDataSourceDecoratorImp(
     MoviesListDataSource datasource,
     this._service,
@@ -34,15 +33,11 @@ class MoviesListLocalDataSourceDecoratorImp
   Future<bool> _saveInCache(ListEntity movies) async {
     String moviesJsonString = jsonEncode(movies.toJson());
 
-    return await _service.setString(
-      _key,
-      moviesJsonString,
-      description: 'Set a movies list in cache',
-    );
+    return await _service.setString(_key, moviesJsonString);
   }
 
   Future<ListEntity?> _getInCache() async {
-    var movie = await _service.getString(_key, description: 'Get a movie list from cache');
+    var movie = await _service.getString(_key);
     if (movie == null) return null;
 
     var json = jsonDecode(movie);

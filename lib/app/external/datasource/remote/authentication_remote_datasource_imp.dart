@@ -11,10 +11,7 @@ class AuthenticationRemoteDataSourceImp extends AuthenticationRemoteDataSource {
 
   @override
   Future<RequestTokenDTO> getRequestToken() async {
-    final Response response = await _httpService.get(
-      API.requestToken,
-      description: 'Get request Token for validation with login',
-    );
+    final Response response = await _httpService.get(API.requestToken);
 
     return RequestTokenDTO.fromJson(response.data);
   }
@@ -22,28 +19,21 @@ class AuthenticationRemoteDataSourceImp extends AuthenticationRemoteDataSource {
   //TODO: do it on a https environment
   @override
   Future<RequestTokenDTO> validateWithLogin(Map<String, dynamic> requestBody) async {
-    final Response response = await _httpService.post(
-      API.validateWithLogin,
-      queryParams: requestBody,
-      description: 'Post login params for validation',
-    );
+    final Response response =
+        await _httpService.post(API.validateWithLogin, queryParams: requestBody);
 
     return RequestTokenDTO.fromJson(response.data);
   }
 
   @override
   Future<String?> createSession(Map<String, dynamic> requestBody) async {
-    final Response response = await _httpService.post(
-      API.createSession,
-      queryParams: requestBody,
-      description: 'Post validated token to create a session id',
-    );
+    final Response response = await _httpService.post(API.createSession, queryParams: requestBody);
 
     return response.data['success'] ? response.data['session_id'] : null;
   }
 
   @override
   Future deleteSession(Map<String, dynamic> requestBody) async {
-    await _httpService.delete(API.deleteSession, requestBody, description: 'Delete session id');
+    await _httpService.delete(API.deleteSession, requestBody);
   }
 }

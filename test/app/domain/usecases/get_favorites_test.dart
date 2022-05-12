@@ -31,15 +31,12 @@ void main() {
 
     // Local
     when(
-      prefsMock.getString(any, description: anyNamed('description')),
+      prefsMock.getString(any),
     ).thenAnswer((_) async => 'session_id_from_prefs_mock');
 
     // Remote
     when(
-      dioMock.get(
-        API.requestAccountDetails('session_id_from_prefs_mock'),
-        description: anyNamed('description'),
-      ),
+      dioMock.get(API.requestAccountDetails('session_id_from_prefs_mock')),
     ).thenAnswer((_) async {
       return Response(
         data: jsonDecode(await accountDetails()),
@@ -48,7 +45,7 @@ void main() {
     });
 
     when(
-      dioMock.get(argThat(startsWith('3/account/')), description: anyNamed('description')),
+      dioMock.get(argThat(startsWith('3/account/'))),
     ).thenAnswer((_) async {
       return Response(data: jsonDecode(jsonData), requestOptions: RequestOptions(path: ''));
     });
@@ -490,7 +487,7 @@ String jsonData = '''
                 "vote_count": 17005
             }
         ],
-        "total_pages": 3,
-        "total_results": 59
+        "total_pages": 1,
+        "total_results": 20
     }
 ''';

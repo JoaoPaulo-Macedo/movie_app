@@ -48,7 +48,7 @@ class _LoginFormState extends State<LoginForm> {
                 Observer(builder: (context) {
                   return TextField(
                     focusNode: widget.controller.passwordFocus,
-                    obscureText: widget.controller.showPassword,
+                    obscureText: !widget.controller.showPassword,
                     obscuringCharacter: '*',
                     controller: widget.controller.passwordController,
                     style: theme.textTheme.bodyText2,
@@ -66,8 +66,8 @@ class _LoginFormState extends State<LoginForm> {
                           widget.controller.showPassword = !widget.controller.showPassword;
                         },
                         child: Icon(
-                          widget.controller.showPassword ? Icons.visibility_off : Icons.visibility,
-                          color: widget.controller.showPassword ? Colors.white : theme.primaryColor,
+                          widget.controller.showPassword ? Icons.visibility : Icons.visibility_off,
+                          color: widget.controller.showPassword ? theme.primaryColor : Colors.white,
                         ),
                       ),
                     ),

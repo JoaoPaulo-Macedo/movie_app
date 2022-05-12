@@ -18,6 +18,6 @@ class LoginUseCaseImp extends LoginUseCase {
       LoginParamsEntity(username: username, password: password),
     );
 
-    await _accountDetailsRepository();
+    await _accountDetailsRepository.get();
   }
 }

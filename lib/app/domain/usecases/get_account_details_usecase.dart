@@ -12,6 +12,6 @@ class GetAccountDetailsUseCaseImp extends GetAccountDetailsUseCase {
 
   @override
   Future<AccountDetailsEntity?> call() async {
-    return await _repository();
+    return await _repository.get();
   }
 }

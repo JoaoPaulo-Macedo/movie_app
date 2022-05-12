@@ -23,19 +23,15 @@ class DioHttpServiceImp implements HttpService {
   late Dio _dio;
 
   @override
-  get(String path, {required String description}) async {
-    Debug.description(description);
-
+  get(String path) async {
     final Response response = await _dio.get(path);
 
     return response;
   }
 
   @override
-  post(String path, {Map<String, dynamic>? queryParams, required String description}) async {
+  post(String path, {Map<String, dynamic>? queryParams}) async {
     try {
-      Debug.description(description);
-
       Response response = await _dio.post(path, data: queryParams);
 
       return response;
@@ -47,9 +43,7 @@ class DioHttpServiceImp implements HttpService {
   }
 
   @override
-  delete(String path, Map<String, dynamic>? queryParams, {required String description}) async {
-    Debug.description(description);
-
+  delete(String path, Map<String, dynamic>? queryParams) async {
     Response response = await _dio.delete(path, queryParameters: queryParams);
 
     return response;

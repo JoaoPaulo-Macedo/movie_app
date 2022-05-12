@@ -82,16 +82,44 @@
 * const is set at compilation time (before the app is run).
 * final is set at runtime (for example, final date = DateTime.now, at the moment of compilation it doesn't know 
 the time, only when app is run).
+* X.Y.Z = X - major.minor.patch
+  * Java is still on version 1. since its creation in 90's, but for marketing purposes, they omit '1.'
+  * Angular at its beginning was not following the semantic versioning, and every minor was bringing imcompatibilities.
 * **Operadores Cascatas**: list..add()..add()..remove(); 
   * ".." returns the own object and not the return of the operation.
     * ex: the return from list.add() is void, but list..add() is the list itself.
 * Passing objects is passing references, passing primitive variables is passing values:
-  * person1.name = 'first';
-    * person2 = person1;
-    * person1.name = 'second';
-    * print(person2.name); = second
-  * int x = 10;
-    * y = x;
-    * x = 20;
-    * print(y); = 10
+  ```dart
+    person1.name = 'first';
+    person2 = person1;
+    person1.name = 'second';
+    print(person2.name); = second
+    int x = 10;
+    y = x;
+    x = 20;
+    print(y); = 10
+  ```
   * Also works for functions, when an object is passed to a function, it can modify the object itself.
+
+* **Mixin**: 
+  * class A with B
+  * class B
+  * class A gains access to all features and properties from B.
+* **Extension**:
+  * class A
+  * extension B on A
+  * class A and B gains access to all features and properties from each other.
+  * B can even access A's mixins.
+  ```dart
+    class Human with Helper {
+      final name = 'João';
+    }
+
+    class Helper {
+      final secondName = 'Paulo';
+    }
+
+    extension Voice on Human {
+      void say() => print('$name $secondName');
+    }
+  ```

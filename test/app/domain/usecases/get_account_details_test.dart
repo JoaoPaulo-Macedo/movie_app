@@ -33,19 +33,16 @@ void main() {
 
     // Local
     when(
-      prefsMock.getString('sessionId', description: anyNamed('description')),
+      prefsMock.getString('sessionId'),
     ).thenAnswer((_) async => 'session_id_from_prefs_mock');
 
     when(
-      prefsMock.getString('account_details', description: anyNamed('description')),
+      prefsMock.getString('account_details'),
     ).thenAnswer((_) async => await accountDetails());
 
     // Remote
     when(
-      dioMock.get(
-        API.requestAccountDetails('session_id_from_prefs_mock'),
-        description: anyNamed('description'),
-      ),
+      dioMock.get(API.requestAccountDetails('session_id_from_prefs_mock')),
     ).thenAnswer((_) async {
       return Response(
         data: jsonDecode(await accountDetails()),

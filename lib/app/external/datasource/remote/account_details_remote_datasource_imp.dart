@@ -13,10 +13,7 @@ class AccountDetailsRemoteDataSourceImp extends AccountDetailsRemoteDataSource {
   @override
   Future<AccountDetailsEntity?> call(String sessionId) async {
     final path = API.requestAccountDetails(sessionId);
-    final Response response = await _service.get(
-      path,
-      description: 'Get account details',
-    );
+    final Response response = await _service.get(path);
 
     var accountDetails = AccountDetailsDTO.fromJson(response.data);
 
