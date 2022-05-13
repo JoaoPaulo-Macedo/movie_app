@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:movie_app/app/presentation/components/app_snackbar.dart';
+import 'package:movie_app/app/presentation/consts.dart';
 import 'package:movie_app/app/presentation/pages/login/login_controller.dart';
-import 'package:movie_app/app/presentation/pages/theme.dart';
+import 'package:movie_app/app/presentation/routes_name.dart';
+import 'package:movie_app/core/utils/failure.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm(this.controller, {Key? key}) : super(key: key);
@@ -13,6 +16,15 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  snackBar(Failure f) {
+    AppSnackBar.show(
+      context,
+      message: f.message,
+      description: f.description,
+      type: AppSnackBarType.error,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -106,9 +118,7 @@ class _LoginFormState extends State<LoginForm> {
                           },
                         ),
                       ),
-                      onPressed: widget.controller.isSignInEnabled
-                          ? () => widget.controller.logIn(context)
-                          : null,
+                      onPressed: widget.controller.isSignInEnabled ? login : null,
                       child: const Text('Log In', style: TextStyle(fontSize: 17)),
                     );
                   },
@@ -119,5 +129,15 @@ class _LoginFormState extends State<LoginForm> {
         ],
       ),
     );
+  }
+
+  void login() async {
+    var response = await widget.controller.logIn();
+
+    if (response is Failure) {
+      snackBar(response);
+    } else {
+      Navigator.popAndPushNamed(context, RoutesName.splash);
+    }
   }
 }

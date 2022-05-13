@@ -4,9 +4,9 @@ import 'package:get_it/get_it.dart';
 import 'package:movie_app/app/domain/usecases/get_all_lists_usecase.dart';
 import 'package:movie_app/app/presentation/components/app_lists.dart';
 import 'package:movie_app/app/presentation/components/app_snackbar.dart';
+import 'package:movie_app/app/presentation/consts.dart';
 import 'package:movie_app/app/presentation/pages/drawer/app_drawer.dart';
 import 'package:movie_app/app/presentation/pages/home/home_controller.dart';
-import 'package:movie_app/app/presentation/pages/theme.dart';
 import 'package:movie_app/core/utils/failure.dart';
 
 class HomePage extends StatefulWidget {

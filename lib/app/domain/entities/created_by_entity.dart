@@ -5,7 +5,7 @@ class CreatedByEntity {
     required this.username,
   });
   
-  late final String id;
-  late final String? name;
-  late final String? username;
+  final String id;
+  final String? name;
+  final String? username;
 }

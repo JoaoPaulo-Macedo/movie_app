@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/presentation/components/app_cards.dart';
+import 'package:movie_app/app/presentation/consts.dart';
 import 'package:movie_app/app/presentation/pages/home/home_controller.dart';
-import 'package:movie_app/app/presentation/pages/theme.dart';
 
 class HomeList extends StatelessWidget {
   const HomeList(this.controller, {Key? key}) : super(key: key);

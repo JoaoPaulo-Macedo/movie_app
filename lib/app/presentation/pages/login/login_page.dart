@@ -24,21 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
 
-    controller = LoginController(
-      context,
-      GetIt.instance.get<LoginUseCase>(),
-      GetIt.instance.get<IsLogedInUseCase>(),
-      snackBar: snackBar,
-    );
-  }
-
-  snackBar(Failure f) {
-    AppSnackBar.show(
-      context,
-      message: f.message,
-      description: f.description,
-      type: AppSnackBarType.error,
-    );
+    controller = LoginController(GetIt.instance.get<LoginUseCase>());
   }
 
   @override

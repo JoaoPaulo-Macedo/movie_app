@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:movie_app/app/presentation/pages/common/list_controller.dart';
+import 'package:movie_app/app/presentation/pages/list_page/list_controller.dart';
 
 class SearchAppBar extends StatelessWidget {
   const SearchAppBar(this.controller, {Key? key}) : super(key: key);

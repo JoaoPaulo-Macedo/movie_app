@@ -5,7 +5,7 @@ import 'package:mobx/mobx.dart';
 import 'package:movie_app/app/domain/entities/account_details_entity.dart';
 import 'package:movie_app/app/domain/usecases/get_account_details_usecase.dart';
 import 'package:movie_app/app/domain/usecases/logout_usecase.dart';
-import 'package:movie_app/core/utils/routes_name.dart';
+import 'package:movie_app/app/presentation/routes_name.dart';
 
 part 'app_drawer_controller.g.dart';
 

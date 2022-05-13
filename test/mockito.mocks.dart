@@ -28,21 +28,16 @@ class MockDioHttpServiceImp extends _i1.Mock implements _i2.DioHttpServiceImp {
   }
 
   @override
-  _i3.Future<dynamic> get(String? path, {String? description}) =>
-      (super.noSuchMethod(
-          Invocation.method(#get, [path], {#description: description}),
+  _i3.Future<dynamic> get(String? path) =>
+      (super.noSuchMethod(Invocation.method(#get, [path]),
           returnValue: Future<dynamic>.value()) as _i3.Future<dynamic>);
   @override
-  dynamic post(String? path,
-          {Map<String, dynamic>? queryParams, String? description}) =>
-      super.noSuchMethod(Invocation.method(#post, [path],
-          {#queryParams: queryParams, #description: description}));
+  dynamic post(String? path, {Map<String, dynamic>? queryParams}) =>
+      super.noSuchMethod(
+          Invocation.method(#post, [path], {#queryParams: queryParams}));
   @override
-  _i3.Future<dynamic> delete(String? path, Map<String, dynamic>? queryParams,
-          {String? description}) =>
-      (super.noSuchMethod(
-          Invocation.method(
-              #delete, [path, queryParams], {#description: description}),
+  _i3.Future<dynamic> delete(String? path, Map<String, dynamic>? queryParams) =>
+      (super.noSuchMethod(Invocation.method(#delete, [path, queryParams]),
           returnValue: Future<dynamic>.value()) as _i3.Future<dynamic>);
 }
 
@@ -60,37 +55,26 @@ class MockPreferencesServiceImp extends _i1.Mock
       (super.noSuchMethod(Invocation.getter(#debug), returnValue: false)
           as bool);
   @override
-  _i3.Future<String?> getString(String? key, {String? description}) =>
-      (super.noSuchMethod(
-          Invocation.method(#getString, [key], {#description: description}),
+  _i3.Future<String?> getString(String? key) =>
+      (super.noSuchMethod(Invocation.method(#getString, [key]),
           returnValue: Future<String?>.value()) as _i3.Future<String?>);
   @override
-  _i3.Future<List<String>?> getStringList(String? key, {String? description}) =>
-      (super.noSuchMethod(
-          Invocation.method(#getStringList, [key], {#description: description}),
-          returnValue:
-              Future<List<String>?>.value()) as _i3.Future<List<String>?>);
+  _i3.Future<List<String>?> getStringList(String? key) => (super.noSuchMethod(
+      Invocation.method(#getStringList, [key]),
+      returnValue: Future<List<String>?>.value()) as _i3.Future<List<String>?>);
   @override
-  _i3.Future<bool> setString(String? key, String? value,
-          {String? description}) =>
-      (super.noSuchMethod(
-          Invocation.method(
-              #setString, [key, value], {#description: description}),
+  _i3.Future<bool> setString(String? key, String? value) =>
+      (super.noSuchMethod(Invocation.method(#setString, [key, value]),
           returnValue: Future<bool>.value(false)) as _i3.Future<bool>);
   @override
-  _i3.Future<bool> setStringList(String? key, List<String>? value,
-          {String? description}) =>
-      (super.noSuchMethod(
-          Invocation.method(
-              #setStringList, [key, value], {#description: description}),
+  _i3.Future<bool> setStringList(String? key, List<String>? value) =>
+      (super.noSuchMethod(Invocation.method(#setStringList, [key, value]),
           returnValue: Future<bool>.value(false)) as _i3.Future<bool>);
   @override
-  _i3.Future<bool> remove(String? key, {String? description}) =>
-      (super.noSuchMethod(
-          Invocation.method(#remove, [key], {#description: description}),
+  _i3.Future<bool> remove(String? key) =>
+      (super.noSuchMethod(Invocation.method(#remove, [key]),
           returnValue: Future<bool>.value(false)) as _i3.Future<bool>);
   @override
-  _i3.Future<bool> clear({String? description}) => (super.noSuchMethod(
-      Invocation.method(#clear, [], {#description: description}),
+  _i3.Future<bool> clear() => (super.noSuchMethod(Invocation.method(#clear, []),
       returnValue: Future<bool>.value(false)) as _i3.Future<bool>);
 }

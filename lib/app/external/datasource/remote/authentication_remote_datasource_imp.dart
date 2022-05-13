@@ -19,8 +19,10 @@ class AuthenticationRemoteDataSourceImp extends AuthenticationRemoteDataSource {
   //TODO: do it on a https environment
   @override
   Future<RequestTokenDTO> validateWithLogin(Map<String, dynamic> requestBody) async {
-    final Response response =
-        await _httpService.post(API.validateWithLogin, queryParams: requestBody);
+    final Response response = await _httpService.post(
+      API.validateWithLogin,
+      queryParams: requestBody,
+    );
 
     return RequestTokenDTO.fromJson(response.data);
   }

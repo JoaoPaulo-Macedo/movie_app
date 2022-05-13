@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:movie_app/app/presentation/components/app_lists.dart';
 import 'package:movie_app/app/presentation/components/search_app_bar.dart';
-import 'package:movie_app/app/presentation/pages/common/list_controller.dart';
+import 'package:movie_app/app/presentation/pages/list_page/list_controller.dart';
 import 'package:movie_app/app/presentation/pages/drawer/app_drawer.dart';
-import 'package:movie_app/app/presentation/pages/theme.dart';
+import 'package:movie_app/app/presentation/app_styles.dart';
 
 enum ListPageType { common, favorite }
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/core/utils/routes_name.dart';
+import 'package:movie_app/app/presentation/routes_name.dart';
 
 class SplashPageController {
   SplashPageController();

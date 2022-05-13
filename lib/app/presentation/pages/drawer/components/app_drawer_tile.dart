@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/app/presentation/pages/theme.dart';
+import 'package:movie_app/app/presentation/app_styles.dart';
 
 class AppDrawerTile extends StatelessWidget {
   const AppDrawerTile({

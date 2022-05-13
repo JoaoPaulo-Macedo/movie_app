@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/app/presentation/components/app_poster.dart';
-import 'package:movie_app/app/presentation/pages/theme.dart';
+import 'package:movie_app/app/presentation/app_styles.dart';
+import 'package:movie_app/app/presentation/consts.dart';
 
 class ListCard extends StatelessWidget {
   const ListCard(this.list, this.onTap, {Key? key}) : super(key: key);

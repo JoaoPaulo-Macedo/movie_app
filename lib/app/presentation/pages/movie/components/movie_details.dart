@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
-import 'package:movie_app/app/presentation/pages/theme.dart';
+import 'package:movie_app/app/presentation/app_styles.dart';
 
 class MovieDetails extends StatelessWidget {
   const MovieDetails(this.movie, {Key? key}) : super(key: key);

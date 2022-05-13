@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:movie_app/app/domain/usecases/get_favorites_usecase.dart';
 import 'package:movie_app/app/presentation/components/app_snackbar.dart';
-import 'package:movie_app/app/presentation/pages/common/list_page.dart';
+import 'package:movie_app/app/presentation/pages/list_page/list_page.dart';
 import 'package:movie_app/app/presentation/pages/favorites/favorites_controller.dart';
 import 'package:movie_app/core/utils/failure.dart';
 

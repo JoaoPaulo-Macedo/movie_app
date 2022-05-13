@@ -72,8 +72,8 @@ mixin _$LoginController on _LoginController, Store {
   final _$logInAsyncAction = AsyncAction('_LoginController.logIn');
 
   @override
-  Future logIn(BuildContext context) {
-    return _$logInAsyncAction.run(() => super.logIn(context));
+  Future<Object> logIn() {
+    return _$logInAsyncAction.run(() => super.logIn());
   }
 
   final _$_LoginControllerActionController =
