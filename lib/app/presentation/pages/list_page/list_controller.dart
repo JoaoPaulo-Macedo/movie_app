@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
+import 'package:movie_app/core/utils/failure.dart';
 
 part 'list_controller.g.dart';
 
@@ -25,15 +26,18 @@ abstract class _ListController with Store {
   bool isLoading = true;
   @observable
   bool isSearching = false;
+  @observable
+  Failure? error;
+  @observable
+  bool isEmpty = true;
 
   Future init();
 
   Future<List<MovieEntity>?> fetchMovies();
 
-  Future openMoviePage(BuildContext context, MovieEntity movie);
-
-  @action
-  bool isListEmpty() => listEntity?.movies == null || listEntity!.movies!.isEmpty;
+  Future openMoviePage(MovieEntity movie) async {
+    return true;
+  }
 
   @action
   onSearch(String? value) async {

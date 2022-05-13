@@ -4,6 +4,9 @@ import 'package:movie_app/app/domain/entities/movies_list_entity.dart';
 import 'package:movie_app/app/presentation/components/app_poster.dart';
 import 'package:movie_app/app/presentation/app_styles.dart';
 import 'package:movie_app/app/presentation/consts.dart';
+import 'package:movie_app/app/presentation/pages/favorites/favorites_controller.dart';
+import 'package:movie_app/app/presentation/pages/list_page/list_controller.dart';
+import 'package:movie_app/app/presentation/pages/movie/movie_page.dart';
 
 class ListCard extends StatelessWidget {
   const ListCard(this.list, this.onTap, {Key? key}) : super(key: key);
@@ -69,10 +72,10 @@ class ListCard extends StatelessWidget {
 }
 
 class MovieCard extends StatelessWidget {
-  const MovieCard(this.movie, this.onTap, {Key? key}) : super(key: key);
+  const MovieCard(this.movie, this.controller, {Key? key}) : super(key: key);
 
-  final MovieEntity? movie;
-  final Function onTap;
+  final MovieEntity movie;
+  final ListController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -81,18 +84,37 @@ class MovieCard extends StatelessWidget {
       child: Stack(
         children: [
           Positioned.fill(
-            child: AppPoster.movie(movieId: movie!.id, posterPath: movie?.posterPath),
+            child: AppPoster.movie(movieId: movie.id, posterPath: movie.posterPath),
           ),
           Positioned.fill(
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                onTap: () => onTap(context, movie),
+                onTap: () => onTap(context),
               ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  void onTap(BuildContext context) async {
+    if (controller is FavoritesController) {
+      List? reload = await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => MoviePage(movie), fullscreenDialog: true),
+      );
+
+      if (reload == null || reload[0]) {
+        var list = await (controller as FavoritesController).fetchMovies(reload: true);
+        controller.movies = list ?? [];
+      }
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => MoviePage(movie), fullscreenDialog: true),
+      );
+    }
   }
 }

@@ -26,8 +26,8 @@ class _AppDrawerState extends State<AppDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    controller.checkCurrentPage(context);
-
+    controller.currentPage = ModalRoute.of(context)!.settings.name;
+    
     return Drawer(
       child: Stack(
         children: [
@@ -68,14 +68,30 @@ class _AppDrawerState extends State<AppDrawer> {
               AppDrawerTile(
                 title: 'Home',
                 icon: Icons.home,
-                isEnabled: controller.currentPage == RoutesName.initial,
-                onTap: () => controller.onTap(context, routeName: RoutesName.initial),
+                isEnabled: controller.currentPage == Routes.initial,
+                onTap: () {
+                  bool navigate = controller.onTap(Routes.initial);
+
+                  if (navigate) {
+                    Navigator.pushNamedAndRemoveUntil(context, Routes.initial, (route) => false);
+                  } else {
+                    Navigator.pop(context);
+                  }
+                },
               ),
               AppDrawerTile(
                 title: 'Favorite Movies',
                 icon: Icons.favorite,
-                isEnabled: controller.currentPage == RoutesName.favorites,
-                onTap: () => controller.onTap(context, routeName: RoutesName.favorites),
+                isEnabled: controller.currentPage == Routes.favorites,
+                onTap: () {
+                  bool navigate = controller.onTap(Routes.favorites);
+
+                  if (navigate) {
+                    Navigator.pushNamedAndRemoveUntil(context, Routes.favorites, (route) => false);
+                  } else {
+                    Navigator.pop(context);
+                  }
+                },
               ),
             ],
           ),
@@ -83,7 +99,11 @@ class _AppDrawerState extends State<AppDrawer> {
             alignment: Alignment.bottomLeft,
             child: ListTile(
               title: ElevatedButton(
-                onPressed: () => controller.logOut(context),
+                onPressed: () async {
+                  await controller.logOut();
+
+                  Navigator.pushNamedAndRemoveUntil(context, Routes.login, (route) => false);
+                },
                 child: const Text('Log Out'),
               ),
             ),

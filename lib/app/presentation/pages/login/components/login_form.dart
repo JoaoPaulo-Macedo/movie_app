@@ -137,7 +137,7 @@ class _LoginFormState extends State<LoginForm> {
     if (response is Failure) {
       snackBar(response);
     } else {
-      Navigator.popAndPushNamed(context, RoutesName.splash);
+      Navigator.popAndPushNamed(context, Routes.splash);
     }
   }
 }

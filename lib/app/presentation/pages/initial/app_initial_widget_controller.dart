@@ -19,10 +19,10 @@ abstract class _AppInitialWidgetController with Store {
 
   void _init() async {
     if (await _isLogedInUseCase()) {
-      initialRoute = RoutesName.initial;
+      initialRoute = Routes.initial;
       isLoading = false;
     } else {
-      initialRoute = RoutesName.login;
+      initialRoute = Routes.login;
       isLoading = false;
     }
   }

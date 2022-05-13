@@ -54,6 +54,36 @@ mixin _$ListController on _ListController, Store {
     });
   }
 
+  final _$errorAtom = Atom(name: '_ListController.error');
+
+  @override
+  Failure? get error {
+    _$errorAtom.reportRead();
+    return super.error;
+  }
+
+  @override
+  set error(Failure? value) {
+    _$errorAtom.reportWrite(value, super.error, () {
+      super.error = value;
+    });
+  }
+
+  final _$isEmptyAtom = Atom(name: '_ListController.isEmpty');
+
+  @override
+  bool get isEmpty {
+    _$isEmptyAtom.reportRead();
+    return super.isEmpty;
+  }
+
+  @override
+  set isEmpty(bool value) {
+    _$isEmptyAtom.reportWrite(value, super.isEmpty, () {
+      super.isEmpty = value;
+    });
+  }
+
   final _$onSearchAsyncAction = AsyncAction('_ListController.onSearch');
 
   @override
@@ -61,26 +91,14 @@ mixin _$ListController on _ListController, Store {
     return _$onSearchAsyncAction.run(() => super.onSearch(value));
   }
 
-  final _$_ListControllerActionController =
-      ActionController(name: '_ListController');
-
-  @override
-  bool isListEmpty() {
-    final _$actionInfo = _$_ListControllerActionController.startAction(
-        name: '_ListController.isListEmpty');
-    try {
-      return super.isListEmpty();
-    } finally {
-      _$_ListControllerActionController.endAction(_$actionInfo);
-    }
-  }
-
   @override
   String toString() {
     return '''
 movies: ${movies},
 isLoading: ${isLoading},
-isSearching: ${isSearching}
+isSearching: ${isSearching},
+error: ${error},
+isEmpty: ${isEmpty}
     ''';
   }
 }

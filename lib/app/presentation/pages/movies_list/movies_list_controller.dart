@@ -50,6 +50,7 @@ abstract class _MoviesListController extends ListController with Store {
 
       totalPages = listEntity?.totalPages ?? 1;
 
+      isEmpty = false;
       isLoading = false;
     } on Failure catch (f) {
       _onFailure(f);
@@ -71,14 +72,14 @@ abstract class _MoviesListController extends ListController with Store {
 
   @override
   @action
-  openMoviePage(BuildContext context, MovieEntity movie) async {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => MoviePage(movie),
-        fullscreenDialog: true,
-      ),
-    );
+  openMoviePage(MovieEntity movie) async {
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (_) => MoviePage(movie),
+    //     fullscreenDialog: true,
+    //   ),
+    // );
   }
 
   _onFailure(Failure f) {

@@ -12,12 +12,12 @@ import 'package:movie_app/core/utils/failure.dart';
 
 class FavoritesRepositoryImp extends FavoritesRepository {
   FavoritesRepositoryImp(
-    this._remoteDataSource,
+    this._favoritesDataSource,
     this._accountDetailsDataSource,
     this._sessionIdDataSource,
   );
 
-  final FavoritesDataSource _remoteDataSource;
+  final FavoritesDataSource _favoritesDataSource;
   final AccountDetailsRemoteDataSource _accountDetailsDataSource;
   final SessionIdDataSource _sessionIdDataSource;
 
@@ -51,7 +51,7 @@ class FavoritesRepositoryImp extends FavoritesRepository {
       accountId ??= await _getAccountId();
       sessionId ??= await _getSessionId();
 
-      await _remoteDataSource.toggleFavorite(movie, favorite, accountId!, sessionId!);
+      await _favoritesDataSource.toggleFavorite(movie, favorite, accountId!, sessionId!);
 
       await _refreshFavorites();
     } on SocketException catch (e) {
@@ -76,7 +76,7 @@ class FavoritesRepositoryImp extends FavoritesRepository {
   }
 
   Future _refreshFavorites() async {
-    var listEntity = await _remoteDataSource.getFavorites(1, accountId!, sessionId!);
+    var listEntity = await _favoritesDataSource.getFavorites(1, accountId!, sessionId!);
 
     favorites = listEntity;
 
@@ -84,7 +84,7 @@ class FavoritesRepositoryImp extends FavoritesRepository {
 
     if (totalPages > 1) {
       for (var page = 2; page <= totalPages; page++) {
-        listEntity = await _remoteDataSource.getFavorites(page, accountId!, sessionId!);
+        listEntity = await _favoritesDataSource.getFavorites(page, accountId!, sessionId!);
 
         listEntity.movies?.forEach((movie) {
           favorites?.movies?.add(movie);

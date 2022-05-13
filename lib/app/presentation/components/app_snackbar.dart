@@ -27,12 +27,14 @@ class AppSnackBar {
         break;
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      margin: const EdgeInsets.fromLTRB(20, 0, 20, 10),
-      behavior: SnackBarBehavior.floating,
-      backgroundColor: backgroundColor,
-      content: Text('$message ${description ?? ''}', style: TextStyle(color: textColor)),
-      duration: const Duration(seconds: 5),
-    ));
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        margin: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: backgroundColor,
+        content: Text('$message ${description ?? ''}', style: TextStyle(color: textColor)),
+        duration: const Duration(seconds: 5),
+      ));
+    });
   }
 }

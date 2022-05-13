@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/presentation/components/app_cards.dart';
 import 'package:movie_app/app/presentation/consts.dart';
 import 'package:movie_app/app/presentation/pages/home/home_controller.dart';
+import 'package:movie_app/app/presentation/pages/list_page/list_controller.dart';
 
 class HomeList extends StatelessWidget {
   const HomeList(this.controller, {Key? key}) : super(key: key);
@@ -26,51 +28,42 @@ class HomeList extends StatelessWidget {
 }
 
 class MoviesList extends StatelessWidget {
-  const MoviesList({
-    Key? key,
-    required this.loading,
-    required this.itemCount,
-    required this.movies,
-    required this.onTap,
-    required this.scrollController,
-  }) : super(key: key);
+  const MoviesList(this.controller, {Key? key}) : super(key: key);
 
-  final bool loading;
-  final int itemCount;
-  final List<MovieEntity> movies;
-  final Function onTap;
-  final ScrollController scrollController;
+  final ListController controller;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        GridView.builder(
-          controller: scrollController,
-          padding: kAppPagePadding,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: kListSpacing,
-            childAspectRatio: 0.6656,
+    return Observer(builder: (context) {
+      return Stack(
+        children: [
+          GridView.builder(
+            controller: controller.scrollController,
+            padding: kAppPagePadding,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: kListSpacing,
+              childAspectRatio: 0.6656,
+            ),
+            physics: const AlwaysScrollableScrollPhysics(),
+            itemCount: controller.movies.length,
+            itemBuilder: (_, index) {
+              return MovieCard(controller.movies[index], controller);
+            },
           ),
-          physics: const AlwaysScrollableScrollPhysics(),
-          itemCount: itemCount,
-          itemBuilder: (_, index) {
-            return MovieCard(movies[index], onTap);
-          },
-        ),
-        Visibility(
-          visible: loading,
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: kVerticalPadding),
-              child: CircularProgressIndicator(color: Theme.of(context).primaryColor),
+          Visibility(
+            visible: controller.isLoading,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: kVerticalPadding),
+                child: CircularProgressIndicator(color: Theme.of(context).primaryColor),
+              ),
             ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
+    });
   }
 }

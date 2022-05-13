@@ -28,9 +28,8 @@ mixin _$MoviesListController on _MoviesListController, Store {
       AsyncAction('_MoviesListController.openMoviePage');
 
   @override
-  Future<dynamic> openMoviePage(BuildContext context, MovieEntity movie) {
-    return _$openMoviePageAsyncAction
-        .run(() => super.openMoviePage(context, movie));
+  Future<dynamic> openMoviePage(MovieEntity movie) {
+    return _$openMoviePageAsyncAction.run(() => super.openMoviePage(movie));
   }
 
   @override

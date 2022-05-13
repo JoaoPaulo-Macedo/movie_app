@@ -30,22 +30,14 @@ abstract class _AppDrawerController with Store {
   }
 
   @action
-  checkCurrentPage(BuildContext context) {
-    currentPage = ModalRoute.of(context)!.settings.name;
+  Future logOut() async {
+    return await _logOutUseCase();
   }
 
   @action
-  logOut(BuildContext context) async {
-    await _logOutUseCase();
+  bool onTap(routeName) {
+    if (currentPage == routeName) return false;
 
-    Navigator.pushNamedAndRemoveUntil(context, RoutesName.login, (route) => false);
-  }
-
-  @action
-  onTap(BuildContext context, {required String routeName}) {
-    if (currentPage == routeName)
-      Navigator.pop(context);
-    else
-      Navigator.pushNamedAndRemoveUntil(context, routeName, (route) => false);
+    return true;
   }
 }

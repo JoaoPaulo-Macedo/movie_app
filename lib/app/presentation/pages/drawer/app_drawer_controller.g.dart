@@ -43,30 +43,19 @@ mixin _$AppDrawerController on _AppDrawerController, Store {
   final _$logOutAsyncAction = AsyncAction('_AppDrawerController.logOut');
 
   @override
-  Future logOut(BuildContext context) {
-    return _$logOutAsyncAction.run(() => super.logOut(context));
+  Future<dynamic> logOut() {
+    return _$logOutAsyncAction.run(() => super.logOut());
   }
 
   final _$_AppDrawerControllerActionController =
       ActionController(name: '_AppDrawerController');
 
   @override
-  dynamic checkCurrentPage(BuildContext context) {
-    final _$actionInfo = _$_AppDrawerControllerActionController.startAction(
-        name: '_AppDrawerController.checkCurrentPage');
-    try {
-      return super.checkCurrentPage(context);
-    } finally {
-      _$_AppDrawerControllerActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic onTap(BuildContext context, {required String routeName}) {
+  bool onTap(dynamic routeName) {
     final _$actionInfo = _$_AppDrawerControllerActionController.startAction(
         name: '_AppDrawerController.onTap');
     try {
-      return super.onTap(context, routeName: routeName);
+      return super.onTap(routeName);
     } finally {
       _$_AppDrawerControllerActionController.endAction(_$actionInfo);
     }

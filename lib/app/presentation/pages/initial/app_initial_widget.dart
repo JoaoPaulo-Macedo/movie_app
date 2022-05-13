@@ -6,7 +6,7 @@ import 'package:movie_app/app/domain/usecases/is_loged_in_usecase.dart';
 import 'package:movie_app/app/presentation/pages/favorites/favorites_page.dart';
 import 'package:movie_app/app/presentation/pages/home/home_page.dart';
 import 'package:movie_app/app/presentation/pages/login/login_page.dart';
-import 'package:movie_app/app/presentation/pages/material/app_initial_widget_controller.dart';
+import 'package:movie_app/app/presentation/pages/initial/app_initial_widget_controller.dart';
 import 'package:movie_app/app/presentation/pages/splash/splash_page.dart';
 import 'package:movie_app/app/presentation/routes_name.dart';
 
@@ -61,10 +61,10 @@ class _AppInitialWidgetState extends State<AppInitialWidget> {
           debugShowCheckedModeBanner: false,
           initialRoute: controller.initialRoute,
           routes: {
-            RoutesName.login: (context) => const LoginPage(),
-            RoutesName.splash: (context) => const SplashPage(),
-            RoutesName.initial: (context) => const HomePage(),
-            RoutesName.favorites: (context) => const FavoritesPage(),
+            Routes.login: (context) => const LoginPage(),
+            Routes.splash: (context) => const SplashPage(),
+            Routes.initial: (context) => const HomePage(),
+            Routes.favorites: (context) => const FavoritesPage(),
           },
         );
       },
