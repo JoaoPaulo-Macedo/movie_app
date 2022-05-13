@@ -32,12 +32,10 @@ class _MoviePageState extends State<MoviePage> {
     super.initState();
 
     controller = MovieController(
-      context,
       GetIt.instance.get<GetFavoritesUseCase>(),
       GetIt.instance.get<SaveFavoriteUseCase>(),
       GetIt.instance.get<RemoveFavoriteUseCase>(),
       movie: widget.movie,
-      snackBar: snackBar,
     );
   }
 
@@ -56,6 +54,12 @@ class _MoviePageState extends State<MoviePage> {
 
     return Observer(
       builder: (context) {
+        if (controller.error != null) {
+          snackBar(controller.error!);
+
+          controller.error = null;
+        }
+
         return Scaffold(
           body: Stack(
             children: [

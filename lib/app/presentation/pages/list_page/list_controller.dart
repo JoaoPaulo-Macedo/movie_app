@@ -35,10 +35,6 @@ abstract class _ListController with Store {
 
   Future<List<MovieEntity>?> fetchMovies();
 
-  Future openMoviePage(MovieEntity movie) async {
-    return true;
-  }
-
   @action
   onSearch(String? value) async {
     if (value == null) {
@@ -61,12 +57,14 @@ abstract class _ListController with Store {
     }
   }
 
+  @action
   void addMovies(List<MovieEntity>? list) {
     list?.forEach((movie) {
       movies.add(movie);
     });
   }
 
+  @action
   bool changePage() {
     if (page == totalPages) return false;
 
@@ -74,6 +72,7 @@ abstract class _ListController with Store {
     return true;
   }
 
+  @action
   Future _fetchAll() async {
     isLoading = true;
     _isFetching = true;
@@ -91,6 +90,7 @@ abstract class _ListController with Store {
     _isFetching = false;
   }
 
+  @action
   void _showSearch(String? value) {
     if (value == null) return;
 

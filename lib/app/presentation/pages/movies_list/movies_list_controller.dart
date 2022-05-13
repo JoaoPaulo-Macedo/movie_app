@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/domain/usecases/get_list_usecase.dart';
 import 'package:movie_app/app/presentation/pages/list_page/list_controller.dart';
-import 'package:movie_app/app/presentation/pages/movie/movie_page.dart';
 import 'package:movie_app/core/utils/failure.dart';
 
 part 'movies_list_controller.g.dart';
@@ -11,16 +9,16 @@ part 'movies_list_controller.g.dart';
 class MoviesListController = _MoviesListController with _$MoviesListController;
 
 abstract class _MoviesListController extends ListController with Store {
-  _MoviesListController(this._moviesUseCase, {required this.listId, required this.snackBar}) {
+  _MoviesListController(this._moviesUseCase, {required this.listId}) {
     init();
   }
 
   final GetListUseCase _moviesUseCase;
-  final Function(Failure f) snackBar;
 
   @observable
   int listId;
 
+  @action
   @override
   init() async {
     isLoading = true;
@@ -53,10 +51,12 @@ abstract class _MoviesListController extends ListController with Store {
       isEmpty = false;
       isLoading = false;
     } on Failure catch (f) {
-      _onFailure(f);
+      isLoading = false;
+      error = f;
     }
   }
 
+  @action
   @override
   fetchMovies() async {
     try {
@@ -64,27 +64,10 @@ abstract class _MoviesListController extends ListController with Store {
 
       return list?.movies;
     } on Failure catch (f) {
-      _onFailure(f);
+      isLoading = false;
+      error = f;
 
       return null;
     }
-  }
-
-  @override
-  @action
-  openMoviePage(MovieEntity movie) async {
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (_) => MoviePage(movie),
-    //     fullscreenDialog: true,
-    //   ),
-    // );
-  }
-
-  _onFailure(Failure f) {
-    snackBar(f);
-
-    isLoading = false;
   }
 }

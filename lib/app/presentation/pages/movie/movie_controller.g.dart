@@ -69,6 +69,21 @@ mixin _$MovieController on _MovieController, Store {
     });
   }
 
+  final _$errorAtom = Atom(name: '_MovieController.error');
+
+  @override
+  Failure? get error {
+    _$errorAtom.reportRead();
+    return super.error;
+  }
+
+  @override
+  set error(Failure? value) {
+    _$errorAtom.reportWrite(value, super.error, () {
+      super.error = value;
+    });
+  }
+
   final _$_MovieControllerActionController =
       ActionController(name: '_MovieController');
 
@@ -100,7 +115,8 @@ mixin _$MovieController on _MovieController, Store {
 isFavorite: ${isFavorite},
 loading: ${loading},
 page: ${page},
-offset: ${offset}
+offset: ${offset},
+error: ${error}
     ''';
   }
 }

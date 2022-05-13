@@ -39,25 +39,27 @@ mixin _$HomeController on _HomeController, Store {
     });
   }
 
-  final _$_HomeControllerActionController =
-      ActionController(name: '_HomeController');
+  final _$errorAtom = Atom(name: '_HomeController.error');
 
   @override
-  dynamic openListPage(BuildContext context, int listId) {
-    final _$actionInfo = _$_HomeControllerActionController.startAction(
-        name: '_HomeController.openListPage');
-    try {
-      return super.openListPage(context, listId);
-    } finally {
-      _$_HomeControllerActionController.endAction(_$actionInfo);
-    }
+  Failure? get error {
+    _$errorAtom.reportRead();
+    return super.error;
+  }
+
+  @override
+  set error(Failure? value) {
+    _$errorAtom.reportWrite(value, super.error, () {
+      super.error = value;
+    });
   }
 
   @override
   String toString() {
     return '''
 lists: ${lists},
-isLoading: ${isLoading}
+isLoading: ${isLoading},
+error: ${error}
     ''';
   }
 }

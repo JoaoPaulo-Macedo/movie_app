@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:movie_app/app/domain/entities/movie_entity.dart';
 import 'package:movie_app/app/domain/usecases/get_favorites_usecase.dart';
@@ -12,12 +12,10 @@ class MovieController = _MovieController with _$MovieController;
 
 abstract class _MovieController with Store {
   _MovieController(
-    BuildContext this._context,
     this._getFavoritesUseCase,
     this._saveFavoriteUseCase,
     this._removeFavoriteUseCase, {
     required this.movie,
-    required this.snackBar,
   }) {
     _init();
   }
@@ -26,7 +24,6 @@ abstract class _MovieController with Store {
   final SaveFavoriteUseCase _saveFavoriteUseCase;
   final RemoveFavoriteUseCase _removeFavoriteUseCase;
   final MovieEntity movie;
-  final Function(Failure f) snackBar;
 
   @observable
   bool isFavorite = false;
@@ -36,6 +33,8 @@ abstract class _MovieController with Store {
   int page = 1;
   @observable
   double offset = 0;
+  @observable
+  Failure? error;
 
   ScrollController scrollController = ScrollController();
 
@@ -73,7 +72,8 @@ abstract class _MovieController with Store {
 
       loading.value = false;
     } on Failure catch (f) {
-      _onFailure(f);
+      loading.value = false;
+      error = f;
     }
   }
 
@@ -108,11 +108,5 @@ abstract class _MovieController with Store {
     bool changed = _isFavoriteCache != isFavorite;
     loading.dispose();
     Navigator.pop(context, [changed]);
-  }
-
-  _onFailure(Failure f) {
-    snackBar(f);
-
-    loading.value = false;
   }
 }

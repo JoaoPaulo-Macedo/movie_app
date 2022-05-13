@@ -22,20 +22,7 @@ class _MoviesListPageState extends State<MoviesListPage> {
   void initState() {
     super.initState();
 
-    controller = MoviesListController(
-      GetIt.I.get<GetListUseCase>(),
-      listId: widget.listId,
-      snackBar: snackBar,
-    );
-  }
-
-  snackBar(Failure f) {
-    AppSnackBar.show(
-      context,
-      message: f.message,
-      description: f.description,
-      type: AppSnackBarType.error,
-    );
+    controller = MoviesListController(GetIt.I.get<GetListUseCase>(), listId: widget.listId);
   }
 
   @override

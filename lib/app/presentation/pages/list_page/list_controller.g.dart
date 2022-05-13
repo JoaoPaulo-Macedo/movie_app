@@ -91,6 +91,49 @@ mixin _$ListController on _ListController, Store {
     return _$onSearchAsyncAction.run(() => super.onSearch(value));
   }
 
+  final _$_fetchAllAsyncAction = AsyncAction('_ListController._fetchAll');
+
+  @override
+  Future<dynamic> _fetchAll() {
+    return _$_fetchAllAsyncAction.run(() => super._fetchAll());
+  }
+
+  final _$_ListControllerActionController =
+      ActionController(name: '_ListController');
+
+  @override
+  void addMovies(List<MovieEntity>? list) {
+    final _$actionInfo = _$_ListControllerActionController.startAction(
+        name: '_ListController.addMovies');
+    try {
+      return super.addMovies(list);
+    } finally {
+      _$_ListControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  bool changePage() {
+    final _$actionInfo = _$_ListControllerActionController.startAction(
+        name: '_ListController.changePage');
+    try {
+      return super.changePage();
+    } finally {
+      _$_ListControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void _showSearch(String? value) {
+    final _$actionInfo = _$_ListControllerActionController.startAction(
+        name: '_ListController._showSearch');
+    try {
+      return super._showSearch(value);
+    } finally {
+      _$_ListControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

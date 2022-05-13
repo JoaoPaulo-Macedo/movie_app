@@ -24,12 +24,19 @@ mixin _$MoviesListController on _MoviesListController, Store {
     });
   }
 
-  final _$openMoviePageAsyncAction =
-      AsyncAction('_MoviesListController.openMoviePage');
+  final _$initAsyncAction = AsyncAction('_MoviesListController.init');
 
   @override
-  Future<dynamic> openMoviePage(MovieEntity movie) {
-    return _$openMoviePageAsyncAction.run(() => super.openMoviePage(movie));
+  Future<dynamic> init() {
+    return _$initAsyncAction.run(() => super.init());
+  }
+
+  final _$fetchMoviesAsyncAction =
+      AsyncAction('_MoviesListController.fetchMovies');
+
+  @override
+  Future<List<MovieEntity>?> fetchMovies() {
+    return _$fetchMoviesAsyncAction.run(() => super.fetchMovies());
   }
 
   @override

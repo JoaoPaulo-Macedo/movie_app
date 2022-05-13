@@ -7,12 +7,12 @@ import 'package:movie_app/app/presentation/consts.dart';
 import 'package:movie_app/app/presentation/pages/favorites/favorites_controller.dart';
 import 'package:movie_app/app/presentation/pages/list_page/list_controller.dart';
 import 'package:movie_app/app/presentation/pages/movie/movie_page.dart';
+import 'package:movie_app/app/presentation/pages/movies_list/movies_list_page.dart';
 
 class ListCard extends StatelessWidget {
-  const ListCard(this.list, this.onTap, {Key? key}) : super(key: key);
+  const ListCard(this.list, {Key? key}) : super(key: key);
 
   final ListEntity list;
-  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,11 @@ class ListCard extends StatelessWidget {
         child: Material(
           color: Colors.transparent,
           child: InkWell(
-            onTap: () => onTap(context, list.id),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (_) {
+                return MoviesListPage(listId: list.id);
+              }));
+            },
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

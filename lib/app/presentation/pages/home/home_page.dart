@@ -39,6 +39,12 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) {
+        if (controller.error != null) {
+          snackBar(controller.error!);
+
+          controller.error = null;
+        }
+
         if (controller.isLoading) {
           return const Center(
             child: CircularProgressIndicator(color: Colors.white),

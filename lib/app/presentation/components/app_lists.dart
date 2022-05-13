@@ -18,10 +18,7 @@ class HomeList extends StatelessWidget {
       padding: EdgeInsets.zero,
       separatorBuilder: (_, __) => const SizedBox(height: kListSpacing),
       itemBuilder: (_, index) {
-        return ListCard(
-          controller.lists[index],
-          controller.openListPage,
-        );
+        return ListCard(controller.lists[index]);
       },
     );
   }
@@ -34,36 +31,38 @@ class MoviesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(builder: (context) {
-      return Stack(
-        children: [
-          GridView.builder(
-            controller: controller.scrollController,
-            padding: kAppPagePadding,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: kListSpacing,
-              childAspectRatio: 0.6656,
+    return Observer(
+      builder: (context) {
+        return Stack(
+          children: [
+            GridView.builder(
+              controller: controller.scrollController,
+              padding: kAppPagePadding,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: kListSpacing,
+                childAspectRatio: 0.6656,
+              ),
+              physics: const AlwaysScrollableScrollPhysics(),
+              itemCount: controller.movies.length,
+              itemBuilder: (_, index) {
+                return MovieCard(controller.movies[index], controller);
+              },
             ),
-            physics: const AlwaysScrollableScrollPhysics(),
-            itemCount: controller.movies.length,
-            itemBuilder: (_, index) {
-              return MovieCard(controller.movies[index], controller);
-            },
-          ),
-          Visibility(
-            visible: controller.isLoading,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: kVerticalPadding),
-                child: CircularProgressIndicator(color: Theme.of(context).primaryColor),
+            Visibility(
+              visible: controller.isLoading,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: kVerticalPadding),
+                  child: CircularProgressIndicator(color: Theme.of(context).primaryColor),
+                ),
               ),
             ),
-          ),
-        ],
-      );
-    });
+          ],
+        );
+      },
+    );
   }
 }

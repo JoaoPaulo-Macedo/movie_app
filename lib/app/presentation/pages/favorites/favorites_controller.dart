@@ -15,8 +15,8 @@ abstract class _FavoritesController extends ListController with Store {
 
   final GetFavoritesUseCase _getFavoritesUseCase;
 
-  @override
   @action
+  @override
   init() async {
     isLoading = true;
 
@@ -34,8 +34,8 @@ abstract class _FavoritesController extends ListController with Store {
     }
   }
 
-  @override
   @action
+  @override
   fetchMovies({bool reload = false}) async {
     try {
       var list = await _getFavoritesUseCase();
