@@ -23,12 +23,7 @@ class ListPage extends StatelessWidget {
   final String errorMessage;
 
   snackBar(BuildContext context, Failure f) {
-    AppSnackBar.show(
-      context,
-      message: f.message,
-      description: f.description,
-      type: AppSnackBarType.error,
-    );
+    AppSnackBar.error(context, message: f.message, description: f.description);
   }
 
   @override

@@ -40,12 +40,7 @@ class _MoviePageState extends State<MoviePage> {
   }
 
   snackBar(Failure f) {
-    AppSnackBar.show(
-      context,
-      message: f.message,
-      description: f.description,
-      type: AppSnackBarType.error,
-    );
+    AppSnackBar.error(context, message: f.message, description: f.description);
   }
 
   close() {

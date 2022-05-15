@@ -17,12 +17,7 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   snackBar(Failure f) {
-    AppSnackBar.show(
-      context,
-      message: f.message,
-      description: f.description,
-      type: AppSnackBarType.error,
-    );
+    AppSnackBar.error(context, message: f.message, description: f.description);
   }
 
   @override
