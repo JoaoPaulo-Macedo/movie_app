@@ -28,39 +28,30 @@ abstract class _MovieController with Store {
   @observable
   bool isFavorite = false;
   @observable
-  ValueNotifier<bool> loading = ValueNotifier(false);
+  bool isLoading = true;
   @observable
   int page = 1;
   @observable
   double offset = 0;
   @observable
   Failure? error;
+  @observable
+  bool close = false;
 
+  bool _canClose = true;
+  bool _closeRequest = false;
+
+  bool? _isFavoriteCache;
   ScrollController scrollController = ScrollController();
 
-  BuildContext? _context;
-  bool? _isFavoriteCache;
-  bool _toggle = false;
-  bool _close = false;
-
+  @action
   _init() async {
     try {
-      loading.value = true;
-
       var favorites = await _getFavoritesUseCase();
 
       isFavorite = favorites!.movies!.any((e) => e.id == movie.id);
 
       _isFavoriteCache = isFavorite;
-
-      loading.addListener(() {
-        if (_toggle) {
-          _toggle = false;
-          _togglefavorite();
-        }
-
-        if (_close) _onClose(_context!);
-      });
 
       scrollController.addListener(() {
         double controllerOffset = scrollController.offset;
@@ -70,22 +61,20 @@ abstract class _MovieController with Store {
         offset = controllerOffset;
       });
 
-      loading.value = false;
+      isLoading = false;
     } on Failure catch (f) {
-      loading.value = false;
+      isLoading = false;
       error = f;
     }
   }
 
   @action
-  togglefavorite() {
-    if (loading.value == true) return;
+  togglefavorite() async {
+    if (isLoading == true) return;
 
-    _toggle = true;
-    loading.value = true;
-  }
+    isLoading = true;
+    _canClose = false;
 
-  _togglefavorite() async {
     if (!isFavorite) {
       isFavorite = !isFavorite;
       await _saveFavoriteUseCase(movie, page);
@@ -94,19 +83,19 @@ abstract class _MovieController with Store {
       await _removeFavoriteUseCase(movie, page);
     }
 
-    loading.value = false;
+    _canClose = true;
+    isLoading = false;
+
+    if (_closeRequest) close = true;
   }
 
-  @action
-  onClose(BuildContext context) {
-    _context = context;
-    _close = true;
-    loading.value = true;
+  void requestClose() {
+    if (_canClose) close = true;
+
+    _closeRequest = true;
   }
 
-  _onClose(BuildContext context) async {
-    bool changed = _isFavoriteCache != isFavorite;
-    loading.dispose();
-    Navigator.pop(context, [changed]);
+  bool favoriteChanged() {
+    return _isFavoriteCache != isFavorite;
   }
 }

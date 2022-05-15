@@ -48,6 +48,14 @@ class _MoviePageState extends State<MoviePage> {
     );
   }
 
+  close() {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      bool changed = controller.favoriteChanged();
+
+      Navigator.pop(context, [changed]);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var background = Theme.of(context).scaffoldBackgroundColor;
@@ -59,6 +67,8 @@ class _MoviePageState extends State<MoviePage> {
 
           controller.error = null;
         }
+
+        if (controller.close) close();
 
         return Scaffold(
           body: Stack(

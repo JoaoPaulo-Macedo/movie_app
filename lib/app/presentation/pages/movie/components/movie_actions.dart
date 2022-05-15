@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:movie_app/app/presentation/pages/movie/movie_controller.dart';
 
 class MovieActions extends StatelessWidget {
-  const MovieActions({Key? key, required this.controller, required this.isFavorite}) : super(key: key);
+  const MovieActions({Key? key, required this.controller, required this.isFavorite})
+      : super(key: key);
 
   final MovieController controller;
   final bool isFavorite;
@@ -26,7 +28,7 @@ class MovieActions extends StatelessWidget {
               child: InkWell(
                 borderRadius: BorderRadius.circular(100),
                 child: const Icon(Icons.close, size: 30),
-                onTap: () => controller.onClose(context),
+                onTap: () => controller.requestClose(),
               ),
             ),
             Container(

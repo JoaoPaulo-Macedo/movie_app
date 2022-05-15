@@ -24,18 +24,18 @@ mixin _$MovieController on _MovieController, Store {
     });
   }
 
-  final _$loadingAtom = Atom(name: '_MovieController.loading');
+  final _$isLoadingAtom = Atom(name: '_MovieController.isLoading');
 
   @override
-  ValueNotifier<bool> get loading {
-    _$loadingAtom.reportRead();
-    return super.loading;
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
   }
 
   @override
-  set loading(ValueNotifier<bool> value) {
-    _$loadingAtom.reportWrite(value, super.loading, () {
-      super.loading = value;
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
     });
   }
 
@@ -84,39 +84,45 @@ mixin _$MovieController on _MovieController, Store {
     });
   }
 
-  final _$_MovieControllerActionController =
-      ActionController(name: '_MovieController');
+  final _$closeAtom = Atom(name: '_MovieController.close');
 
   @override
-  dynamic togglefavorite() {
-    final _$actionInfo = _$_MovieControllerActionController.startAction(
-        name: '_MovieController.togglefavorite');
-    try {
-      return super.togglefavorite();
-    } finally {
-      _$_MovieControllerActionController.endAction(_$actionInfo);
-    }
+  bool get close {
+    _$closeAtom.reportRead();
+    return super.close;
   }
 
   @override
-  dynamic onClose(BuildContext context) {
-    final _$actionInfo = _$_MovieControllerActionController.startAction(
-        name: '_MovieController.onClose');
-    try {
-      return super.onClose(context);
-    } finally {
-      _$_MovieControllerActionController.endAction(_$actionInfo);
-    }
+  set close(bool value) {
+    _$closeAtom.reportWrite(value, super.close, () {
+      super.close = value;
+    });
+  }
+
+  final _$_initAsyncAction = AsyncAction('_MovieController._init');
+
+  @override
+  Future _init() {
+    return _$_initAsyncAction.run(() => super._init());
+  }
+
+  final _$togglefavoriteAsyncAction =
+      AsyncAction('_MovieController.togglefavorite');
+
+  @override
+  Future togglefavorite() {
+    return _$togglefavoriteAsyncAction.run(() => super.togglefavorite());
   }
 
   @override
   String toString() {
     return '''
 isFavorite: ${isFavorite},
-loading: ${loading},
+isLoading: ${isLoading},
 page: ${page},
 offset: ${offset},
-error: ${error}
+error: ${error},
+close: ${close}
     ''';
   }
 }
