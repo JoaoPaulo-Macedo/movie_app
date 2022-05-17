@@ -1,12 +1,12 @@
 <h1 align="center"> Movie App </h1>
 
 <div align="center">
-:movie_camera: Aplicativo integrado à API do site The Movie DB, fornecendo acesso a um acervo de filmes. :movie_camera: <br>
+:movie_camera: Aplicativo integrado à API do site The Movie DB para acesso ao seu acervo de filmes. :movie_camera: <br>
 Desenvolvido para fins de estudo e portfólio.
 </div>
 <br>
 <div align="center">
- <img src="" alt="movie" width="250"/>
+ <img src="https://user-images.githubusercontent.com/58576452/168867603-16477009-7a92-48c9-82af-84194244ebc5.png" alt="movie" width="250"/>
 </div>
 
 ---
@@ -19,10 +19,10 @@ Desenvolvido para fins de estudo e portfólio.
 * [Funcionalidades](#pencil-funcionalidades)
 
 # :computer: Tecnologias
-O projeto foi desenvolvido com **Flutter**, incluindo packages como **dio**, **lottie**, **shared_preferences**, **flutter_mobx**, **get_it** e **cached_network_image**.
+O projeto foi desenvolvido com **Flutter**, e inclui packages como **dio**, **lottie**, **shared_preferences**, **flutter_mobx**, **get_it** e **cached_network_image**.
 
 # :muscle: Motivação
-A ideia de desenvolver um aplicativo baseado na API do site [**The Movies DB**]() surgiu quando acompanhava os estudos de arquitetura Flutter no canal do YouTube do **Deivid Willyan**, com a playlist [**Curso Arquitetura no Flutter - 2022**](https://www.youtube.com/playlist?list=PLRpTFz5_57cvCYRhHUui2Bis-5Ybh78TS). No curso foi iniciada uma integração simples, que posteriormente ampliei nesse projeto para contemplar mais funcionalidades e integrações. As funcionalidades por mim implementadas foram:
+A ideia de desenvolver um aplicativo baseado na API do site [**The Movies DB**](https://www.themoviedb.org/) surgiu quando acompanhava os estudos de arquitetura Flutter no canal do YouTube do [**Deivid Willyan**](https://github.com/DeividWillyan), com a playlist [**Curso Arquitetura no Flutter - 2022**](https://www.youtube.com/playlist?list=PLRpTFz5_57cvCYRhHUui2Bis-5Ybh78TS). No curso foi iniciada uma integração simples, que posteriormente ampliei nesse projeto para contemplar mais funcionalidades e integrações. As funcionalidades por mim implementadas foram:
 * Login com email e senha (criar e armazenar sessão).
 * Logout (deletar sessão).
 * Favoritar filmes em uma conta logada.
