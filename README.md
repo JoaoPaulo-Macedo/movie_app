@@ -16,7 +16,6 @@ Desenvolvido para fins de estudo e portfólio.
 * [Arquitetura](#triangular_ruler-arquitetura)
   * [Gestão de Estado](#clapper-gestão-de-estado)
   * [Injeção de Dependências](#syringe-injeção-de-dependências)
-* [Funcionalidades](#pencil-funcionalidades)
 
 # :computer: Tecnologias
 O projeto foi desenvolvido com **Flutter**, e inclui packages como **dio**, **lottie**, **shared_preferences**, **flutter_mobx**, **get_it** e **cached_network_image**.
@@ -27,6 +26,8 @@ A ideia de desenvolver um aplicativo baseado na API do site [**The Movies DB**](
 * Logout (deletar sessão).
 * Favoritar filmes em uma conta logada.
 * Navegar entre 10 listas de filmes fornecidas pela API.
+
+Veja o vídeo exemplo a seguir: [Video from YouTube]()
 
 # :triangular_ruler: Arquitetura
 Em sua arquitetura, foi implementado o [**Clean Dart**](https://github.com/Flutterando/Clean-Dart) proposto pela **Flutterando** como implementação da **Clean Architecture** no Flutter. Esse modelo pode ser dividido do seguinte modo:
@@ -50,13 +51,3 @@ Para gestão de estado foi adotado o **Mobx** do package **flutter_mobx**. A esc
 
 ## :syringe: Injeção de Dependências
 A injeção de dependências foi implementada com o package **get_it**. Escolhido por ser um package simples que atende bem as demandas do aplicativo, contribuindo na implementação do princípio SOLID da inversão de dependências.
-
-# :pencil: Funcionalidades
-* Login com email e senha.
-* Logout.
-* Navegar entre 10 listas de filmes.
-* Visualizar informações de filmes, como poster, descrição e outros.
-* Favoritar filmes para sua conta.
-
-Veja o vídeo exemplo a seguir:
-[Video from YouTube]()
