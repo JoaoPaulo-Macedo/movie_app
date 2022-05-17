@@ -30,18 +30,18 @@ A ideia de desenvolver um aplicativo baseado na API do site [**The Movies DB**](
 
 # :triangular_ruler: Arquitetura
 Em sua arquitetura, foi implementado o [**Clean Dart**](https://github.com/Flutterando/Clean-Dart) proposto pela **Flutterando** como implementação da **Clean Architecture** no Flutter. Esse modelo pode ser dividido do seguinte modo:
-* Presentation (UI, Flutter, Controllers, State Manager, etc).
-* Domain (apenas regras de negócios).
- * Entities: regras de negócio da empresa.
- * Usecases: regras de negócio da aplicação.
- * Interfaces/contratos de Repositories.
-* Data
- * Implementação de Repositories.
- * Tratamento dos dados externos.
- * Interfaces/contratos de DataSources.
-* External
- * Implementação de DataSources.
- * Acessos externos que dependem de packages, drivers, APIs, etc.
+* **Presentation** (UI, Flutter, Controllers, State Manager, etc).
+* **Domain** (apenas regras de negócios).
+  * Entities: regras de negócio da empresa.
+  * Usecases: regras de negócio da aplicação.
+  * Interfaces/contratos de Repositories.
+* **Data**
+  * Implementação de Repositories.
+  * Tratamento dos dados externos.
+  * Interfaces/contratos de DataSources.
+* **External**
+  * Implementação de DataSources.
+  * Acessos externos que dependem de packages, drivers, APIs, etc.
 
 Além disso, o Clean Architecture propõe o conjunto de princípios conhecido como **SOLID**.
 
