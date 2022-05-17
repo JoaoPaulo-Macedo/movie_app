@@ -1,7 +1,8 @@
 <h1 align="center"> Movie App </h1>
 
 <div align="center">
-:movie_camera: Aplicativo desenvolvido para fins de estudo e portfólio. :movie_camera:
+:movie_camera: Aplicativo integrado à API do site The Movie DB, fornecendo acesso a um acervo de filmes. :movie_camera: <br>
+Desenvolvido para fins de estudo e portfólio.
 </div>
 <br>
 <div align="center">
