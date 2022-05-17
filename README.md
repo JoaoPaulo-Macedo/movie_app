@@ -22,7 +22,7 @@ O projeto foi desenvolvido com **Flutter**, e inclui packages como **dio**, **lo
 
 # :muscle: Motivação
 A ideia de desenvolver um aplicativo baseado na API do site [**The Movies DB**](https://www.themoviedb.org/) surgiu quando acompanhava os estudos de arquitetura Flutter no canal do YouTube do [**Deivid Willyan**](https://github.com/DeividWillyan), com a playlist [**Curso Arquitetura no Flutter - 2022**](https://www.youtube.com/playlist?list=PLRpTFz5_57cvCYRhHUui2Bis-5Ybh78TS). No curso foi iniciada uma integração simples, que posteriormente ampliei nesse projeto para contemplar mais funcionalidades e integrações. As funcionalidades por mim implementadas foram:
-* Login com email e senha (criar e armazenar sessão).
+* Login com e-mail e senha (criar e armazenar sessão).
 * Logout (deletar sessão).
 * Favoritar filmes em uma conta logada.
 * Navegar entre 10 listas de filmes fornecidas pela API.
