@@ -27,7 +27,7 @@ A ideia de desenvolver um aplicativo baseado na API do site [**The Movies DB**](
 * Favoritar filmes em uma conta logada.
 * Navegar entre 10 listas de filmes fornecidas pela API.
 
-Veja o vídeo exemplo a seguir: [Video from YouTube](https://youtu.be/TD0CDQePJyY)
+Veja o vídeo exemplo a seguir: [video from YouTube](https://youtu.be/Odb5Cv9kf24)
 
 # :triangular_ruler: Arquitetura
 Em sua arquitetura, foi implementado o [**Clean Dart**](https://github.com/Flutterando/Clean-Dart) proposto pela **Flutterando** como implementação da **Clean Architecture** no Flutter. Esse modelo pode ser dividido do seguinte modo:
