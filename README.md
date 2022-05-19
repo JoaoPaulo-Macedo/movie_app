@@ -18,7 +18,7 @@ Desenvolvido para fins de estudo e portfólio.
   * [Injeção de Dependências](#syringe-injeção-de-dependências)
 
 # :computer: Tecnologias
-O projeto foi desenvolvido com **Flutter**, e inclui packages como **dio**, **lottie**, **shared_preferences**, **flutter_mobx**, **get_it** e **cached_network_image**.
+O projeto foi desenvolvido com **Flutter**, e inclui packages como **dio**, **lottie**, **shared_preferences**, **flutter_mobx**, **get_it**, **cached_network_image** e **mockito** para testes.
 
 # :muscle: Motivação
 A ideia de desenvolver um aplicativo baseado na API do site [**The Movies DB**](https://www.themoviedb.org/) surgiu quando acompanhava os estudos de arquitetura Flutter no canal do YouTube do [**Deivid Willyan**](https://github.com/DeividWillyan), com a playlist [**Curso Arquitetura no Flutter - 2022**](https://www.youtube.com/playlist?list=PLRpTFz5_57cvCYRhHUui2Bis-5Ybh78TS). No curso foi iniciado uma integração simples, que mostrava uma lista de filmes vindo da API e recuperava informações desses filmes. Posteriormente ampliei o projeto para contemplar mais funcionalidades e integrações. As funcionalidades por mim implementadas foram:
