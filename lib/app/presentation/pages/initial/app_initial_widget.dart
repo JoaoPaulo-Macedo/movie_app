@@ -42,7 +42,7 @@ class _AppInitialWidgetState extends State<AppInitialWidget> {
         if (controller.isLoading) return const SizedBox();
 
         return MaterialApp(
-          title: 'Flutter Demo',
+          title: 'Fav Movies',
           theme: ThemeData.dark().copyWith(
             primaryColor: primaryColor,
             cardColor: cardColor,

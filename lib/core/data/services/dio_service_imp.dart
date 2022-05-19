@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:movie_app/core/domain/services/http_service.dart';
 import 'package:movie_app/core/utils/app_configs.dart';
 import 'package:movie_app/core/data/interceptors/custom_log_interceptor.dart';
+import 'package:movie_app/core/utils/authorization.dart';
 import 'package:movie_app/core/utils/debug.dart';
 
 class DioHttpServiceImp implements HttpService {
@@ -11,8 +12,7 @@ class DioHttpServiceImp implements HttpService {
         baseUrl: 'https://api.themoviedb.org/',
         headers: {
           'content-type': 'application/json;charset=utf-8',
-          'authorization':
-              'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMWZlMTMyZDk3NDBlNzAyZWFkYmZhN2M1Zjg0NzZmZiIsInN1YiI6IjYyNWVlNmFjZTYxZTZkMDA1MGY1ZjI4NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.RBt_YcOAiaF14hGbdE6vUlipQ0NKH8Bn06Q-dbXQLbM',
+          'authorization': bearer,
         },
       ),
     );
