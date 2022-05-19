@@ -1,5 +1,10 @@
+import 'package:movie_app/core/utils/authorization.dart';
+
 class API {
   static const _apiKey = '21fe132d9740e702eadbfa7c5f8476ff';
+
+  //Bearer
+  static getBearer() => bearer;
 
   // Auth Login
   static const requestToken = '3/authentication/token/new?api_key=$_apiKey';
