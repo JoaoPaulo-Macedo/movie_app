@@ -6,7 +6,7 @@ Desenvolvido para fins de estudo e portfólio.
 </div>
 <br>
 <div align="center">
- <img src="https://user-images.githubusercontent.com/58576452/168867603-16477009-7a92-48c9-82af-84194244ebc5.png" alt="movie" width="250"/>
+ <img src="https://user-images.githubusercontent.com/58576452/169579357-6311a20e-7878-438e-82b7-bde8d366d98b.png" alt="movie"/>
 </div>
 
 ---
